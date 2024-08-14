@@ -16,7 +16,7 @@
       "rootPatterns": [".git", ".luarc.json"],
       "filetypes": ["lua"]
     },
-    "efm-langserver": {
+    "efm": {
       "command": "efm-langserver",
       "filetypes": ["vim"]
     }
