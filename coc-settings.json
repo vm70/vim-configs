@@ -1,0 +1,20 @@
+{
+  "languageserver": {
+    "golang": {
+      "command": "gopls",
+      "rootPatterns": ["go.mod"],
+      "filetypes": ["go"]
+    },
+    "vimls": {
+      "command": "vim-language-server",
+      "rootPatterns": ["vimrc", "init.vim"],
+      "filetypes": ["vim"],
+      "args": ["--stdio"],
+    },
+    "luals": {
+      "command": "lua-language-server",
+      "rootPatterns": [".git", ".luarc.json"],
+      "filetypes": ["lua"]
+    }
+  }
+}
