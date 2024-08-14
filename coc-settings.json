@@ -9,12 +9,16 @@
       "command": "vim-language-server",
       "rootPatterns": ["vimrc", "init.vim"],
       "filetypes": ["vim"],
-      "args": ["--stdio"],
+      "args": ["--stdio"]
     },
     "luals": {
       "command": "lua-language-server",
       "rootPatterns": [".git", ".luarc.json"],
       "filetypes": ["lua"]
+    },
+    "efm-langserver": {
+      "command": "efm-langserver",
+      "filetypes": ["vim"]
     }
   }
 }
