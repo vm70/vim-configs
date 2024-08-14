@@ -71,6 +71,7 @@ packadd minpac
 call minpac#init()
 call minpac#add('k-takata/minpac', {'type': 'opt'})
 " User Interface
+call minpac#add('Freed-Wu/airline-renderer-nerdfont.vim', {'name': 'vim-airline-nerdfont'})
 call minpac#add('lambdalisue/vim-fern')
 call minpac#add('lambdalisue/vim-fern-git-status')
 call minpac#add('lambdalisue/vim-fern-hijack')
