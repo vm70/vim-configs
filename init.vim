@@ -8,7 +8,7 @@ let mapleader = ' '
 " Plugin Global Variables
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
-let g:coq_settings = { 'auto_start': 'shut-up' }
+let g:coq_settings = {'auto_start': 'shut-up', 'keymap.jump_to_mark': '<Tab>'}
 let g:fzf_vim = {}
 let g:fzf_vim.tags_command = '!rg --files | ctags -R -L -'
 let g:mkdp_filetypes = ['markdown', 'quarto', 'markdown.pandoc']
