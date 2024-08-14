@@ -9,12 +9,12 @@ let g:markdown_folding = 1
 let mapleader = ' '
 
 " Plugin Global Variables
+let g:NERDTreeGitStatusUseNerdFonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:coc_global_extensions = ['coc-ltex', 'coc-snippets', '@yaegassy/coc-pylsp', '@yaegassy/coc-ruff']
 let g:coc_snippet_next = '<Tab>'
 let g:coc_snippet_prev = '<S-Tab>'
-let g:fern#renderer = 'nerdfont'
 let g:fzf_vim = {}
 let g:fzf_vim.tags_command = '!rg --files | ctags -R -L -'
 let g:mkdp_filetypes = ['markdown', 'quarto', 'markdown.pandoc']
@@ -71,12 +71,10 @@ packadd minpac
 call minpac#init()
 call minpac#add('k-takata/minpac', {'type': 'opt'})
 " User Interface
-call minpac#add('lambdalisue/vim-fern')
-call minpac#add('lambdalisue/vim-fern-git-status')
-call minpac#add('lambdalisue/vim-fern-hijack')
-call minpac#add('lambdalisue/vim-fern-renderer-nerdfont')
-call minpac#add('lambdalisue/vim-glyph-palette')
-call minpac#add('lambdalisue/vim-nerdfont')
+call minpac#add('Xuyuanp/nerdtree-git-plugin')
+call minpac#add('preservim/nerdtree')
+call minpac#add('ryanoasis/vim-devicons')
+call minpac#add('tiagofumo/vim-nerdtree-syntax-highlight')
 call minpac#add('vim-airline/vim-airline')
 " Editing
 call minpac#add('sheerun/vim-polyglot')
@@ -104,11 +102,6 @@ augroup repl
   autocmd!
   autocmd BufReadPre *.py packadd jupyter-vim vim-slime
   autocmd BufReadPre *.jl packadd jupyter-vim vim-slime
-augroup END
-
-augroup glyph-palette
-  autocmd! *
-  autocmd FileType fern call glyph_palette#apply()
 augroup END
 
 command! PackUpdate call minpac#update()
@@ -178,7 +171,7 @@ xmap ic <Plug>(coc-classobj-i)
 xmap if <Plug>(coc-funcobj-i)
 
 " Toggle File Tree
-nnoremap <leader>e :Fern . -toggle -drawer<CR>
+nnoremap <leader>e :NERDTreeToggle<CR>
 
 " Remove hlsearch by pressing escape twice
 nnoremap <Esc><Esc> :nohlsearch<CR>
