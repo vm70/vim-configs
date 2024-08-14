@@ -9,8 +9,6 @@ let g:markdown_folding = 1
 let mapleader = ' '
 
 " Plugin Global Variables
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts = 1
 let g:coq_settings = {'auto_start': 'shut-up', 'keymap.jump_to_mark': '<Tab>'}
 let g:fzf_vim = {}
 let g:fzf_vim.tags_command = '!rg --files | ctags -R -L -'
@@ -71,7 +69,7 @@ call minpac#add('nvim-neo-tree/neo-tree.nvim')
 \| call minpac#add('nvim-lua/plenary.nvim')
 \| call minpac#add('nvim-tree/nvim-web-devicons')
 \| call minpac#add('MunifTanjim/nui.nvim')
-call minpac#add('vim-airline/vim-airline')
+call minpac#add('nvim-lualine/lualine.nvim')
 " Editing
 call minpac#add('tpope/vim-surround')
 " Treesitter
@@ -95,7 +93,6 @@ call minpac#add('ms-jpq/coq.artifacts', {'branch': 'artifacts'})
 call minpac#add('ms-jpq/coq.thirdparty', {'branch': '3p'})
 " Colors
 call minpac#add('ellisonleao/gruvbox.nvim')
-call minpac#add('vim-airline/vim-airline-themes')
 " Markdown Preview
 call minpac#add('iamcco/markdown-preview.nvim', {'do': 'packloadall! | call mkdp#util#install()'})
 
@@ -175,6 +172,5 @@ command! QuartoRender :terminal quarto render
 " Colors {{{
 
 silent! colorscheme gruvbox
-let g:airline_theme = 'base16_gruvbox_dark_medium'
 
 " }}}
