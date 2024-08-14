@@ -1,5 +1,4 @@
-" Vim: the ubiquitous text editor
-" Vim website: https://www.vim.org/
+scriptencoding utf8
 
 " Global Variables {{{
 
@@ -69,59 +68,43 @@ if empty(glob(config_dir.'/pack/minpac/opt/minpac'))
   silent execute '!git clone https://github.com/k-takata/minpac.git '.config_dir.'/pack/minpac/opt/minpac'
 endif
 
-augroup MinpacAutoInstall
-  autocmd!
-  autocmd VimEnter * if len(filter(values(minpac#pluglist), '!isdirectory(v:val["dir"])'))
-    \| call minpac#update()
-    \| source $MYVIMRC
-    \| endif
-augroup END
+packadd minpac
+call minpac#init()
+call minpac#add('k-takata/minpac', {'type': 'opt'})
 
-function! PackInit() abort
-  " Let Minpac manage itself
-  packadd minpac
-  call minpac#init()
-  call minpac#add('k-takata/minpac', {'type': 'opt'})
-
-  " User Interface
-  call minpac#add('lambdalisue/vim-fern')
-  call minpac#add('lambdalisue/vim-fern-git-status')
-  call minpac#add('lambdalisue/vim-fern-hijack')
-  call minpac#add('lambdalisue/vim-fern-renderer-nerdfont')
-  call minpac#add('lambdalisue/vim-glyph-palette')
-  call minpac#add('lambdalisue/vim-nerdfont')
-  call minpac#add('vim-airline/vim-airline')
-  " Editing
-  call minpac#add('sheerun/vim-polyglot')
-  call minpac#add('tpope/vim-surround')
-  packadd comment " call minpac#add('tpope/vim-commentary')
-  " REPL / Jupyter call
-  call minpac#add('jpalardy/vim-slime', {'type': 'opt'})
-  call minpac#add('jupyter-vim/jupyter-vim', {'type': 'opt'})
-  " Version Control
-  call minpac#add('tpope/vim-fugitive')
-  call minpac#add('rbong/vim-flog')
-  call minpac#add('airblade/vim-gitgutter')
-  call minpac#add('tpope/vim-rhubarb')
-  " LSP, Linting, Formatting Integration
-  call minpac#add('dense-analysis/ale')
-  " Fuzzy Finding
-  call minpac#add('junegunn/fzf.vim')
-  " Autocompletion
-  call minpac#add('SirVer/ultisnips')
-  call minpac#add('honza/vim-snippets')
-  call minpac#add('prabirshrestha/asyncomplete.vim')
-  call minpac#add('prabirshrestha/asyncomplete-ultisnips.vim')
-  " Colors
-  call minpac#add('gruvbox-community/gruvbox')
-  " Markdown Preview
-  call minpac#add('iamcco/markdown-preview.nvim', {'do': 'packloadall! | call mkdp#util#install()'})
-endfunction
-
-augroup glyph-palette
-  autocmd! *
-  autocmd FileType fern call glyph_palette#apply()
-augroup END
+" User Interface
+call minpac#add('lambdalisue/vim-fern')
+call minpac#add('lambdalisue/vim-fern-git-status')
+call minpac#add('lambdalisue/vim-fern-hijack')
+call minpac#add('lambdalisue/vim-fern-renderer-nerdfont')
+call minpac#add('lambdalisue/vim-glyph-palette')
+call minpac#add('lambdalisue/vim-nerdfont')
+call minpac#add('vim-airline/vim-airline')
+" Editing
+call minpac#add('sheerun/vim-polyglot')
+call minpac#add('tpope/vim-surround')
+packadd comment " call minpac#add('tpope/vim-commentary')
+" REPL / Jupyter call
+call minpac#add('jpalardy/vim-slime', {'type': 'opt'})
+call minpac#add('jupyter-vim/jupyter-vim', {'type': 'opt'})
+" Version Control
+call minpac#add('tpope/vim-fugitive')
+call minpac#add('rbong/vim-flog')
+call minpac#add('airblade/vim-gitgutter')
+call minpac#add('tpope/vim-rhubarb')
+" LSP, Linting, Formatting Integration
+call minpac#add('dense-analysis/ale')
+" Fuzzy Finding
+call minpac#add('junegunn/fzf.vim')
+" Autocompletion
+call minpac#add('SirVer/ultisnips')
+call minpac#add('honza/vim-snippets')
+call minpac#add('prabirshrestha/asyncomplete.vim')
+call minpac#add('prabirshrestha/asyncomplete-ultisnips.vim')
+" Colors
+call minpac#add('gruvbox-community/gruvbox')
+" Markdown Preview
+call minpac#add('iamcco/markdown-preview.nvim', {'do': 'packloadall! | call mkdp#util#install()'})
 
 augroup repl
   autocmd!
@@ -129,8 +112,12 @@ augroup repl
   autocmd BufReadPre *.jl packadd jupyter-vim vim-slime
 augroup END
 
+augroup glyph-palette
+  autocmd! *
+  autocmd FileType fern call glyph_palette#apply()
+augroup END
+
 " Define user commands for updating/cleaning the plugins.
-call PackInit()
 command! PackUpdate call minpac#update()
 command! PackClean call minpac#clean()
 command! PackStatus call minpac#status()
@@ -143,6 +130,8 @@ noremap [b :bprevious<CR>
 noremap ]b :bNext<CR>
 noremap [d :ALEPrevious<CR>
 noremap ]d :ALENext<CR>
+noremap [t :tabprevious<CR>
+noremap ]t :tabnext<CR>
 
 " Moving lines up and down in code
 inoremap <A-j> <Esc>:m.+1<CR>==gi
@@ -155,6 +144,16 @@ vnoremap <A-k> :m'<-2<CR>gv=gv
 " Commenting with Ctrl-/
 vmap <C-_> gc<CR>k
 nmap <C-_> <C-v>gc<CR>k
+
+" Toggle File Tree
+nnoremap <leader>e :Fern . -toggle -drawer<CR>
+
+" Remove hlsearch by pressing escape twice
+nnoremap <Esc><Esc> :nohlsearch<CR>
+
+" Send Code Cell
+nnoremap <leader>sc <Plug>SlimeSendCell
+nnoremap <leader>jc :JupyterSendCell<CR>
 
 " LSP / Linting / Formatting
 nnoremap <leader>ca :ALECodeAction<CR>
@@ -169,19 +168,7 @@ nnoremap gr :ALEFindReferences<CR>
 nnoremap gy :ALEGoToTypeDefinition<CR>
 
 " Asyncomplete
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <CR> pumvisible() ? asyncomplete#close_popup() : "\<CR>"
-
-" Toggle File Tree
-nnoremap <leader>e :Fern . -toggle -drawer<CR>
-
-" Remove hlsearch by pressing escape twice
-nnoremap <Esc><Esc> :nohlsearch<CR>
-
-" Send Code Cell
-nnoremap <leader>sc <Plug>SlimeSendCell
-nnoremap <leader>jc :JupyterSendCell<CR>
 
 " }}}
 " Commands {{{
