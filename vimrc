@@ -1,5 +1,5 @@
+set encoding=utf8
 scriptencoding utf8
-set nocompatible
 
 " Global Variables {{{
 
@@ -19,7 +19,7 @@ let g:fzf_vim = {}
 let g:fzf_vim.tags_command = '!rg --files | ctags -R -L -'
 let g:mkdp_filetypes = ['markdown', 'quarto', 'markdown.pandoc']
 let g:polyglot_disabled = ['markdown', 'quarto']
-let g:slime_target = 'vimterminal'
+let g:slime_target = has('nvim') ? 'neovim' : 'vimterminal'
 
 " }}}
 " Options {{{
@@ -36,7 +36,6 @@ set termguicolors
 " Editing
 set autoindent
 set autoread
-set encoding=utf-8
 set foldlevelstart=6
 set foldmethod=marker
 set incsearch
@@ -52,7 +51,9 @@ set splitbelow
 set splitright
 
 " Tabs
+set noexpandtab
 set tabstop=2
+set shiftwidth=2
 
 filetype plugin on
 
@@ -65,6 +66,7 @@ if empty(glob(config_dir.'/pack/minpac/opt/minpac'))
   silent execute '!git clone https://github.com/k-takata/minpac.git '.config_dir.'/pack/minpac/opt/minpac'
 endif
 
+" Let Minpac manage itself
 packadd minpac
 call minpac#init()
 call minpac#add('k-takata/minpac', {'type': 'opt'})
@@ -134,6 +136,8 @@ nmap [b :bprevious<CR>
 nmap ]b :bNext<CR>
 nmap [d <Plug>(coc-diagnostic-prev)
 nmap ]d <Plug>(coc-diagnostic-next)
+nmap [h :GitGutterPrevHunk<CR>
+nmap ]h :GitGutterNextHunk<CR>
 nmap [t :tabprevious<CR>
 nmap ]t :tabnext<CR>
 
@@ -149,20 +153,10 @@ vnoremap <A-k> :m'<-2<CR>gv=gv
 vmap <C-_> gc<CR>k
 nmap <C-_> <C-v>gc<CR>k
 
-" Toggle File Tree
-nnoremap <leader>e :Fern . -toggle -drawer<CR>
-
-" Remove hlsearch by pressing escape twice
-nnoremap <Esc><Esc> :nohlsearch<CR>
-
-" Send Code Cell
-nnoremap <leader>sc <Plug>SlimeSendCell
-nnoremap <leader>jc :JupyterSendCell<CR>
-
 " LSP Keymaps
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 nmap <leader>ca <Plug>(coc-codeaction-selected)
-nmap <leader>cf <Plug>(coc-format-selected)
+nmap <leader>cf <Plug>(coc-format)
 nmap <leader>cr <Plug>(coc-rename)
 nmap <leader>xx :CocDiagnostics<CR>
 nmap gD <Plug>(coc-declaration)
@@ -182,6 +176,17 @@ xmap ac <Plug>(coc-classobj-a)
 xmap af <Plug>(coc-funcobj-a)
 xmap ic <Plug>(coc-classobj-i)
 xmap if <Plug>(coc-funcobj-i)
+
+" Toggle File Tree
+nnoremap <leader>e :Fern . -toggle -drawer<CR>
+
+" Remove hlsearch by pressing escape twice
+nnoremap <Esc><Esc> :nohlsearch<CR>
+
+" Send Code Cell
+nnoremap <leader>sc <Plug>SlimeSendCell
+nnoremap <leader>jc :JupyterSendCell<CR>
+
 
 " }}}
 " Commands {{{
