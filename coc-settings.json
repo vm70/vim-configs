@@ -18,7 +18,9 @@
     },
     "efm": {
       "command": "efm-langserver",
-      "filetypes": ["vim"]
+      "rootPatterns": [".git", "vimrc", "init.vim"],
+      "filetypes": ["vim", "eruby", "markdown", "yaml"]
     }
-  }
+  },
+  "ltex.disabledRules": { "en-US": ["MORFOLOGIK_RULE_EN_US"] }
 }
