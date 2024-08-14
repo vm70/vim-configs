@@ -1,3 +1,4 @@
+set encoding=utf-8
 scriptencoding utf8
 
 " Global Variables {{{
@@ -38,7 +39,6 @@ set termguicolors
 " Editing
 set autoindent
 set autoread
-set encoding=utf-8
 set foldlevelstart=6
 set foldmethod=marker
 set incsearch
@@ -157,7 +157,7 @@ nnoremap <leader>jc :JupyterSendCell<CR>
 
 " LSP / Linting / Formatting
 nnoremap <leader>ca :ALECodeAction<CR>
-nnoremap <leader>cf :ALEFix<CR>
+nnoremap <leader>cf <Plug>(ale_fix)
 nnoremap <leader>cr :ALERename<CR>
 nnoremap <leader>xx :ALEPopulateQuickfix<CR>
 nnoremap K :ALEHover<CR>
