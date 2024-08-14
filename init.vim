@@ -1,3 +1,6 @@
+set encoding=utf8
+scriptencoding utf8
+
 " Global Variables {{{
 
 " Vim Global Variables
@@ -12,21 +15,26 @@ let g:coq_settings = {'auto_start': 'shut-up', 'keymap.jump_to_mark': '<Tab>'}
 let g:fzf_vim = {}
 let g:fzf_vim.tags_command = '!rg --files | ctags -R -L -'
 let g:mkdp_filetypes = ['markdown', 'quarto', 'markdown.pandoc']
+let g:slime_target = has('nvim') ? 'neovim' : 'vimterminal'
 
 " }}}
 " Options {{{
 
 " Visuals
+set background=dark
 set conceallevel=2
 set cursorline
 set list
 set number
-set termguicolors
 set title
+set termguicolors
 
 " Editing
+set autoindent
+set autoread
 set foldlevelstart=6
 set foldmethod=marker
+set incsearch
 set linebreak
 set mouse=a
 set signcolumn=yes
@@ -54,53 +62,42 @@ if empty(glob(config_dir.'/pack/minpac/opt/minpac'))
   silent execute '!git clone https://github.com/k-takata/minpac.git '.config_dir.'/pack/minpac/opt/minpac'
 endif
 
-augroup MinpacAutoInstall
-  autocmd!
-  autocmd VimEnter * if len(filter(values(minpac#pluglist), '!isdirectory(v:val["dir"])'))
-    \| call minpac#update()
-    \| source $MYVIMRC
-    \| endif
-augroup END
-
-function! PackInit() abort
-  " Let Minpac manage itself
-  packadd minpac
-  call minpac#init()
-  call minpac#add('k-takata/minpac', {'type': 'opt'})
-
-  " User Interface
-  call minpac#add('nvim-neo-tree/neo-tree.nvim')
-  \| call minpac#add('nvim-lua/plenary.nvim')
-  \| call minpac#add('nvim-tree/nvim-web-devicons')
-  \| call minpac#add('MunifTanjim/nui.nvim')
-  call minpac#add('vim-airline/vim-airline')
-  " Editing
-  call minpac#add('tpope/vim-surround')
-  " Treesitter
-  call minpac#add('nvim-treesitter/nvim-treesitter', {'do': 'packloadall! | TSUpdate'})
-  " REPL / Jupyter call
-  call minpac#add('jpalardy/vim-slime', {'type': 'opt'})
-  call minpac#add('jupyter-vim/jupyter-vim', {'type': 'opt'})
-  " Version Control
-  call minpac#add('tpope/vim-fugitive')
-  call minpac#add('rbong/vim-flog')
-  call minpac#add('airblade/vim-gitgutter')
-  " LSP / Linting / Formatting Integration
-  call minpac#add('neovim/nvim-lspconfig')
-  call minpac#add('mfussenegger/nvim-lint')
-  call minpac#add('stevearc/conform.nvim')
-  " Fuzzy Finding
-  call minpac#add('junegunn/fzf.vim')
-  " Autocompletion
-  call minpac#add('ms-jpq/coq_nvim', {'branch': 'coq'})
-  call minpac#add('ms-jpq/coq.artifacts', {'branch': 'artifacts'})
-  call minpac#add('ms-jpq/coq.thirdparty', {'branch': '3p'})
-  " Colors
-  call minpac#add('ellisonleao/gruvbox.nvim')
-  call minpac#add('vim-airline/vim-airline-themes')
-  " Markdown Preview
-  call minpac#add('iamcco/markdown-preview.nvim', {'do': 'packloadall! | call mkdp#util#install()'})
-endfunction
+" Let Minpac manage itself
+packadd minpac
+call minpac#init()
+call minpac#add('k-takata/minpac', {'type': 'opt'})
+" User Interface
+call minpac#add('nvim-neo-tree/neo-tree.nvim')
+\| call minpac#add('nvim-lua/plenary.nvim')
+\| call minpac#add('nvim-tree/nvim-web-devicons')
+\| call minpac#add('MunifTanjim/nui.nvim')
+call minpac#add('vim-airline/vim-airline')
+" Editing
+call minpac#add('tpope/vim-surround')
+" Treesitter
+call minpac#add('nvim-treesitter/nvim-treesitter', {'do': 'packloadall! | TSUpdate'})
+" REPL / Jupyter call
+call minpac#add('jpalardy/vim-slime', {'type': 'opt'})
+call minpac#add('jupyter-vim/jupyter-vim', {'type': 'opt'})
+" Version Control
+call minpac#add('tpope/vim-fugitive')
+call minpac#add('rbong/vim-flog')
+call minpac#add('airblade/vim-gitgutter')
+" LSP / Linting / Formatting Integration
+call minpac#add('neovim/nvim-lspconfig')
+call minpac#add('mfussenegger/nvim-lint')
+call minpac#add('stevearc/conform.nvim')
+" Fuzzy Finding
+call minpac#add('junegunn/fzf.vim')
+" Autocompletion
+call minpac#add('ms-jpq/coq_nvim', {'branch': 'coq'})
+call minpac#add('ms-jpq/coq.artifacts', {'branch': 'artifacts'})
+call minpac#add('ms-jpq/coq.thirdparty', {'branch': '3p'})
+" Colors
+call minpac#add('ellisonleao/gruvbox.nvim')
+call minpac#add('vim-airline/vim-airline-themes')
+" Markdown Preview
+call minpac#add('iamcco/markdown-preview.nvim', {'do': 'packloadall! | call mkdp#util#install()'})
 
 " Disable some things when opening terminals
 augroup term
@@ -114,14 +111,20 @@ augroup repl
   autocmd BufReadPre *.jl packadd jupyter-vim vim-slime
 augroup END
 
-" Define user commands for updating/cleaning the plugins.
-call PackInit()
 command! PackUpdate call minpac#update()
-command! PackClean  call minpac#clean()
+command! PackClean call minpac#clean()
 command! PackStatus call minpac#status()
 
 " }}}
 " Keymaps {{{
+
+" Missing prev- and next- commands
+nmap [b :bprevious<CR>
+nmap ]b :bNext<CR>
+nmap [h :GitGutterPrevHunk<CR>
+nmap ]h :GitGutterNextHunk<CR>
+nmap [t :tabprevious<CR>
+nmap ]t :tabnext<CR>
 
 " Moving lines up and down in code
 inoremap <A-j> <Esc>:m.+1<CR>==gi
@@ -171,7 +174,7 @@ command! QuartoRender :terminal quarto render
 " }}}
 " Colors {{{
 
-colorscheme gruvbox
+silent! colorscheme gruvbox
 let g:airline_theme = 'base16_gruvbox_dark_medium'
 
 " }}}
