@@ -73,6 +73,7 @@ call minpac#init()
 call minpac#add('k-takata/minpac', {'type': 'opt'})
 
 " User Interface
+call minpac#add('Freed-Wu/airline-renderer-nerdfont.vim', {'name': 'vim-airline-nerdfont'})
 call minpac#add('lambdalisue/vim-fern')
 call minpac#add('lambdalisue/vim-fern-git-status')
 call minpac#add('lambdalisue/vim-fern-hijack')
@@ -126,12 +127,14 @@ command! PackStatus call minpac#status()
 " Keymaps {{{
 
 " Missing prev- and next- commands
-noremap [b :bprevious<CR>
-noremap ]b :bNext<CR>
-noremap [d :ALEPrevious<CR>
-noremap ]d :ALENext<CR>
-noremap [t :tabprevious<CR>
-noremap ]t :tabnext<CR>
+nmap [b :bprevious<CR>
+nmap ]b :bNext<CR>
+nmap [d :ALEPrevious<CR>
+nmap ]d :ALENext<CR>
+nmap [h :GitGutterPrevHunk<CR>
+nmap ]h :GitGutterNextHunk<CR>
+nmap [t :tabprevious<CR>
+nmap ]t :tabnext<CR>
 
 " Moving lines up and down in code
 inoremap <A-j> <Esc>:m.+1<CR>==gi
