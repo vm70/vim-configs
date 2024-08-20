@@ -12,16 +12,13 @@ let mapleader = ' '
 let g:UltiSnipsExpandTrigger = '<CR>'
 let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
 let g:UltiSnipsJumpForwardTrigger = '<Tab>'
-let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
-let g:ale_fix_on_save = 1
-let g:ale_languagetool_executable='languagetool-commandline'
 let g:fern#renderer = 'nerdfont'
 let g:fzf_vim = {}
 let g:fzf_vim.tags_command = '!rg --files | ctags -R -L -'
-let g:mkdp_filetypes = ['markdown', 'quarto', 'markdown.pandoc']
-let g:polyglot_disabled = ['markdown', 'quarto']
+let g:mkdp_filetypes = ['markdown', 'pandoc', 'quarto', 'markdown.pandoc']
+let g:polyglot_disabled = ['ftdetect', 'markdown', 'pandoc', 'quarto', 'markdown.pandoc']
 let g:slime_target = has('nvim') ? 'neovim' : 'vimterminal'
 
 " }}}
@@ -44,7 +41,7 @@ set foldmethod=marker
 set incsearch
 set linebreak
 set mouse=a
-set omnifunc=ale#completion#OmniFunc
+set omnifunc=lsp#complete
 set signcolumn=yes
 set spell
 set spelllang=en_us
@@ -93,15 +90,15 @@ call minpac#add('tpope/vim-fugitive')
 call minpac#add('rbong/vim-flog')
 call minpac#add('airblade/vim-gitgutter')
 call minpac#add('tpope/vim-rhubarb')
-" LSP, Linting, Formatting Integration
-call minpac#add('dense-analysis/ale')
 " Fuzzy Finding
 call minpac#add('junegunn/fzf.vim')
-" Autocompletion
+" LSP, Linting, Formatting, Autocompletion Integration
 call minpac#add('SirVer/ultisnips')
 call minpac#add('honza/vim-snippets')
 call minpac#add('prabirshrestha/asyncomplete.vim')
 call minpac#add('prabirshrestha/asyncomplete-ultisnips.vim')
+call minpac#add('prabirshrestha/vim-lsp')
+call minpac#add('prabirshrestha/asyncomplete-lsp.vim')
 " Colors
 call minpac#add('gruvbox-community/gruvbox')
 " Markdown Preview
@@ -129,8 +126,8 @@ command! PackStatus call minpac#status()
 " Missing prev- and next- commands
 nmap [b :bprevious<CR>
 nmap ]b :bNext<CR>
-nmap [d :ALEPrevious<CR>
-nmap ]d :ALENext<CR>
+nmap [d <plug>(lsp-previous-diagnostic)
+nmap ]d <plug>(lsp-next-diagnostic)
 nmap [h :GitGutterPrevHunk<CR>
 nmap ]h :GitGutterNextHunk<CR>
 nmap [t :tabprevious<CR>
@@ -159,16 +156,16 @@ nnoremap <leader>sc <Plug>SlimeSendCell
 nnoremap <leader>jc :JupyterSendCell<CR>
 
 " LSP / Linting / Formatting
-nnoremap <leader>ca :ALECodeAction<CR>
-nnoremap <leader>cf <Plug>(ale_fix)
-nnoremap <leader>cr :ALERename<CR>
-nnoremap <leader>xx :ALEPopulateQuickfix<CR>
-nnoremap K :ALEHover<CR>
-nnoremap gD :ALEGoToDeclaration<CR>
-nnoremap gI :ALEGoToImplementation<CR>
-nnoremap gd :ALEGoToDefinition<CR>
-nnoremap gr :ALEFindReferences<CR>
-nnoremap gy :ALEGoToTypeDefinition<CR>
+nnoremap <leader>ca <plug>(lsp-code-action)
+nnoremap <leader>cr <plug>(lsp-rename)
+nnoremap <leader>xx <plug>(lsp-document-diagnostics)
+nnoremap <leader>cf <plug>(lsp-document-format)
+nnoremap K <plug>(lsp-hover)
+nnoremap gD <plug>(lsp-declaration)
+nnoremap gI <plug>(lsp-implementation)
+nnoremap gd <plug>(lsp-definition)
+nnoremap gr <plug>(lsp-references)
+nnoremap gy <plug>(lsp-type-definition)
 
 " Asyncomplete
 inoremap <expr> <CR> pumvisible() ? asyncomplete#close_popup() : "\<CR>"
