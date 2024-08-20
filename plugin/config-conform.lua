@@ -4,6 +4,11 @@ require("conform").setup({
 		async = true,
 		lsp_fallout = true,
 	},
+	format_on_save = {
+		-- I recommend these options. See :help conform.format for details.
+		lsp_format = "fallback",
+		timeout_ms = 50000,
+	},
 	formatters = {
 		injected = {
 			options = {
@@ -13,16 +18,16 @@ require("conform").setup({
 				},
 			},
 		},
-		black = {
-			args = {
-				"--stdin-filename",
-				"$FILENAME",
-				"--quiet",
-				"--line-length",
-				"79",
-				"-",
-			},
-		},
+		-- black = {
+		-- 	args = {
+		-- 		"--stdin-filename",
+		-- 		"$FILENAME",
+		-- 		"--quiet",
+		-- 		"--line-length",
+		-- 		"79",
+		-- 		"-",
+		-- 	},
+		-- },
 		prettier = {
 			options = {
 				ext_parsers = {
@@ -49,7 +54,7 @@ require("conform").setup({
 		markdown = { "prettier", "injected" },
 		pandoc = { "prettier" },
 		python = { "isort", "black", "ruff" },
-		quarto = { "prettier" },
+		quarto = { "prettier", "injected" },
 		racket = { "raco_fmt" },
 		sh = { "shfmt" },
 		toml = { "taplo" },
