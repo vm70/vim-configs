@@ -136,30 +136,30 @@ vmap <C-_> gc<CR>k
 nmap <C-_> <C-v>gc<CR>k
 
 " LSP / Linting / Formatting
-nnoremap <leader>cC :lua vim.lsp.codelens.refresh()<CR>
-nnoremap <leader>ca :lua vim.lsp.buf.code_action()<CR>
-nnoremap <leader>cc :lua vim.lsp.codelens.run()<CR>
-nnoremap <leader>cf :lua require("conform").format()<CR>
-nnoremap <leader>cr :lua vim.lsp.buf.rename()<CR>
-nnoremap <leader>xx :lua vim.diagnostic.setqflist()<CR>
-nnoremap gD :lua vim.lsp.buf.declaration()<CR>
-nnoremap gI :lua vim.lsp.buf.implementation()<CR>
-nnoremap gd :lua vim.lsp.buf.definition()<CR>
-nnoremap gr :lua vim.lsp.buf.references()<CR>
-nnoremap gy :lua vim.lsp.buf.type_definition()<CR>
+nnoremap <leader>cC <cmd>lua vim.lsp.codelens.refresh()<CR>
+nnoremap <leader>ca <cmd>lua vim.lsp.buf.code_action()<CR>
+nnoremap <leader>cc <cmd>lua vim.lsp.codelens.run()<CR>
+nnoremap <leader>cf <cmd>lua require("conform").format()<CR>
+nnoremap <leader>cr <cmd>lua vim.lsp.buf.rename()<CR>
+nnoremap <leader>xx <cmd>lua vim.diagnostic.setqflist()<CR>
+nnoremap gD <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap gI <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap gd <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap gr <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap gy <cmd>lua vim.lsp.buf.type_definition()<CR>
 
 " Toggle File Tree
-nnoremap <leader>e :Neotree toggle<CR>
+nnoremap <leader>e <cmd>Neotree toggle<CR>
 
 " Remove hlsearch by pressing escape twice
-nnoremap <Esc><Esc> :nohlsearch<CR>
+nnoremap <Esc><Esc> <cmd>nohlsearch<CR>
 
 " Make exiting the terminal easier (Neovim only)
 tnoremap <Esc> <C-\><C-n>
 
 " Send Code Cell
 nnoremap <leader>sc <Plug>SlimeSendCell
-nnoremap <leader>jc :JupyterSendCell<CR>
+nnoremap <leader>jc <cmd>JupyterSendCell<CR>
 
 " }}}
 " Commands {{{
