@@ -96,8 +96,6 @@ call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
 call minpac#add('honza/vim-snippets')
 " Fuzzy Finding
 call minpac#add('junegunn/fzf.vim')
-" Colors
-call minpac#add('gruvbox-community/gruvbox')
 " Markdown Preview
 call minpac#add('iamcco/markdown-preview.nvim', {'do': 'packloadall! | call mkdp#util#install()'})
 
@@ -199,6 +197,6 @@ command! QuartoRender :terminal quarto render
 " }}}
 " Colors {{{
 
-silent! colorscheme gruvbox
+silent! colorscheme retrobox
 
 " }}}
