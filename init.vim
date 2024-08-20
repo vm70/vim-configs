@@ -9,7 +9,7 @@ let g:markdown_folding = 1
 let mapleader = ' '
 
 " Plugin Global Variables
-let g:coq_settings = {'auto_start': 'shut-up', 'keymap.jump_to_mark': '<Tab>'}
+let g:coq_settings = {'auto_start': 'shut-up'}
 let g:fzf_vim = {}
 let g:fzf_vim.tags_command = '!rg --files | ctags -R -L -'
 let g:mkdp_filetypes = ['markdown', 'quarto', 'markdown.pandoc']
@@ -66,9 +66,9 @@ call minpac#init()
 call minpac#add('k-takata/minpac', {'type': 'opt'})
 " User Interface
 call minpac#add('nvim-neo-tree/neo-tree.nvim')
-\| call minpac#add('nvim-lua/plenary.nvim')
-\| call minpac#add('nvim-tree/nvim-web-devicons')
-\| call minpac#add('MunifTanjim/nui.nvim')
+call minpac#add('nvim-lua/plenary.nvim')
+call minpac#add('nvim-tree/nvim-web-devicons')
+call minpac#add('MunifTanjim/nui.nvim')
 call minpac#add('nvim-lualine/lualine.nvim')
 " Editing
 call minpac#add('tpope/vim-surround')
