@@ -18,7 +18,7 @@ let g:fern#renderer = 'nerdfont'
 let g:fzf_vim = {}
 let g:fzf_vim.tags_command = '!rg --files | ctags -R -L -'
 let g:mkdp_filetypes = ['markdown', 'quarto', 'markdown.pandoc']
-let g:polyglot_disabled = ['markdown', 'quarto']
+let g:polyglot_disabled = ['ftdetect', 'markdown', 'quarto']
 let g:slime_target = has('nvim') ? 'neovim' : 'vimterminal'
 
 " }}}
