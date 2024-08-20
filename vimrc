@@ -18,7 +18,7 @@ let g:fern#renderer = 'nerdfont'
 let g:fzf_vim = {}
 let g:fzf_vim.tags_command = '!rg --files | ctags -R -L -'
 let g:mkdp_filetypes = ['markdown', 'quarto', 'markdown.pandoc']
-let g:polyglot_disabled = ['ftdetect', 'markdown', 'quarto']
+let g:polyglot_disabled = ['ftdetect', 'markdown', 'quarto', 'json']
 let g:slime_target = has('nvim') ? 'neovim' : 'vimterminal'
 
 " }}}
@@ -131,22 +131,22 @@ function! ShowDocumentation()
 endfunction
 
 " Missing prev- and next- commands
-nmap [b :bprevious<CR>
-nmap ]b :bNext<CR>
+nmap [b <cmd>bprevious<CR>
+nmap ]b <cmd>bNext<CR>
 nmap [d <Plug>(coc-diagnostic-prev)
 nmap ]d <Plug>(coc-diagnostic-next)
-nmap [h :GitGutterPrevHunk<CR>
-nmap ]h :GitGutterNextHunk<CR>
-nmap [t :tabprevious<CR>
-nmap ]t :tabnext<CR>
+nmap [h <cmd>GitGutterPrevHunk<CR>
+nmap ]h <cmd>GitGutterNextHunk<CR>
+nmap [t <cmd>tabprevious<CR>
+nmap ]t <cmd>tabnext<CR>
 
 " Moving lines up and down in code
-inoremap <A-j> <Esc>:m.+1<CR>==gi
-inoremap <A-k> <Esc>:m.-2<CR>==gi
-nnoremap <A-j> :m.+1<CR>==
-nnoremap <A-k> :m.-2<CR>==
-vnoremap <A-j> :m'>+1<CR>gv=gv
-vnoremap <A-k> :m'<-2<CR>gv=gv
+inoremap <A-j> <cmd>m.+1<CR>==gi
+inoremap <A-k> <cmd>m.-2<CR>==gi
+nnoremap <A-j> <cmd>m.+1<CR>==
+nnoremap <A-k> <cmd>m.-2<CR>==
+vnoremap <A-j> <cmd>m'>+1<CR>gv=gv
+vnoremap <A-k> <cmd>m'<-2<CR>gv=gv
 
 " Commenting with Ctrl-/
 vmap <C-_> gc<CR>k
@@ -157,13 +157,13 @@ inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<C
 nmap <leader>ca <Plug>(coc-codeaction-selected)
 nmap <leader>cf <Plug>(coc-format)
 nmap <leader>cr <Plug>(coc-rename)
-nmap <leader>xx :CocDiagnostics<CR>
+nmap <leader>xx <cmd>CocDiagnostics<CR>
 nmap gD <Plug>(coc-declaration)
 nmap gd <Plug>(coc-definition)
 nmap gi <Plug>(coc-implementation)
 nmap gr <Plug>(coc-references)
 nmap gy <Plug>(coc-type-definition)
-nnoremap K :call ShowDocumentation()<CR>
+nnoremap K <cmd>call ShowDocumentation()<CR>
 xmap <leader>ca <Plug>(coc-codeaction-selected)
 
 " LSP Text Objects
@@ -177,14 +177,14 @@ xmap ic <Plug>(coc-classobj-i)
 xmap if <Plug>(coc-funcobj-i)
 
 " Toggle File Tree
-nnoremap <leader>e :Fern . -toggle -drawer<CR>
+nnoremap <leader>e <cmd>Fern . -toggle -drawer<CR>
 
 " Remove hlsearch by pressing escape twice
-nnoremap <Esc><Esc> :nohlsearch<CR>
+nnoremap <Esc><Esc> <cmd>nohlsearch<CR>
 
 " Send Code Cell
 nnoremap <leader>sc <Plug>SlimeSendCell
-nnoremap <leader>jc :JupyterSendCell<CR>
+nnoremap <leader>jc <cmd>JupyterSendCell<CR>
 
 
 " }}}
