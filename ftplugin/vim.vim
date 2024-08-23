@@ -1,4 +1,5 @@
-setlocal tabstop=2
-setlocal shiftwidth=2
+" 2 spaces
 setlocal expandtab
-setlocal noautoindent
+setlocal shiftwidth=2
+setlocal softtabstop=2
+setlocal tabstop=8

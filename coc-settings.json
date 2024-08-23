@@ -1,26 +1,29 @@
 {
   "languageserver": {
+    "efm": {
+      "command": "efm-langserver",
+      "filetypes": ["vim", "eruby", "markdown", "yaml", "lua"],
+      "rootPatterns": [".git", "vimrc", "init.vim", "selene.toml"]
+    },
     "golang": {
       "command": "gopls",
-      "rootPatterns": ["go.mod"],
-      "filetypes": ["go"]
-    },
-    "vimls": {
-      "command": "vim-language-server",
-      "rootPatterns": ["vimrc", "init.vim"],
-      "filetypes": ["vim"],
-      "args": ["--stdio"]
+      "filetypes": ["go"],
+      "rootPatterns": ["go.mod"]
     },
     "luals": {
       "command": "lua-language-server",
-      "rootPatterns": [".git", ".luarc.json"],
-      "filetypes": ["lua"]
+      "filetypes": ["lua"],
+      "rootPatterns": [".git", ".luarc.json"]
     },
-    "efm": {
-      "command": "efm-langserver",
-      "rootPatterns": [".git", "vimrc", "init.vim"],
-      "filetypes": ["vim", "eruby", "markdown", "yaml"]
+    "vimls": {
+      "args": ["--stdio"],
+      "command": "vim-language-server",
+      "filetypes": ["vim"],
+      "rootPatterns": ["vimrc", "init.vim"]
     }
   },
-  "ltex.disabledRules": { "en-US": ["MORFOLOGIK_RULE_EN_US"] }
+  "ltex.disabledRules": {
+    "en-US": ["MORFOLOGIK_RULE_EN_US"]
+  },
+  "semanticTokens.enable": true
 }
