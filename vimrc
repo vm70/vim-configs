@@ -90,6 +90,10 @@ nnoremap <A-k> <cmd>m.-2<CR>==
 vnoremap <A-j> <cmd>m'>+1<CR>gv=gv
 vnoremap <A-k> <cmd>m'<-2<CR>gv=gv
 
+" Commenting with Ctrl-/
+vmap <C-_> gc<CR>k
+nmap <C-_> <C-v>gc<CR>k
+
 " }}}
 " Commands {{{
 
