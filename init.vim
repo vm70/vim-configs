@@ -23,9 +23,11 @@ set background=dark
 set conceallevel=2
 set cursorline
 set list
+set listchars=tab:>\ ,trail:-,nbsp:+
 set number
-set title
+set showbreak=↪\ |
 set termguicolors
+set title
 
 " Editing
 set autoindent
@@ -46,8 +48,8 @@ set splitright
 
 " Tabs
 set noexpandtab
-set tabstop=2
 set shiftwidth=2
+set tabstop=2
 
 filetype plugin on
 
@@ -124,12 +126,12 @@ nmap [t :tabprevious<CR>
 nmap ]t :tabnext<CR>
 
 " Moving lines up and down in code
-inoremap <A-j> <Esc>:m.+1<CR>==gi
-inoremap <A-k> <Esc>:m.-2<CR>==gi
-nnoremap <A-j> :m.+1<CR>==
-nnoremap <A-k> :m.-2<CR>==
-vnoremap <A-j> :m'>+1<CR>gv=gv
-vnoremap <A-k> :m'<-2<CR>gv=gv
+inoremap <A-j> <cmd>m.+1<CR>==gi
+inoremap <A-k> <cmd>m.-2<CR>==gi
+nnoremap <A-j> <cmd>m.+1<CR>==
+nnoremap <A-k> <cmd>m.-2<CR>==
+vnoremap <A-j> <cmd>m'>+1<CR>gv=gv
+vnoremap <A-k> <cmd>m'<-2<CR>gv=gv
 
 " Commenting with Ctrl-/
 vmap <C-_> gc<CR>k
@@ -164,7 +166,7 @@ nnoremap <leader>jc <cmd>JupyterSendCell<CR>
 " }}}
 " Commands {{{
 
-command! Vimrc :edit $MYVIMRC
+command! Vimrc :cd ~/.vim | edit $MYVIMRC
 command! QuartoPreview :terminal quarto preview
 command! QuartoRender :terminal quarto render
 
