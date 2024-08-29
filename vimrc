@@ -8,7 +8,7 @@ let g:markdown_folding = 1
 let mapleader = ' '
 
 " }}}
-" Options {{
+" Options {{{
 
 " Visuals
 set background=dark
@@ -66,14 +66,11 @@ call minpac#add('k-takata/minpac', {'type': 'opt'})
 " Editing
 call minpac#add('tpope/vim-surround')
 call minpac#add('tpope/vim-sleuth')
-packadd comment " call minpac#add('tpope/vim-commentary')
 " Version Control
 call minpac#add('tpope/vim-fugitive')
 call minpac#add('rbong/vim-flog')
 call minpac#add('airblade/vim-gitgutter')
 call minpac#add('tpope/vim-rhubarb')
-" Stop search highlight
-packadd nohlsearch
 
 command! PackUpdate call minpac#update()
 command! PackClean call minpac#clean()
@@ -81,6 +78,9 @@ command! PackStatus call minpac#status()
 
 " }}}
 " Keymaps {{{
+
+" Stop highlight search
+nnoremap <Esc><Esc> <cmd>nohlsearch<CR>
 
 " Moving lines up and down in code
 inoremap <A-j> <cmd>m.+1<CR>==gi
