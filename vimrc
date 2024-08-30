@@ -38,10 +38,6 @@ set spelloptions=camel
 set splitbelow
 set splitright
 
-" CoC-required settings
-set nobackup
-set nowritebackup
-set updatetime=300
 
 " Tabs
 set noexpandtab

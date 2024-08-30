@@ -12,6 +12,13 @@ let g:coc_snippet_next = '<Tab>'
 let g:coc_snippet_prev = '<S-Tab>'
 
 " }}}
+" Settings {{{
+
+set nobackup
+set nowritebackup
+set updatetime=300
+
+" }}}
 " Functions {{{
 
 function! CheckBackspace() abort
