@@ -1,3 +1,5 @@
+vim.cmd("call minpac#add('nvim-lualine/lualine.nvim')")
+
 require("lualine").setup({
 	extensions = { "neo-tree" },
 	tabline = {

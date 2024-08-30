@@ -1,3 +1,5 @@
+vim.cmd("call minpac#add('mfussenegger/nvim-lint')")
+
 require("lint").linters_by_ft = {
 	markdown = { "write_good" },
 	lua = { "selene" },

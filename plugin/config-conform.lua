@@ -1,3 +1,5 @@
+vim.cmd("call minpac#add('stevearc/conform.nvim')")
+
 require("conform").setup({
 	default_format_opts = {
 		timeout_ms = 10000,
