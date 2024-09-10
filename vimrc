@@ -62,11 +62,6 @@ call minpac#add('k-takata/minpac', {'type': 'opt'})
 " Editing
 call minpac#add('tpope/vim-surround')
 call minpac#add('tpope/vim-sleuth')
-" Version Control
-call minpac#add('tpope/vim-fugitive')
-call minpac#add('rbong/vim-flog')
-call minpac#add('airblade/vim-gitgutter')
-call minpac#add('tpope/vim-rhubarb')
 
 command! PackUpdate call minpac#update()
 command! PackClean call minpac#clean()
