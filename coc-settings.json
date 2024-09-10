@@ -5,7 +5,7 @@
       "filetypes": ["vim", "eruby", "markdown", "yaml", "lua"],
       "rootPatterns": [".git", "vimrc", "init.vim", "selene.toml"]
     },
-    "golang": {
+    "gopls": {
       "command": "gopls",
       "filetypes": ["go"],
       "rootPatterns": ["go.mod"]
@@ -24,5 +24,6 @@
   },
   "ltex.disabledRules": {
     "en-US": ["MORFOLOGIK_RULE_EN_US"]
-  }
+  },
+  "prettier.documentSelectors": ["**/*.qmd"]
 }
