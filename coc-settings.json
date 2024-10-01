@@ -16,8 +16,8 @@
       "rootPatterns": [".git", ".luarc.json"]
     },
     "vimls": {
-      "args": ["--stdio"],
-      "command": "vim-language-server",
+      "args": ["-y", "vim-language-server", "--stdio"],
+      "command": "npx",
       "filetypes": ["vim"],
       "rootPatterns": ["vimrc", "init.vim"]
     }
