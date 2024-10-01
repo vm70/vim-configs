@@ -20,7 +20,8 @@ let g:nerdfont#path#extension#customs = {'yml': '', 'yaml': '', 'go': '
 " Keymaps {{{
 
 " Toggle File Tree
-nnoremap <leader>e <cmd>Fern %:h -toggle -drawer<CR>
+nnoremap <leader>e <cmd>Fern . -toggle -drawer<CR>
+nnoremap <leader>E <cmd>Fern %:h -toggle -drawer<CR>
 
 " }}}
 " Autocommands {{{
