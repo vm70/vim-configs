@@ -1,3 +1,5 @@
+" Install Conditions {{{
+
 if !executable('npm')
   finish
 endif
@@ -5,6 +7,7 @@ endif
 call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
 call minpac#add('honza/vim-snippets')
 
+" }}}
 " Globals {{{
 
 let g:coc_global_extensions = ['coc-ltex', 'coc-snippets', '@yaegassy/coc-pylsp', '@yaegassy/coc-ruff', 'coc-prettier', 'coc-yaml', 'coc-toml']
