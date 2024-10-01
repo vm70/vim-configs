@@ -26,6 +26,7 @@ set autoindent
 set autoread
 set foldlevelstart=6
 set foldmethod=marker
+set hlsearch
 set incsearch
 set linebreak
 set mouse=a
