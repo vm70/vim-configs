@@ -1,4 +1,5 @@
 {
+  "explorer.icon.enableNerdfont": true,
   "languageserver": {
     "efm": {
       "command": "efm-langserver",
@@ -9,11 +10,6 @@
       "command": "gopls",
       "filetypes": ["go"],
       "rootPatterns": ["go.mod"]
-    },
-    "luals": {
-      "command": "lua-language-server",
-      "filetypes": ["lua"],
-      "rootPatterns": [".git", ".luarc.json"]
     },
     "vimls": {
       "args": ["-y", "vim-language-server", "--stdio"],

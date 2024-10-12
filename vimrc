@@ -39,13 +39,13 @@ set spelloptions=camel
 set splitbelow
 set splitright
 
-
 " Tabs
 set noexpandtab
 set shiftwidth=2
 set tabstop=2
 
 filetype plugin on
+syntax on
 
 " }}}
 " Package Setup {{{
@@ -82,7 +82,6 @@ nnoremap <A-k> <cmd>m.-2<CR>==
 vnoremap <A-j> <cmd>m'>+1<CR>gv=gv
 vnoremap <A-k> <cmd>m'<-2<CR>gv=gv
 
-
 " }}}
 " Commands {{{
 
@@ -93,6 +92,6 @@ command! QuartoRender :terminal quarto render
 " }}}
 " Colors {{{
 
-colorscheme retrobox
+silent! colorscheme gruvbox
 
 " }}}

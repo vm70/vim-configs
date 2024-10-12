@@ -10,7 +10,17 @@ call minpac#add('honza/vim-snippets')
 " }}}
 " Globals {{{
 
-let g:coc_global_extensions = ['coc-ltex', 'coc-snippets', '@yaegassy/coc-pylsp', '@yaegassy/coc-ruff', 'coc-prettier', 'coc-yaml', 'coc-toml']
+let g:coc_global_extensions = [
+      \ '@yaegassy/coc-pylsp',
+      \ '@yaegassy/coc-ruff',
+      \ 'coc-ltex',
+      \ 'coc-lua',
+      \ 'coc-prettier',
+      \ 'coc-snippets',
+      \ 'coc-stylua',
+      \ 'coc-toml',
+      \ 'coc-yaml',
+      \ ]
 let g:coc_snippet_next = '<Tab>'
 let g:coc_snippet_prev = '<S-Tab>'
 
@@ -72,6 +82,8 @@ xmap ac <Plug>(coc-classobj-a)
 xmap af <Plug>(coc-funcobj-a)
 xmap ic <Plug>(coc-classobj-i)
 xmap if <Plug>(coc-funcobj-i)
+
+nmap <leader>e <cmd>CocCommand explorer<CR>
 
 " }}}
 " Commands {{{
