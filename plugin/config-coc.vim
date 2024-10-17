@@ -13,11 +13,11 @@ call minpac#add('honza/vim-snippets')
 let g:coc_global_extensions = [
       \ '@yaegassy/coc-pylsp',
       \ '@yaegassy/coc-ruff',
+      \ 'coc-explorer',
       \ 'coc-ltex',
       \ 'coc-lua',
       \ 'coc-prettier',
       \ 'coc-snippets',
-      \ 'coc-stylua',
       \ 'coc-toml',
       \ 'coc-yaml',
       \ ]
