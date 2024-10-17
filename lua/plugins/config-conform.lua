@@ -1,5 +1,14 @@
 return {
 	"stevearc/conform.nvim",
+	keys = {
+		{
+			"<leader>cf",
+			function()
+				require("conform").format()
+			end,
+			desc = "Format buffer",
+		},
+	},
 	opts = {
 		default_format_opts = {
 			timeout_ms = 10000,
@@ -20,16 +29,6 @@ return {
 					},
 				},
 			},
-			-- black = {
-			-- 	args = {
-			-- 		"--stdin-filename",
-			-- 		"$FILENAME",
-			-- 		"--quiet",
-			-- 		"--line-length",
-			-- 		"79",
-			-- 		"-",
-			-- 	},
-			-- },
 			prettier = {
 				options = {
 					ext_parsers = {
@@ -39,14 +38,14 @@ return {
 					},
 				},
 			},
-			-- raco_fmt = {
-			-- 	command = "raco",
-			-- 	args = { "fmt", "--indent", "2", "--width", "80" },
-			-- 	stdin = true,
-			-- 	cwd = require("conform.util").root_file({ ".fmt.rkt" }),
-			-- 	require_cwd = false,
-			-- 	exit_codes = { 0, 1 },
-			-- },
+			raco_fmt = {
+				command = "raco",
+				args = { "fmt", "--indent", "2", "--width", "80" },
+				stdin = true,
+				-- cwd = require("conform.util").root_file({ ".fmt.rkt" }),
+				require_cwd = false,
+				exit_codes = { 0, 1 },
+			},
 		},
 		formatters_by_ft = {
 			go = { "gofumpt" },
@@ -63,5 +62,5 @@ return {
 			yaml = { "prettier" },
 			json = { "prettier" },
 		},
-	}
+	},
 }
