@@ -1,4 +1,4 @@
-set guifont=JetBrainsMono\ Nerd\ Font\ Mono
+set guifont=JetBrainsMono\ Nerd\ Font\ Mono\ 12
 set guioptions-=L
 set guioptions-=R
 set guioptions-=T
