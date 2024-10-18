@@ -1,4 +1,6 @@
-vim.cmd("call minpac#add('stevearc/conform.nvim')")
+vim.fn["minpac#add"]("stevearc/conform.nvim")
+
+vim.keymap.set("n", "<leader>cf", require("conform").format)
 
 require("conform").setup({
 	default_format_opts = {
@@ -43,7 +45,7 @@ require("conform").setup({
 			command = "raco",
 			args = { "fmt", "--indent", "2", "--width", "80" },
 			stdin = true,
-			cwd = require("conform.util").root_file({ ".fmt.rkt" }),
+			-- cwd = require("conform.util").root_file({ ".fmt.rkt" }),
 			require_cwd = false,
 			exit_codes = { 0, 1 },
 		},

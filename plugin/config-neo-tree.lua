@@ -1,7 +1,7 @@
-vim.cmd("call minpac#add('nvim-neo-tree/neo-tree.nvim')")
-vim.cmd("call minpac#add('nvim-lua/plenary.nvim')")
-vim.cmd("call minpac#add('nvim-tree/nvim-web-devicons')")
-vim.cmd("call minpac#add('MunifTanjim/nui.nvim')")
+vim.fn["minpac#add"]("nvim-neo-tree/neo-tree.nvim")
+vim.fn["minpac#add"]("nvim-lua/plenary.nvim")
+vim.fn["minpac#add"]("nvim-tree/nvim-web-devicons")
+vim.fn["minpac#add"]("MunifTanjim/nui.nvim")
 
 require("neo-tree").setup({
 	filesystem = {
