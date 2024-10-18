@@ -4,10 +4,7 @@ return {
 	{ "tpope/vim-rhubarb" },
 	{
 		"lewis6991/gitsigns.nvim",
-		keys = {
-			{ "]h", "<cmd>Gitsigns next_hunk<CR>", desc = "Go to next hunk" },
-			{ "[h", "<cmd>Gitsigns prev_hunk<CR>", desc = "Go to previous hunk" },
-		},
+		keys = {},
 		opts = {
 			signs = {
 				add = { text = "+" },
@@ -17,5 +14,9 @@ return {
 				changedelete = { text = "~" },
 			},
 		},
+		config = function()
+			vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<CR>", { desc = "Go to next hunk" })
+			vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk<CR>", { desc = "Go to previous hunk" })
+		end,
 	},
 }
