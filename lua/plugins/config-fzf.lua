@@ -4,5 +4,5 @@ return {
 	config = function()
 		vim.g.fzf_vim = {}
 		vim.g.fzf_vim.tags_command = "!rg --files | ctags -R -L"
-	end
+	end,
 }

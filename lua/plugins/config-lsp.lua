@@ -5,11 +5,11 @@ end
 return {
 	"neovim/nvim-lspconfig",
 	dependencies = {
+		"ms-jpq/coq_nvim",
 		{ "williamboman/mason.nvim", opts = {} },
 		{
 			"williamboman/mason-lspconfig.nvim",
 			opts = {
-				ensure_installed = { "lua_ls" },
 				automatic_installation = true,
 				handlers = { default_setup },
 			},
