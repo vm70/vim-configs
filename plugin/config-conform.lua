@@ -9,7 +9,6 @@ require("conform").setup({
 		lsp_fallout = true,
 	},
 	format_on_save = {
-		-- I recommend these options. See :help conform.format for details.
 		lsp_format = "fallback",
 		timeout_ms = 50000,
 	},
@@ -22,16 +21,6 @@ require("conform").setup({
 				},
 			},
 		},
-		-- black = {
-		-- 	args = {
-		-- 		"--stdin-filename",
-		-- 		"$FILENAME",
-		-- 		"--quiet",
-		-- 		"--line-length",
-		-- 		"79",
-		-- 		"-",
-		-- 	},
-		-- },
 		prettier = {
 			options = {
 				ext_parsers = {
@@ -45,7 +34,7 @@ require("conform").setup({
 			command = "raco",
 			args = { "fmt", "--indent", "2", "--width", "80" },
 			stdin = true,
-			-- cwd = require("conform.util").root_file({ ".fmt.rkt" }),
+			cwd = require("conform.util").root_file({ ".fmt.rkt" }),
 			require_cwd = false,
 			exit_codes = { 0, 1 },
 		},

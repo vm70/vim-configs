@@ -1,6 +1,7 @@
-vim.fn["minpac#add"]("neovim/nvim-lspconfig")
 vim.fn["minpac#add"]("ms-jpq/coq.nvim")
+vim.fn["minpac#add"]("neovim/nvim-lspconfig")
 vim.fn["minpac#add"]("williamboman/mason-lspconfig.nvim")
+vim.fn["minpac#add"]("williamboman/mason.nvim")
 
 local servers = {
 	golangci_lint_ls = {},
@@ -28,6 +29,7 @@ end
 
 require("mason").setup({})
 require("mason-lspconfig").setup({
+	ensure_installed = vim.tbl_keys(servers),
 	automatic_installation = true,
 	handlers = { default_setup },
 })
