@@ -60,9 +60,6 @@ endif
 packadd minpac
 call minpac#init()
 call minpac#add('k-takata/minpac', {'type': 'opt'})
-" Editing
-call minpac#add('tpope/vim-surround')
-call minpac#add('tpope/vim-sleuth')
 
 command! PackUpdate call minpac#update()
 command! PackClean call minpac#clean()
