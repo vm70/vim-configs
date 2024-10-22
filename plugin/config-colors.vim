@@ -1,6 +1,6 @@
 call minpac#add('gruvbox-community/gruvbox')
 
-highlight clear SpellBad
-highlight clear SpellRare
-highlight SpellBad cterm=underline
-highlight SpellRare cterm=underline
+highlight SpellBad cterm=underline ctermbg=NONE
+highlight SpellCap cterm=underline ctermbg=NONE
+highlight SpellLocal cterm=underline ctermbg=NONE
+highlight spellRare cterm=underline ctermbg=NONE
