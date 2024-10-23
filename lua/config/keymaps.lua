@@ -1,6 +1,9 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
+-- Escape Terminal
+vim.keymap.set("t", "<Esc><Esc>", "<C-N><C-\\>")
+
 -- Stop highlight search
 vim.keymap.set("n", "<Esc><Esc>", "<cmd>nohlsearch<CR>")
 
