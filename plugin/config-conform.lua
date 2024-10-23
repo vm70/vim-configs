@@ -15,7 +15,7 @@ require("conform").setup({
 	formatters = {
 		injected = {
 			options = {
-				ignore_errors = true,
+				ignore_errors = false,
 				lang_to_formatters = {
 					python = { "black" },
 				},

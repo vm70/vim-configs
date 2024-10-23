@@ -1,7 +1,15 @@
-vim.fn["minpac#add"]("ms-jpq/coq.nvim")
+vim.fn["minpac#add"]("ms-jpq/coq.artifacts", { branch = "artifacts" })
+vim.fn["minpac#add"]("ms-jpq/coq.thirdparty", { branch = "3p" })
+vim.fn["minpac#add"]("ms-jpq/coq_nvim", { branch = "coq", ["do"] = "packloadall! | COQdeps" })
 vim.fn["minpac#add"]("neovim/nvim-lspconfig")
 vim.fn["minpac#add"]("williamboman/mason-lspconfig.nvim")
 vim.fn["minpac#add"]("williamboman/mason.nvim")
+
+vim.g.coq_settings = { auto_start = "shut-up" }
+
+local default_setup = function(server)
+	require("lspconfig")[server].setup(require("coq").lsp_ensure_capabilities())
+end
 
 local servers = {
 	golangci_lint_ls = {},
@@ -22,26 +30,9 @@ local servers = {
 	},
 }
 
-local function default_setup(server_name)
-	require("lspconfig")[server_name].setup(servers[server_name])
-	require("lspconfig")[server_name].setup(require("coq").lsp_ensure_capabilities({}))
-end
-
 require("mason").setup({})
 require("mason-lspconfig").setup({
 	ensure_installed = vim.tbl_keys(servers),
 	automatic_installation = true,
 	handlers = { default_setup },
 })
-
-vim.keymap.set("n", "<leader>cC", vim.lsp.codelens.refresh)
-vim.keymap.set("n", "<leader>cC", vim.lsp.codelens.refresh)
-vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
-vim.keymap.set("n", "<leader>cc", vim.lsp.codelens.run)
-vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename)
-vim.keymap.set("n", "<leader>xx", vim.diagnostic.setqflist)
-vim.keymap.set("n", "gD", vim.lsp.buf.declaration)
-vim.keymap.set("n", "gI", vim.lsp.buf.implementation)
-vim.keymap.set("n", "gd", vim.lsp.buf.definition)
-vim.keymap.set("n", "gr", vim.lsp.buf.references)
-vim.keymap.set("n", "gy", vim.lsp.buf.type_definition)

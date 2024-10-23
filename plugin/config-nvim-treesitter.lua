@@ -1,4 +1,4 @@
-vim.cmd("call minpac#add('nvim-treesitter/nvim-treesitter', {'do': 'packloadall! | TSUpdate'})")
+vim.fn["minpac#add"]("nvim-treesitter/nvim-treesitter", { ["do"] = "packloadall! | TSUpdate" })
 
 require("nvim-treesitter.configs").setup({
 	ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline" },

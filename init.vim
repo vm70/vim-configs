@@ -88,10 +88,6 @@ tnoremap <Esc> <C-\><C-n>
 " Edit Vim RC file
 command! Vimrc :cd ~/.vim | edit $MYVIMRC
 
-" Quarto Commands
-command! QuartoPreview :terminal quarto preview
-command! QuartoRender :terminal quarto render
-
 " }}}
 " Autocommands {{{
 
