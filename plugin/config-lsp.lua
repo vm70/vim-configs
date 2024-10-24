@@ -28,6 +28,7 @@ local servers = {
 			},
 		},
 	},
+	efm = { filetypes = { "vim", "markdown", "lua" } },
 }
 
 require("mason").setup({})
