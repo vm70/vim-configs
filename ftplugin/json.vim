@@ -1,4 +1,7 @@
 setlocal conceallevel=0
 setlocal nospell
 
-command! SortJSON :execute ':%!jq -S .'
+if executable('jq')
+  setlocal equalprg=jq\ -S\ |
+  command! SortJSON :execute ':%!jq -S'
+endif
