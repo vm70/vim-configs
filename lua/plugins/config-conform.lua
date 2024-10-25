@@ -1,5 +1,4 @@
 require("conform").setup({
-	branch = "v8.1.0",
 	default_format_opts = {
 		timeout_ms = 10000,
 		async = true,
