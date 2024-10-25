@@ -15,7 +15,7 @@ set background=dark
 set conceallevel=2
 set cursorline
 set list
-set listchars=tab:>\ ,trail:-,nbsp:+
+set listchars=tab:>\ ,trail:·,nbsp:+
 set number
 set showbreak=↪\ |
 set termguicolors
