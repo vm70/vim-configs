@@ -1,8 +1,5 @@
-vim.fn["minpac#add"]("stevearc/conform.nvim")
-
-vim.keymap.set("n", "<leader>cf", require("conform").format)
-
 require("conform").setup({
+	branch = "v8.1.0",
 	default_format_opts = {
 		timeout_ms = 10000,
 		async = true,
@@ -45,7 +42,7 @@ require("conform").setup({
 		javascript = { "prettier" },
 		lua = { "stylua" },
 		markdown = { "prettier", "injected" },
-		pandoc = { "prettier" },
+		pandoc = { "prettier", "injected" },
 		python = { "isort", "black", "ruff" },
 		quarto = { "prettier", "injected" },
 		racket = { "raco_fmt" },
@@ -55,3 +52,5 @@ require("conform").setup({
 		json = { "prettier" },
 	},
 })
+
+vim.keymap.set("n", "<leader>cf", require("conform").format)

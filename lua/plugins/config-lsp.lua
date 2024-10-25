@@ -1,10 +1,3 @@
-vim.fn["minpac#add"]("ms-jpq/coq.artifacts", { branch = "artifacts" })
-vim.fn["minpac#add"]("ms-jpq/coq.thirdparty", { branch = "3p" })
-vim.fn["minpac#add"]("ms-jpq/coq_nvim", { branch = "coq", ["do"] = "packloadall! | COQdeps" })
-vim.fn["minpac#add"]("neovim/nvim-lspconfig")
-vim.fn["minpac#add"]("williamboman/mason-lspconfig.nvim")
-vim.fn["minpac#add"]("williamboman/mason.nvim")
-
 vim.g.coq_settings = { auto_start = "shut-up" }
 
 local default_setup = function(server)

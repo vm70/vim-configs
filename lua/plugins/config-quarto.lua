@@ -1,6 +1,3 @@
-vim.fn["minpac#add"]("quarto-dev/quarto-nvim")
-vim.fn["minpac#add"]("jmbuhr/otter.nvim")
-
 require("quarto").setup({
 	lspFeatures = {
 		enabled = true,
