@@ -96,6 +96,7 @@ require("pckr").add({
 	-- Plugins without configurations
 	{ "ellisonleao/gruvbox.nvim" },
 	{ "tpope/vim-surround" },
+	{ "tpope/vim-sleuth" },
 })
 
 -- }}}
