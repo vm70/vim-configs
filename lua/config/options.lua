@@ -3,7 +3,7 @@ vim.opt.background = "dark"
 vim.opt.conceallevel = 2
 vim.opt.cursorline = true
 vim.opt.list = true
-vim.opt.listchars = { tab = "> ", trail = "-", nbsp = "+" }
+vim.opt.listchars = { tab = "> ", trail = "·", nbsp = "+" }
 vim.opt.number = true
 vim.opt.showbreak = "↪ "
 vim.opt.termguicolors = true
