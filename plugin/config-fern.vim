@@ -1,13 +1,8 @@
-" Install Conditions {{{
+" Run Conditions {{{
 
 if executable('npm')
   finish
 endif
-
-call minpac#add('lambdalisue/vim-fern')
-call minpac#add('lambdalisue/vim-fern-git-status')
-call minpac#add('lambdalisue/vim-fern-hijack')
-call minpac#add('lambdalisue/vim-fern-renderer-nerdfont')
 
 " }}}
 " Globals {{{

@@ -1,5 +1,3 @@
-call minpac#add('jpalardy/vim-slime', {'type': 'opt'})
-
 let g:slime_target = has('nvim') ? 'neovim' : 'vimterminal'
 
 augroup repl

@@ -1,11 +1,8 @@
-" Install Conditions {{{
+" Run Conditions {{{
 
 if !executable('npm')
   finish
 endif
-
-call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
-call minpac#add('honza/vim-snippets')
 
 " }}}
 " Globals {{{

@@ -61,9 +61,51 @@ packadd minpac
 call minpac#init()
 call minpac#add('k-takata/minpac', {'type': 'opt'})
 
+" Nerd Fonts
+call minpac#add('lambdalisue/vim-glyph-palette')
+call minpac#add('lambdalisue/vim-nerdfont')
+" Status Line
+call minpac#add('Freed-Wu/airline-renderer-nerdfont.vim', {'name': 'vim-airline-nerdfont'})
+call minpac#add('vim-airline/vim-airline')
+" Colorscheme
+call minpac#add('gruvbox-community/gruvbox')
+" Fuzzy Finding
+call minpac#add('junegunn/fzf.vim')
+call minpac#add('junegunn/fzf', {'do': 'packloadall! | call fzf#install()'})
+" Editing
+call minpac#add('tpope/vim-commentary') " packadd comment
+call minpac#add('tpope/vim-sleuth')
+" Git integration
+call minpac#add('tpope/vim-fugitive')
+call minpac#add('rbong/vim-flog')
+call minpac#add('airblade/vim-gitgutter')
+call minpac#add('tpope/vim-rhubarb')
+" Markdown Preview
+call minpac#add('iamcco/markdown-preview.nvim', {'do': 'packloadall! | call mkdp#util#install()'})
+" Jupyter/REPL
+call minpac#add('jpalardy/vim-slime', {'type': 'opt'})
+call minpac#add('tpope/vim-surround')
+
+if !executable('npm')
+  " File Tree
+  call minpac#add('lambdalisue/vim-fern')
+  call minpac#add('lambdalisue/vim-fern-git-status')
+  call minpac#add('lambdalisue/vim-fern-hijack')
+  call minpac#add('lambdalisue/vim-fern-renderer-nerdfont')
+else
+  " File Tree, LSP Integration, Snippets, Autocompletion
+  call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
+  call minpac#add('honza/vim-snippets')
+endif
+
 command! PackUpdate call minpac#update()
 command! PackClean call minpac#clean()
 command! PackStatus call minpac#status()
+
+" Run PackUpdate if there are missing plugins
+if len(filter(values(minpac#getpluglist()), '!isdirectory(v:val.dir)'))
+  call minpac#update()
+endif
 
 " }}}
 " Keymaps {{{
