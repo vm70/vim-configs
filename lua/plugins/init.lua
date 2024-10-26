@@ -79,6 +79,9 @@ require("pckr").add({
 	{ -- Treesitter (syntax highlighting and other useful features)
 		"nvim-treesitter/nvim-treesitter",
 		run = ":TSUpdate",
+		requires = {
+			"nvim-treesitter/nvim-treesitter-textobjects",
+		},
 		config = "plugins.config-nvim-treesitter",
 	},
 	{ -- Quarto
