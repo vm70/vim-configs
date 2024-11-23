@@ -11,12 +11,6 @@
       "command": "gopls",
       "filetypes": ["go"],
       "rootPatterns": ["go.mod"]
-    },
-    "vimls": {
-      "args": ["-y", "vim-language-server", "--stdio"],
-      "command": "npx",
-      "filetypes": ["vim"],
-      "rootPatterns": ["vimrc", "init.vim"]
     }
   },
   "ltex.disabledRules": {

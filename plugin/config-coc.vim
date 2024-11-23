@@ -15,7 +15,9 @@ let g:coc_global_extensions = [
       \ 'coc-lua',
       \ 'coc-prettier',
       \ 'coc-snippets',
+      \ 'coc-texlab',
       \ 'coc-toml',
+      \ 'coc-vimlsp',
       \ 'coc-yaml',
       \ ]
 let g:coc_snippet_next = '<Tab>'
