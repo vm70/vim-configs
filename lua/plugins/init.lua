@@ -1,7 +1,7 @@
 -- Bootstrap Pckr {{{
 
 local function bootstrap_pckr()
-	local pckr_path = vim.fn.stdpath("data") .. "/pckr/pckr.nvim"
+	local pckr_path = vim.fn.stdpath("config") .. "/pack/pckr/opt/pckr.nvim"
 	if not (vim.uv or vim.loop).fs_stat(pckr_path) then
 		vim.fn.system({
 			"git",
@@ -11,9 +11,9 @@ local function bootstrap_pckr()
 			pckr_path,
 		})
 	end
-	vim.opt.rtp:prepend(pckr_path)
+	vim.cmd.packadd("pckr.nvim")
+	require("pckr").setup({ package_root = vim.fn.stdpath("config") .. "/pack" })
 end
-
 bootstrap_pckr()
 
 -- }}}
@@ -23,6 +23,8 @@ local cmd = require("pckr.loader.cmd")
 -- local keys = require("pckr.loader.keys")
 
 require("pckr").add({
+	-- Let Pckr manage itself
+	{ "lewis6991/pckr.nvim" },
 	{ -- Auto & injected code block formatting
 		"stevearc/conform.nvim",
 		config = "plugins.config-conform",
@@ -76,22 +78,22 @@ require("pckr").add({
 		},
 		config = "plugins.config-neo-tree",
 	},
-	{ -- Treesitter (syntax highlighting and other useful features)
-		"nvim-treesitter/nvim-treesitter",
-		run = ":TSUpdate",
-		requires = {
-			"nvim-treesitter/nvim-treesitter-textobjects",
-		},
-		config = "plugins.config-nvim-treesitter",
-	},
-	{ -- Quarto
-		"quarto-dev/quarto-nvim",
-		requires = {
-			"jmbuhr/otter.nvim",
-			"neovim/nvim-lspconfig",
-		},
-		config = "plugins.config-quarto",
-	},
+	-- { -- Treesitter (syntax highlighting and other useful features)
+	-- 	"nvim-treesitter/nvim-treesitter",
+	-- 	run = ":TSUpdate",
+	-- 	requires = {
+	-- 		"nvim-treesitter/nvim-treesitter-textobjects",
+	-- 	},
+	-- 	config = "plugins.config-nvim-treesitter",
+	-- },
+	-- { -- Quarto
+	-- 	"quarto-dev/quarto-nvim",
+	-- 	requires = {
+	-- 		"jmbuhr/otter.nvim",
+	-- 		"neovim/nvim-lspconfig",
+	-- 	},
+	-- 	config = "plugins.config-quarto",
+	-- },
 	{ -- Slime (for REPL interactions)
 		"jpalardy/vim-slime",
 		config = "plugins.config-slime",
