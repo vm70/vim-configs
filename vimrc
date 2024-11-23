@@ -79,12 +79,10 @@ call minpac#add('tpope/vim-sleuth')
 call minpac#add('tpope/vim-fugitive')
 call minpac#add('rbong/vim-flog')
 call minpac#add('airblade/vim-gitgutter')
-call minpac#add('tpope/vim-rhubarb')
 " Markdown Preview
 call minpac#add('iamcco/markdown-preview.nvim', {'do': 'packloadall! | call mkdp#util#install()'})
 " Jupyter/REPL
 call minpac#add('jpalardy/vim-slime', {'type': 'opt'})
-call minpac#add('tpope/vim-surround')
 
 if !executable('npm')
   " File Tree
