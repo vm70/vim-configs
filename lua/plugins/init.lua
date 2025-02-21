@@ -12,8 +12,9 @@ local function bootstrap_pckr()
 		})
 	end
 	vim.cmd.packadd("pckr.nvim")
-	require("pckr").setup({ package_root = vim.fn.stdpath("config") .. "/pack" })
+	require("pckr").setup({ autoremove = true, package_root = vim.fn.stdpath("config") })
 end
+
 bootstrap_pckr()
 
 -- }}}
