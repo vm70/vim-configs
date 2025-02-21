@@ -42,7 +42,7 @@ require("pckr").add({
 		"tpope/vim-fugitive",
 		requires = {
 			"rbong/vim-flog",
-			"airblade/vim-gitgutter",
+			"lewis6991/gitsigns.nvim",
 			"tpope/vim-rhubarb",
 		},
 		config = "plugins.config-git",
@@ -99,8 +99,13 @@ require("pckr").add({
 		"jpalardy/vim-slime",
 		config = "plugins.config-slime",
 	},
-	-- Plugins without configurations
-	{ "ellisonleao/gruvbox.nvim" },
+	{ -- Gruvbox color scheme
+		"ellisonleao/gruvbox.nvim",
+		config = function()
+			require("gruvbox").setup()
+		end,
+	},
+
 	{ "tpope/vim-surround" },
 	{ "tpope/vim-sleuth" },
 })
