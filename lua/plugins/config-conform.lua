@@ -53,4 +53,4 @@ require("conform").setup({
 	},
 })
 
-vim.keymap.set("n", "<leader>cf", require("conform").format)
+vim.api.nvim_create_user_command("ConformFormat", require("conform").format, { bang = true })
