@@ -49,13 +49,17 @@ require("pckr").add({
 	{ -- Language server configuration
 		"neovim/nvim-lspconfig",
 		requires = {
-			{ "ms-jpq/coq_nvim",                  branch = "coq",      run = ":COQdeps" },
-			{ "ms-jpq/coq.artifacts",             branch = "artifacts" },
-			{ "ms-jpq/coq.thirdparty",            branch = "3p" },
+			{ "ms-jpq/coq_nvim", branch = "coq", run = ":COQdeps" },
+			{ "ms-jpq/coq.artifacts", branch = "artifacts" },
+			{ "ms-jpq/coq.thirdparty", branch = "3p" },
 			{ "williamboman/mason.nvim" },
 			{ "williamboman/mason-lspconfig.nvim" },
 		},
 		config = "plugins.config-lsp",
+	},
+	{ -- Auto & injected code block formatting
+		"stevearc/conform.nvim",
+		config = "plugins.config-conform",
 	},
 	{ -- Diagnostics and quick-fix setup
 		"folke/trouble.nvim",
@@ -82,12 +86,28 @@ require("pckr").add({
 		end,
 	},
 	{ -- Auto detect indentation
-		"tpope/vim-sleuth"
+		"tpope/vim-sleuth",
 	},
 	{ -- Slime (for REPL interactions)
 		"jpalardy/vim-slime",
 		config = "plugins.config-slime",
 	},
+	-- { -- Treesitter (syntax highlighting and other useful features)
+	-- 	"nvim-treesitter/nvim-treesitter",
+	-- 	run = ":TSUpdate",
+	-- 	requires = {
+	-- 		"nvim-treesitter/nvim-treesitter-textobjects",
+	-- 	},
+	-- 	config = "plugins.config-nvim-treesitter",
+	-- },
+	-- { -- Quarto
+	-- 	"quarto-dev/quarto-nvim",
+	-- 	requires = {
+	-- 		"jmbuhr/otter.nvim",
+	-- 		"neovim/nvim-lspconfig",
+	-- 	},
+	-- 	config = "plugins.config-quarto",
+	-- },
 })
 
 -- }}}

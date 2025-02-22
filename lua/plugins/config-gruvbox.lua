@@ -1,5 +1,5 @@
 require("gruvbox").setup({
 	overrides = {
-		SignColumn = { bg = "NONE" }
-	}
+		SignColumn = { bg = "NONE" },
+	},
 })
