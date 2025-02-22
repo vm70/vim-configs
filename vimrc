@@ -3,6 +3,8 @@ scriptencoding utf8
 
 " Global Variables {{{
 
+let g:loaded_netrw = 1
+let g:loaded_netrwPlugin = 1
 let g:filetype_md = 'markdown.pandoc'
 let g:markdown_folding = 1
 let mapleader = ' '
@@ -56,8 +58,13 @@ if empty(glob(config_dir.'/pack/minpac/opt/minpac'))
   silent execute '!git clone https://github.com/k-takata/minpac.git '.config_dir.'/pack/minpac/opt/minpac'
 endif
 
+" Minpac Commands
+command! PackUpdate call minpac#update()
+command! PackClean call minpac#clean()
+command! PackStatus call minpac#status()
+
 " Let Minpac manage itself
-packadd minpac
+packadd! minpac
 call minpac#init()
 call minpac#add('k-takata/minpac', {'type': 'opt'})
 
@@ -73,7 +80,7 @@ call minpac#add('gruvbox-community/gruvbox')
 call minpac#add('junegunn/fzf.vim')
 call minpac#add('junegunn/fzf', {'do': 'packloadall! | call fzf#install()'})
 " Editing
-call minpac#add('tpope/vim-commentary') " packadd comment
+call minpac#add('tpope/vim-surround')
 call minpac#add('tpope/vim-sleuth')
 " Git integration
 call minpac#add('tpope/vim-fugitive')
@@ -83,6 +90,13 @@ call minpac#add('airblade/vim-gitgutter')
 call minpac#add('iamcco/markdown-preview.nvim', {'do': 'packloadall! | call mkdp#util#install()'})
 " Jupyter/REPL
 call minpac#add('jpalardy/vim-slime', {'type': 'opt'})
+
+" Use built-in comment package if available
+if !has('comment-install')
+  call minpac#add('tpope/vim-commentary')
+else
+  packadd! comment
+endif
 
 if !executable('npm')
   " File Tree
@@ -95,10 +109,6 @@ else
   call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
   call minpac#add('honza/vim-snippets')
 endif
-
-command! PackUpdate call minpac#update()
-command! PackClean call minpac#clean()
-command! PackStatus call minpac#status()
 
 " Run PackUpdate if there are missing plugins
 if len(filter(values(minpac#getpluglist()), '!isdirectory(v:val.dir)'))
