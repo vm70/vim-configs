@@ -20,94 +20,74 @@ bootstrap_pckr()
 -- }}}
 -- Instantiate & Configure Plugins {{{
 
-local cmd = require("pckr.loader.cmd")
--- local keys = require("pckr.loader.keys")
-
 require("pckr").add({
-	-- Let Pckr manage itself
-	{ "lewis6991/pckr.nvim" },
-	{ -- Auto & injected code block formatting
-		"stevearc/conform.nvim",
-		config = "plugins.config-conform",
+	{ -- Gruvbox color scheme
+		"ellisonleao/gruvbox.nvim",
+		config = "plugins.config-gruvbox",
 	},
-	{ -- Fuzzy finding
-		"junegunn/fzf.vim",
+	{ -- File tree
+		"nvim-tree/nvim-tree.lua",
 		requires = {
-			"junegunn/fzf",
-			run = ":call fzf#install()",
+			{ -- Nerd font icons
+				"nvim-tree/nvim-web-devicons",
+				config = "plugins.config-nvim-web-devicons",
+			},
 		},
-		config = "plugins.config-fzf",
-	},
-	{ -- Git configuration plugins
-		"tpope/vim-fugitive",
-		requires = {
-			"rbong/vim-flog",
-			"lewis6991/gitsigns.nvim",
-			"tpope/vim-rhubarb",
-		},
-		config = "plugins.config-git",
-	},
-	{ -- Language server configuration
-		"neovim/nvim-lspconfig",
-		requires = {
-			{ "ms-jpq/coq_nvim", branch = "coq", run = ":COQdeps" },
-			{ "ms-jpq/coq.artifacts", branch = "artifacts" },
-			{ "ms-jpq/coq.thirdparty", branch = "3p" },
-			{ "williamboman/mason.nvim" },
-			{ "williamboman/mason-lspconfig.nvim" },
-		},
-		config = "plugins.config-lsp",
+		config = "plugins.config-nvim-tree",
 	},
 	{ -- Status & tab lines
 		"nvim-lualine/lualine.nvim",
 		config = "plugins.config-lualine",
 	},
-	{ -- Markdown preview
-		"iamcco/markdown-preview.nvim",
-		cond = cmd("MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop"),
-		run = ":call mkdp#util#install()",
-		config = "plugins.config-mkdp",
+	{ -- Fuzzy-finding
+		"ibhagwan/fzf-lua",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		config = function()
+			require("fzf-lua").setup({ "fzf-vim" })
+		end,
 	},
-	{ -- File tree
-		"nvim-neo-tree/neo-tree.nvim",
-		branch = "v3.x",
+	{ -- Language server configuration
+		"neovim/nvim-lspconfig",
 		requires = {
-			"nvim-lua/plenary.nvim",
-			"nvim-tree/nvim-web-devicons",
-			"MunifTanjim/nui.nvim",
-			"3rd/image.nvim",
+			{ "ms-jpq/coq_nvim",                  branch = "coq",      run = ":COQdeps" },
+			{ "ms-jpq/coq.artifacts",             branch = "artifacts" },
+			{ "ms-jpq/coq.thirdparty",            branch = "3p" },
+			{ "williamboman/mason.nvim" },
+			{ "williamboman/mason-lspconfig.nvim" },
 		},
-		config = "plugins.config-neo-tree",
+		config = "plugins.config-lsp",
 	},
-	-- { -- Treesitter (syntax highlighting and other useful features)
-	-- 	"nvim-treesitter/nvim-treesitter",
-	-- 	run = ":TSUpdate",
-	-- 	requires = {
-	-- 		"nvim-treesitter/nvim-treesitter-textobjects",
-	-- 	},
-	-- 	config = "plugins.config-nvim-treesitter",
-	-- },
-	-- { -- Quarto
-	-- 	"quarto-dev/quarto-nvim",
-	-- 	requires = {
-	-- 		"jmbuhr/otter.nvim",
-	-- 		"neovim/nvim-lspconfig",
-	-- 	},
-	-- 	config = "plugins.config-quarto",
-	-- },
+	{ -- Diagnostics and quick-fix setup
+		"folke/trouble.nvim",
+		config = function()
+			require("trouble").setup({})
+		end,
+	},
+	{ -- Git configuration plugins
+		"tpope/vim-fugitive",
+		requires = {
+			"rbong/vim-flog",
+			{
+				"lewis6991/gitsigns.nvim",
+				config = function()
+					require("gitsigns").setup({})
+				end,
+			},
+		},
+	},
+	{ -- Edit surrounding characters
+		"kylechui/nvim-surround",
+		config = function()
+			require("nvim-surround").setup({})
+		end,
+	},
+	{ -- Auto detect indentation
+		"tpope/vim-sleuth"
+	},
 	{ -- Slime (for REPL interactions)
 		"jpalardy/vim-slime",
 		config = "plugins.config-slime",
 	},
-	{ -- Gruvbox color scheme
-		"ellisonleao/gruvbox.nvim",
-		config = function()
-			require("gruvbox").setup()
-		end,
-	},
-
-	{ "tpope/vim-surround" },
-	{ "tpope/vim-sleuth" },
 })
 
 -- }}}

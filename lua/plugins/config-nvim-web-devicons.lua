@@ -8,11 +8,3 @@ require("nvim-web-devicons").setup({
 		},
 	},
 })
-
-require("neo-tree").setup({
-	filesystem = {
-		hijack_netrw_behavior = "open_current",
-	},
-})
-
-vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle<CR>")
