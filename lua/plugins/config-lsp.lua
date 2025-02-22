@@ -16,17 +16,16 @@ local servers = {
 	},
 }
 
-if vim.fn.executable("go") == true then
+if vim.fn.executable("go") == 1 then
 	servers.golangci_lint_ls = {}
 	servers.gopls = {}
 end
 
-if vim.fn.executable("python") == true then
+if (vim.fn.executable("python") == 1) or (vim.fn.executable("python3") == 1) then
 	servers.pylsp = {}
-	servers.ruff_lsp = {}
 end
 
-if vim.fn.executable("npm") == true then
+if vim.fn.executable("npm") == 1 then
 	servers.vimls = {}
 end
 
