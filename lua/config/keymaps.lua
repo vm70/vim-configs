@@ -19,11 +19,23 @@ vim.keymap.set("n", "<A-k>", "<cmd>m.-2<CR>==")
 vim.keymap.set("v", "<A-j>", "<cmd>m'>+1<CR>gv=gv")
 vim.keymap.set("v", "<A-k>", "<cmd>m'<-2<CR>gv=gv")
 
+-- File tree
+vim.keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<CR>")
+
+-- Missing previous- and next- keys
+-- vim.keymap.set("n", "[b", "<cmd>bprevious<CR>")
+-- vim.keymap.set("n", "]b", "<cmd>bNext<CR>")
+vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk")
+vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk")
+vim.keymap.set("n", "[t", "<cmd>tabprevious<CR>")
+vim.keymap.set("n", "]t", "<cmd>tabNext<CR>")
+
 -- LSP Commands
 vim.keymap.set("n", "<leader>cC", vim.lsp.codelens.refresh)
 vim.keymap.set("n", "<leader>cC", vim.lsp.codelens.refresh)
 vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
 vim.keymap.set("n", "<leader>cc", vim.lsp.codelens.run)
+vim.keymap.set("n", "<leader>cf", vim.lsp.buf.format)
 vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename)
 vim.keymap.set("n", "<leader>xx", vim.diagnostic.setqflist)
 vim.keymap.set("n", "gD", vim.lsp.buf.declaration)
