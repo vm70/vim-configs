@@ -132,9 +132,9 @@ vnoremap <A-j> <cmd>m'>+1<CR>gv=gv
 vnoremap <A-k> <cmd>m'<-2<CR>gv=gv
 
 " Missing previous- and next- commands
-noremap ]b <cmd>bNext<CR>
+noremap ]b <cmd>bnext<CR>
 noremap [b <cmd>bprevious<CR>
-noremap ]t <cmd>tabNext<CR>
+noremap ]t <cmd>tabnext<CR>
 noremap [t <cmd>tabprevious<CR>
 
 " }}}
