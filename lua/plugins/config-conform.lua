@@ -52,5 +52,3 @@ require("conform").setup({
 		json = { "prettier" },
 	},
 })
-
-vim.api.nvim_create_user_command("ConformFormat", require("conform").format, { bang = true })
