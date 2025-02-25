@@ -16,4 +16,9 @@ end
 require("nvim-tree").setup({
 	on_attach = my_on_attach,
 	diagnostics = { enable = true },
+	renderer = {
+		icons = {
+			git_placement = "right_align",
+		},
+	},
 })
