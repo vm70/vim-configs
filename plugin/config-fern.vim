@@ -15,6 +15,7 @@ nnoremap <leader>E <cmd>Fern %:h -toggle -drawer<CR>
 " Fern customization
 function! s:init_fern() abort
   nmap <buffer> <C-d> <Plug>(fern-action-remove)
+  nmap <buffer> H <Plug>(fern-action-hidden)
 endfunction
 
 augroup my-fern
