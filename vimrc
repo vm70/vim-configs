@@ -46,6 +46,9 @@ set noexpandtab
 set shiftwidth=2
 set tabstop=2
 
+" Diff Options
+set diffopt=internal,filler,closeoff,vertical
+
 filetype plugin on
 syntax on
 
