@@ -1,5 +1,5 @@
 require("lualine").setup({
-	extensions = { "neo-tree" },
+	extensions = { "nvim-tree" },
 	tabline = {
 		lualine_a = { "buffers" },
 		lualine_b = {},
