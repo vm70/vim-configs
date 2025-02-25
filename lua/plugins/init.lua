@@ -74,7 +74,7 @@ require("pckr").add({
 			{
 				"lewis6991/gitsigns.nvim",
 				config = function()
-					require("gitsigns").setup({})
+					require("gitsigns").setup({ diff_opts = { vertical = false } })
 				end,
 			},
 		},
@@ -90,6 +90,9 @@ require("pckr").add({
 	},
 	{ -- Slime (for REPL interactions)
 		"jpalardy/vim-slime",
+		config_pre = function()
+			vim.g.slime_target = "neovim"
+		end,
 		config = "plugins.config-slime",
 	},
 	-- { -- Treesitter (syntax highlighting and other useful features)
