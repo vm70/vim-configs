@@ -1,10 +1,3 @@
-" Run Conditions {{{
-
-if executable('npm')
-  finish
-endif
-
-" }}}
 " Globals {{{
 
 let g:fern#renderer = 'nerdfont'

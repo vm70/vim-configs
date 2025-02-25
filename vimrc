@@ -89,10 +89,13 @@ call minpac#add('tpope/vim-sleuth')
 call minpac#add('tpope/vim-fugitive')
 call minpac#add('rbong/vim-flog')
 call minpac#add('airblade/vim-gitgutter')
-" Markdown Preview
-call minpac#add('iamcco/markdown-preview.nvim', {'do': 'packloadall! | call mkdp#util#install()'})
 " Jupyter/REPL
 call minpac#add('jpalardy/vim-slime', {'type': 'opt'})
+" File Tree
+call minpac#add('lambdalisue/vim-fern')
+call minpac#add('lambdalisue/vim-fern-git-status')
+call minpac#add('lambdalisue/vim-fern-hijack')
+call minpac#add('lambdalisue/vim-fern-renderer-nerdfont')
 
 " Use built-in comment package if available
 if !has('comment-install')
@@ -101,14 +104,10 @@ else
   packadd! comment
 endif
 
-if !executable('npm')
-  " File Tree
-  call minpac#add('lambdalisue/vim-fern')
-  call minpac#add('lambdalisue/vim-fern-git-status')
-  call minpac#add('lambdalisue/vim-fern-hijack')
-  call minpac#add('lambdalisue/vim-fern-renderer-nerdfont')
-else
-  " File Tree, LSP Integration, Snippets, Autocompletion
+if executable('npm')
+  " Markdown Preview
+  call minpac#add('iamcco/markdown-preview.nvim', {'do': 'packloadall! | call mkdp#util#install()'})
+  " LSP Integration, Snippets, Autocompletion
   call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
   call minpac#add('honza/vim-snippets')
 endif

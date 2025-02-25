@@ -10,7 +10,6 @@ endif
 let g:coc_global_extensions = [
       \ '@yaegassy/coc-pylsp',
       \ '@yaegassy/coc-ruff',
-      \ 'coc-explorer',
       \ 'coc-ltex',
       \ 'coc-lua',
       \ 'coc-prettier',
@@ -82,8 +81,6 @@ xmap ac <Plug>(coc-classobj-a)
 xmap af <Plug>(coc-funcobj-a)
 xmap ic <Plug>(coc-classobj-i)
 xmap if <Plug>(coc-funcobj-i)
-
-nmap <leader>e <cmd>CocCommand explorer<CR>
 
 " }}}
 " Commands {{{
