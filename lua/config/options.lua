@@ -30,3 +30,6 @@ vim.opt.splitright = true
 vim.opt.expandtab = false
 vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
+
+-- Diff options
+vim.opt.diffopt = "internal,filler,closeoff,vertical"
