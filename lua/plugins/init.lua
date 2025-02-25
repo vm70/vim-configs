@@ -30,7 +30,7 @@ require("pckr").add({
 		requires = {
 			{ -- Nerd font icons
 				"nvim-tree/nvim-web-devicons",
-				config = "plugins.config-nvim-web-devicons",
+				config = "plugins.config-devicons",
 			},
 		},
 		config = "plugins.config-nvim-tree",
