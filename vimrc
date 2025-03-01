@@ -106,7 +106,7 @@ endif
 
 if executable('npm')
   " Markdown Preview
-  call minpac#add('iamcco/markdown-preview.nvim', {'do': 'packloadall! | call mkdp#util#install()'})
+  call minpac#add('iamcco/markdown-preview.nvim', {'type': 'opt', 'do': 'packadd! markdown-preview.nvim | call mkdp#util#install()'})
   " LSP Integration, Snippets, Autocompletion
   call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
   call minpac#add('honza/vim-snippets')
