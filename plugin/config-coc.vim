@@ -60,8 +60,8 @@ nmap <leader>cc <Plug>(coc-codelens-action)
 nmap <leader>cf <Plug>(coc-format)
 nmap <leader>cr <Plug>(coc-rename)
 nmap <leader>qf <Plug>(coc-fix-current)
-nmap <leader>xx <cmd>CocDiagnostics<CR>
 nmap <leader>xX <cmd>CocList diagnostics<CR>
+nmap <leader>xx <cmd>CocDiagnostics<CR>
 nmap <silent> <leader>r <Plug>(coc-codeaction-refactor)
 nmap <silent> [d <Plug>(coc-diagnostic-prev)
 nmap <silent> ]d <Plug>(coc-diagnostic-next)
