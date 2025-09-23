@@ -8,17 +8,13 @@ endif
 " Globals {{{
 
 let g:coc_global_extensions = [
-      \ '@yaegassy/coc-pylsp',
-      \ '@yaegassy/coc-ruff',
+      \ 'coc-json',
       \ 'coc-ltex',
       \ 'coc-lua',
-      \ 'coc-prettier',
       \ 'coc-snippets',
-      \ 'coc-texlab',
-      \ 'coc-toml',
       \ 'coc-vimlsp',
-      \ 'coc-yaml',
       \ ]
+
 let g:coc_snippet_next = '<Tab>'
 let g:coc_snippet_prev = '<S-Tab>'
 
@@ -32,11 +28,6 @@ set updatetime=300
 " }}}
 " Functions {{{
 
-function! CheckBackspace() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
 function! ShowDocumentation()
   if CocAction('hasProvider', 'hover')
     call CocActionAsync('doHover')
@@ -48,13 +39,7 @@ endfunction
 " }}}
 " Keymaps {{{
 
-if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
-else
-  inoremap <silent><expr> <c-@> coc#refresh()
-endif
-
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" Triggering completion is done with <C-y> (see `:help ins-completion`)
 nmap <leader>ca <Plug>(coc-codeaction-selected)
 nmap <leader>cc <Plug>(coc-codelens-action)
 nmap <leader>cf <Plug>(coc-format)
@@ -66,6 +51,7 @@ nmap <silent> <leader>r <Plug>(coc-codeaction-refactor)
 nmap <silent> [d <Plug>(coc-diagnostic-prev)
 nmap <silent> ]d <Plug>(coc-diagnostic-next)
 nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gD <Plug>(coc-declaration)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nmap <silent> gy <Plug>(coc-type-definition)
@@ -84,9 +70,47 @@ xmap if <Plug>(coc-funcobj-i)
 
 " }}}
 " Commands {{{
+" }}}
+" LSP Setup {{{
 
-command! -nargs=0 Format :call CocActionAsync('format')
-command! -nargs=? Fold :call CocAction('fold', <f-args>)
-command! -nargs=0 OR :call CocActionAsync('runCommand', 'editor.action.organizeImport')
+if executable('gopls')
+  call coc#config('languageserver.gopls', {
+        \ 'command': 'gopls',
+        \ 'filetypes': ['go'],
+        \ 'rootPatterns': ['go.mod']
+        \ })
+endif
+
+if executable('clangd')
+  call coc#config('languageserver.clangd', {
+        \ 'command': 'clangd',
+        \ 'rootPatterns': ['compile_flags.txt', 'compile_commands.json'],
+        \ 'filetypes': ['c', 'cc', 'cpp', 'c++', 'objc', 'objcpp']
+        \ })
+endif
+
+if executable('taplo')
+  call coc#config('languageserver.taplo', {
+        \ 'command': 'taplo',
+        \ 'args': ['lsp', 'stdio'],
+        \ 'filetypes': ['toml'],
+        \ })
+endif
+
+if executable('pylsp')
+  call coc#config('languageserver.pylsp', {
+        \ 'command': 'pylsp',
+        \ 'args': [],
+        \ 'filetypes': ['python'],
+        \ })
+endif
+
+if executable('efm-langserver')
+  call coc#config('languageserver.efm', {
+        \ 'command': 'efm-langserver',
+        \ 'filetypes': ['markdown', 'lua'],
+        \ 'rootPatterns': ['.git', 'vimrc', 'init.vim', 'selene.toml']
+        \ })
+endif
 
 " }}}
