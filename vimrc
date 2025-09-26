@@ -96,7 +96,7 @@ call minpac#add('tpope/vim-sleuth')
 call minpac#add('jpalardy/vim-slime', {'type': 'opt'})
 
 " Use built-in comment package if available
-if v:versionlong >= 910375
+if has('patch-9.1.375')
   packadd! comment
 else
   call minpac#add('tpope/vim-commentary')
