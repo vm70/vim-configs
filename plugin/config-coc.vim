@@ -70,6 +70,9 @@ xmap if <Plug>(coc-funcobj-i)
 
 " }}}
 " Commands {{{
+
+command! -nargs=0 CocFormat :call CocActionAsync('format')
+
 " }}}
 " LSP Setup {{{
 
@@ -108,8 +111,8 @@ endif
 if executable('efm-langserver')
   call coc#config('languageserver.efm', {
         \ 'command': 'efm-langserver',
-        \ 'filetypes': ['markdown', 'lua'],
-        \ 'rootPatterns': ['.git', 'vimrc', 'init.vim', 'selene.toml']
+        \ 'filetypes': ['markdown', 'lua', 'yaml'],
+        \ 'rootPatterns': ['.git', 'vimrc', 'init.vim', 'selene.toml', '.prettierrc']
         \ })
 endif
 
