@@ -113,4 +113,8 @@ if executable('efm-langserver')
         \ })
 endif
 
+call coc#config('ltex.disabledRules', {
+      \ 'en-US': ['MORFOLOGIK_RULE_EN_US']
+      \ })
+
 " }}}
