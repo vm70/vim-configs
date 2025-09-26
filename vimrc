@@ -6,7 +6,6 @@ scriptencoding utf8
 " let g:loaded_netrw = 1
 " let g:loaded_netrwPlugin = 1
 let g:filetype_md = 'markdown.pandoc'
-let g:markdown_folding = 1
 let mapleader = ' '
 
 " }}}
@@ -138,6 +137,15 @@ noremap [t <cmd>tabprevious<CR>
 
 " }}}
 " Commands {{{
+
+command! W :w
+command! WA :wa
+command! WQ :wq
+command! WQA :wqa
+command! WQa :wqa
+command! Wa :w
+command! Wq :wq
+command! Wqa :wqa
 
 " }}}
 " Colors {{{
