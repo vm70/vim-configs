@@ -6,6 +6,7 @@ scriptencoding utf8
 " let g:loaded_netrw = 1
 " let g:loaded_netrwPlugin = 1
 let g:filetype_md = 'markdown.pandoc'
+let g:filetype_v = 'verilog'
 let mapleader = ' '
 
 " }}}
@@ -15,8 +16,9 @@ let mapleader = ' '
 set background=dark
 set conceallevel=2
 set cursorline
+set fillchars=vert:│,fold:-,eob:~
 set list
-set listchars=tab:>\ ,trail:·,nbsp:+
+set listchars=tab:→\ ,trail:·,nbsp:+
 set number
 set showbreak=↪\ |
 set termguicolors
