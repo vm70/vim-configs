@@ -5,3 +5,5 @@ set guioptions-=T
 set guioptions-=l
 set guioptions-=m
 set guioptions-=r
+
+inoremap <C-S-v> <Esc>"*p<CR>i
