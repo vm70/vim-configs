@@ -8,3 +8,5 @@ if executable('black')
   setlocal equalprg=black\ --quiet\ -
   setlocal formatprg=black\ --quiet\ -
 endif
+
+setlocal keywordprg=:LspHover

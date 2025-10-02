@@ -62,11 +62,6 @@ if empty(glob(config_dir.'/pack/minpac/opt/minpac'))
   silent execute '!git clone https://github.com/k-takata/minpac.git '.config_dir.'/pack/minpac/opt/minpac'
 endif
 
-" Minpac Commands
-command! PackUpdate call minpac#update()
-command! PackClean call minpac#clean()
-command! PackStatus call minpac#status()
-
 " Let Minpac manage itself
 packadd! minpac
 call minpac#init()
@@ -93,29 +88,29 @@ call minpac#add('tpope/vim-fugitive')
 call minpac#add('airblade/vim-gitgutter')
 " Editing
 call minpac#add('tpope/vim-surround')
-call minpac#add('tpope/vim-sleuth')
 " Jupyter/REPL
 call minpac#add('jpalardy/vim-slime', {'type': 'opt'})
+" LSP
+call minpac#add('yegappan/lsp', {'type': 'opt'})
+call minpac#add('hrsh7th/vim-vsnip')
+call minpac#add('hrsh7th/vim-vsnip-integ')
+call minpac#add('rafamadriz/friendly-snippets')
 
-" Use built-in comment package if available
-if has('patch-9.1.375')
-  packadd! comment
+" Commenting (if missing builtin comment package)
+if !has('patch-9.1.375')
+  call minpac#add('tpope/vim-commentary', {'name': 'comment'})
 else
-  call minpac#add('tpope/vim-commentary')
-endif
+  packadd! comment
+end
 
-if executable('npm')
-  " Markdown Preview
-  call minpac#add('iamcco/markdown-preview.nvim', {'type': 'opt', 'do': 'packadd! markdown-preview.nvim | call mkdp#util#install()'})
-  " LSP Integration, Snippets, Autocompletion
-  call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
-  call minpac#add('honza/vim-snippets')
-endif
-
-" Run PackUpdate if there are missing plugins
+" Update packages if there are missing plugins
 if len(filter(values(minpac#getpluglist()), '!isdirectory(v:val.dir)'))
   call minpac#update()
 endif
+
+command! PackUpdate call minpac#update()
+command! PackClean call minpac#clean()
+command! PackStatus call minpac#status()
 
 " }}}
 " Keymaps {{{
