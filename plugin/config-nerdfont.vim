@@ -8,7 +8,7 @@ let g:glyph_palette#palette['GlyphPalette4'] += ['', '󰐗']
 let g:glyph_palette#palette['GlyphPalette7'] += ['']
 
 let g:nerdfont#path#basename#customs = {'go.mod':'', 'go.sum': '', 'pyproject.toml': ''}
-let g:nerdfont#path#extension#customs = {'yml': '', 'yaml': '', 'go': '', 'qmd':'󰐗', 'rkt': ''}
+let g:nerdfont#path#extension#customs = {'yml': '', 'yaml': '', 'go': '', 'qmd':'󰐗', 'rkt': '', 'v': '󰍛'}
 
 " }}}
 " Autocommands {{{
