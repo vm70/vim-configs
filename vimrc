@@ -73,7 +73,7 @@ call minpac#init()
 call minpac#add('k-takata/minpac', {'type': 'opt'})
 
 " Colorscheme
-call minpac#add('gruvbox-community/gruvbox')
+call minpac#add('morhetz/gruvbox')
 " Nerd Fonts
 call minpac#add('lambdalisue/vim-glyph-palette')
 call minpac#add('lambdalisue/vim-nerdfont')
