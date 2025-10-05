@@ -74,50 +74,22 @@ xmap if <Plug>(coc-funcobj-i)
 command! -nargs=0 CocFormat :call CocActionAsync('format')
 
 " }}}
-" LSP Setup {{{
-
-if executable('gopls')
-  call coc#config('languageserver.gopls', {
-        \ 'command': 'gopls',
-        \ 'filetypes': ['go'],
-        \ 'rootPatterns': ['go.mod']
-        \ })
-endif
+" LSP Settings {{{
 
 if executable('clangd')
-  call coc#config('languageserver.clangd', {
-        \ 'command': 'clangd',
-        \ 'rootPatterns': ['compile_flags.txt', 'compile_commands.json'],
-        \ 'filetypes': ['c', 'cc', 'cpp', 'c++', 'objc', 'objcpp']
-        \ })
+  call coc#config('languageserver.clangd.enable', v:true)
 endif
-
-if executable('taplo')
-  call coc#config('languageserver.taplo', {
-        \ 'command': 'taplo',
-        \ 'args': ['lsp', 'stdio'],
-        \ 'filetypes': ['toml'],
-        \ })
-endif
-
-if executable('pylsp')
-  call coc#config('languageserver.pylsp', {
-        \ 'command': 'pylsp',
-        \ 'args': [],
-        \ 'filetypes': ['python'],
-        \ })
-endif
-
 if executable('efm-langserver')
-  call coc#config('languageserver.efm', {
-        \ 'command': 'efm-langserver',
-        \ 'filetypes': ['markdown', 'lua', 'yaml'],
-        \ 'rootPatterns': ['.git', 'vimrc', 'init.vim', 'selene.toml', '.prettierrc']
-        \ })
+  call coc#config('languageserver.efm-langserver.enable', v:true)
 endif
-
-call coc#config('ltex.disabledRules', {
-      \ 'en-US': ['MORFOLOGIK_RULE_EN_US']
-      \ })
+if executable('gopls')
+  call coc#config('languageserver.gopls.enable', v:true)
+endif
+if executable('pylsp')
+  call coc#config('languageserver.pylsp.enable', v:true)
+endif
+if executable('taplo')
+  call coc#config('languageserver.taplo.enable', v:true)
+endif
 
 " }}}

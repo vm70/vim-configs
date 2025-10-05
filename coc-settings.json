@@ -1,0 +1,82 @@
+{
+  "[json]": {
+    "coc.preferences.formatterExtension": "efm-langserver"
+  },
+  "coc.preferences.formatOnSave": true,
+  "languageserver": {
+    "clangd": {
+      "command": "clangd",
+      "enable": false,
+      "filetypes": [
+        "c",
+        "cc",
+        "cpp",
+        "c++",
+        "objc",
+        "objcpp"
+      ],
+      "rootPatterns": [
+        "compile_flags.txt",
+        "compile_commands.json"
+      ]
+    },
+    "efm-langserver": {
+      "command": "/usr/bin/efm-langserver",
+      "enable": false,
+      "filetypes": [
+        "markdown",
+        "lua",
+        "yaml",
+        "quarto",
+        "qmd",
+        "json",
+        "jsonc"
+      ],
+      "rootPatterns": [
+        ".git",
+        "vimrc",
+        "init.vim",
+        "selene.toml",
+        ".prettierrc.*"
+      ]
+    },
+    "gopls": {
+      "command": "/usr/bin/gopls",
+      "enable": false,
+      "filetypes": [
+        "go"
+      ],
+      "rootPatterns": [
+        "go.mod"
+      ]
+    },
+    "pylsp": {
+      "args": [],
+      "command": "/usr/bin/pylsp",
+      "enable": false,
+      "filetypes": [
+        "python"
+      ],
+      "rootPatterns": [
+        "pyproject.toml",
+        ".git"
+      ]
+    },
+    "taplo": {
+      "args": [
+        "lsp",
+        "stdio"
+      ],
+      "command": "~/.cargo/bin/taplo",
+      "enable": false,
+      "filetypes": [
+        "toml"
+      ]
+    }
+  },
+  "ltex.disabledRules": {
+    "en-US": [
+      "MORFOLOGIK_RULE_EN_US"
+    ]
+  }
+}
