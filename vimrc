@@ -23,6 +23,7 @@ set number
 set showbreak=↪\ |
 set termguicolors
 set title
+set wildoptions=pum
 
 " Editing
 set autoindent
