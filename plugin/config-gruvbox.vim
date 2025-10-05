@@ -1,7 +1,7 @@
-if &background == 'dark'
+if &background ==# 'dark'
   " hard contrast: #1d2021 / soft contrast: #32302f
   let g:terminal_ansi_colors = [
-    \ '#282828', 
+    \ '#282828',
     \ '#cc241d',
     \ '#98971a',
     \ '#d79921',
@@ -22,10 +22,10 @@ if &background == 'dark'
   highlight SpellBad cterm=underline guisp=#fb4934
   highlight SpellLocal cterm=underline guisp=#8ec07c
   highlight SpellRare cterm=underline guisp=#d3869b
-elseif &background == 'light'
+elseif &background ==# 'light'
   " hard contrast: #f9f5d7 / soft contrast: #f2e5bc
   let g:terminal_ansi_colors = [
-    \ '#fbf1c7', 
+    \ '#fbf1c7',
     \ '#cc241d',
     \ '#98971a',
     \ '#d79921',

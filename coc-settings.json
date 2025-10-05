@@ -15,8 +15,8 @@
     "efm-langserver": {
       "command": "/usr/bin/efm-langserver",
       "enable": false,
-      "filetypes": ["lua"],
-      "rootPatterns": [".git", "selene.toml"]
+      "filetypes": ["lua", "vim"],
+      "rootPatterns": [".git", "selene.toml", "vimrc", "init.vim"]
     },
     "gopls": {
       "command": "/usr/bin/gopls",
