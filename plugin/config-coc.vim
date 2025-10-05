@@ -11,6 +11,7 @@ let g:coc_global_extensions = [
       \ 'coc-json',
       \ 'coc-ltex',
       \ 'coc-lua',
+      \ 'coc-prettier',
       \ 'coc-snippets',
       \ 'coc-vimlsp',
       \ ]
