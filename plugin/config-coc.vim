@@ -25,6 +25,7 @@ let g:coc_snippet_prev = '<S-Tab>'
 set nobackup
 set nowritebackup
 set updatetime=300
+set tagfunc=CocTagFunc
 
 " }}}
 " Functions {{{
