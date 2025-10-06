@@ -2,6 +2,9 @@
   "[json]": {
     "coc.preferences.formatterExtension": "coc-prettier"
   },
+  "[lua]": {
+    "coc.preferences.formatterExtension": "languageserver.stylua"
+  },
   "coc.preferences.formatOnSave": true,
   "coc.preferences.formatOnSaveTimeout": 2000,
   "json.format.enable": false,
@@ -30,6 +33,12 @@
       "enable": false,
       "filetypes": ["python"],
       "rootPatterns": ["pyproject.toml", ".git"]
+    },
+    "stylua": {
+      "args": ["--lsp"],
+      "command": "~/.cargo/bin/stylua",
+      "enable": false,
+      "filetypes": ["lua"]
     },
     "taplo": {
       "args": ["lsp", "stdio"],

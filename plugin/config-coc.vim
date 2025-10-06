@@ -13,6 +13,7 @@ let g:coc_global_extensions = [
       \ 'coc-lua',
       \ 'coc-prettier',
       \ 'coc-snippets',
+      \ 'coc-tsserver',
       \ 'coc-vimlsp',
       \ ]
 
@@ -78,20 +79,12 @@ command! -nargs=0 CocFormat :call CocActionAsync('format')
 " }}}
 " LSP Settings {{{
 
-if executable('clangd')
-  call coc#config('languageserver.clangd.enable', v:true)
-endif
-if executable('efm-langserver')
-  call coc#config('languageserver.efm-langserver.enable', v:true)
-endif
-if executable('gopls')
-  call coc#config('languageserver.gopls.enable', v:true)
-endif
-if executable('pylsp')
-  call coc#config('languageserver.pylsp.enable', v:true)
-endif
-if executable('taplo')
-  call coc#config('languageserver.taplo.enable', v:true)
-endif
+for [k, v] in coc#util#get_config('languageserver') 
+  if executable(v['command'])
+    call coc#config('languageserver.' . k . '.enable', v:true)
+  else
+    call coc#config('languageserver.' . k . '.enable', v:false)
+  endif
+endfor
 
 " }}}
