@@ -101,6 +101,31 @@ vim.keymap.set("n", "<C-P>", "<cmd>FzfLua commands<CR>")
 require("lsp-setup")
 
 -- }}}
+-- Commands {{{
+
+vim.api.nvim_create_user_command("LspFormat", vim.lsp.buf.format, { bang = true })
+
+-- Accidental shift-commands
+vim.api.nvim_create_user_command("W", ":w", { bang = true })
+vim.api.nvim_create_user_command("WA", ":wa", { bang = true })
+vim.api.nvim_create_user_command("WQ", ":wq", { bang = true })
+vim.api.nvim_create_user_command("WQA", ":wqa", { bang = true })
+vim.api.nvim_create_user_command("WQa", ":wqa", { bang = true })
+vim.api.nvim_create_user_command("Wa", ":wa", { bang = true })
+vim.api.nvim_create_user_command("Wq", ":wq", { bang = true })
+vim.api.nvim_create_user_command("Wqa", ":wqa", { bang = true })
+
+-- Edit Vim RC file
+vim.api.nvim_create_user_command("Vimrc", ":edit $MYVIMRC", { bang = true })
+
+-- Quarto Commands
+vim.api.nvim_create_user_command("QuartoPreview", ":terminal quarto preview", { bang = true })
+vim.api.nvim_create_user_command("QuartoRender", ":terminal quarto render", { bang = true })
+
+-- LSP Commands
+vim.api.nvim_create_user_command("LspInfo", ":checkhealth vim.lsp", { bang = true })
+
+-- }}}
 -- Package Setup {{{
 
 local pckr_path = vim.fn.stdpath("config") .. "/pack/pckr/opt/pckr.nvim"
@@ -147,31 +172,6 @@ require("pckr").add({
 		end,
 	},
 })
-
--- }}}
--- Commands {{{
-
-vim.api.nvim_create_user_command("LspFormat", vim.lsp.buf.format, { bang = true })
-
--- Accidental shift-commands
-vim.api.nvim_create_user_command("W", ":w", { bang = true })
-vim.api.nvim_create_user_command("WA", ":wa", { bang = true })
-vim.api.nvim_create_user_command("WQ", ":wq", { bang = true })
-vim.api.nvim_create_user_command("WQA", ":wqa", { bang = true })
-vim.api.nvim_create_user_command("WQa", ":wqa", { bang = true })
-vim.api.nvim_create_user_command("Wa", ":wa", { bang = true })
-vim.api.nvim_create_user_command("Wq", ":wq", { bang = true })
-vim.api.nvim_create_user_command("Wqa", ":wqa", { bang = true })
-
--- Edit Vim RC file
-vim.api.nvim_create_user_command("Vimrc", ":edit $MYVIMRC", { bang = true })
-
--- Quarto Commands
-vim.api.nvim_create_user_command("QuartoPreview", ":terminal quarto preview", { bang = true })
-vim.api.nvim_create_user_command("QuartoRender", ":terminal quarto render", { bang = true })
-
--- LSP Commands
-vim.api.nvim_create_user_command("LspInfo", ":checkhealth vim.lsp", { bang = true })
 
 -- }}}
 -- Colorscheme {{{
