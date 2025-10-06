@@ -1,8 +1,8 @@
 -- Global Variables {{{
 
-vim.g.filetype_md = 'markdown.pandoc'
-vim.g.filetype_v = 'verilog'
-vim.g.mapleader = ' '
+vim.g.filetype_md = "markdown.pandoc"
+vim.g.filetype_v = "verilog"
+vim.g.mapleader = " "
 
 -- }}}
 -- Options {{{
@@ -44,48 +44,8 @@ vim.opt.tabstop = 2
 vim.opt.diffopt = "internal,filler,closeoff,vertical"
 
 -- }}}
--- LSP Setup {{{
-
-require("lsp-setup")
-
--- }}}
--- Package Setup {{{
-
-local pckr_path = vim.fn.stdpath("config") .. "/pack/pckr/opt/pckr.nvim"
-if not (vim.uv or vim.loop).fs_stat(pckr_path) then
-	vim.fn.system({
-		"git",
-		"clone",
-		"--filter=blob:none",
-		"https://github.com/lewis6991/pckr.nvim",
-		pckr_path,
-	})
-end
-vim.cmd.packadd("pckr.nvim")
-require("pckr").setup({ autoremove = true, package_root = vim.fn.stdpath("config") })
-
-require("pckr").add({
-	-- Icons
-	{ "nvim-mini/mini.icons",        config = "config-icons" },
-	-- File Tree
-	{ "nvim-tree/nvim-tree.lua",     config = 'config-nvim-tree' },
-	-- Colorscheme
-	{ "ellisonleao/gruvbox.nvim" },
-	-- Status Line
-	{ "nvim-lualine/lualine.nvim",   config = 'config-lualine' },
-	-- Fuzzy Finding
-	{ "ibhagwan/fzf-lua" },
-	-- Git Integration
-	{ "tpope/vim-fugitive" },
-	{ "lewis6991/gitsigns.nvim",     config = 'config-gitsigns' },
-	-- Completion & Snippets
-	{ "nvim-mini/mini.completion" },
-	{ "nvim-mini/mini.snippets",     config = 'config-snippets' },
-	{ "rafamadriz/friendly-snippets" }
-})
-
--- }}}
 -- Keymaps {{{
+
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
@@ -113,8 +73,8 @@ vim.keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<CR>")
 -- Missing previous- and next- keys
 vim.keymap.set("n", "[b", "<cmd>bprevious<CR>")
 vim.keymap.set("n", "]b", "<cmd>bnext<CR>")
-vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk")
-vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk")
+vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk<CR>")
+vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<CR>")
 vim.keymap.set("n", "[t", "<cmd>tabprevious<CR>")
 vim.keymap.set("n", "]t", "<cmd>tabnext<CR>")
 
@@ -136,9 +96,64 @@ vim.keymap.set("n", "gy", vim.lsp.buf.type_definition)
 vim.keymap.set("n", "<C-P>", "<cmd>FzfLua commands<CR>")
 
 -- }}}
+-- LSP Setup {{{
+
+require("lsp-setup")
+
+-- }}}
+-- Package Setup {{{
+
+local pckr_path = vim.fn.stdpath("config") .. "/pack/pckr/opt/pckr.nvim"
+if not (vim.uv or vim.loop).fs_stat(pckr_path) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/lewis6991/pckr.nvim",
+		pckr_path,
+	})
+end
+vim.cmd.packadd("pckr.nvim")
+require("pckr").setup({ autoremove = true, package_root = vim.fn.stdpath("config") })
+
+require("pckr").add({
+	-- Icons
+	{ "nvim-mini/mini.icons", config = "config-icons" },
+	-- File Tree
+	{ "nvim-tree/nvim-tree.lua", config = "config-nvim-tree" },
+	-- Colorscheme
+	{ "ellisonleao/gruvbox.nvim" },
+	-- Status Line
+	{ "nvim-lualine/lualine.nvim", config = "config-lualine" },
+	-- Fuzzy Finding
+	{ "ibhagwan/fzf-lua" },
+	-- Git Integration
+	{ "tpope/vim-fugitive" },
+	{
+		"lewis6991/gitsigns.nvim",
+		config = function()
+			require("gitsigns").setup({})
+		end,
+	},
+	-- Completion & Snippets
+	{ "nvim-mini/mini.completion" },
+	{ "nvim-mini/mini.snippets", config = "config-snippets" },
+	{ "rafamadriz/friendly-snippets" },
+	-- Surround
+	{
+		"kylechui/nvim-surround",
+		config = function()
+			require("nvim-surround").setup({})
+		end,
+	},
+})
+
+-- }}}
 -- Commands {{{
 
-	-- Accidental shift-commands
+vim.api.nvim_create_user_command("LspFormat", vim.lsp.buf.format, { bang = true })
+
+-- Accidental shift-commands
 vim.api.nvim_create_user_command("W", ":w", { bang = true })
 vim.api.nvim_create_user_command("WA", ":wa", { bang = true })
 vim.api.nvim_create_user_command("WQ", ":wq", { bang = true })
