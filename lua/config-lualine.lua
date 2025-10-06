@@ -1,4 +1,4 @@
-require("lualine").setup({
+require('lualine').setup({
 	extensions = { "nvim-tree" },
 	tabline = {
 		lualine_a = { "buffers" },
