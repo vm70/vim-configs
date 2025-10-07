@@ -36,13 +36,13 @@
     },
     "stylua": {
       "args": ["--lsp"],
-      "command": "~/.cargo/bin/stylua",
+      "command": "$HOME/.cargo/bin/stylua",
       "enable": false,
       "filetypes": ["lua"]
     },
     "taplo": {
       "args": ["lsp", "stdio"],
-      "command": "~/.cargo/bin/taplo",
+      "command": "$HOME/.cargo/bin/taplo",
       "enable": false,
       "filetypes": ["toml"]
     }

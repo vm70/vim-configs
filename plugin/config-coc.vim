@@ -79,10 +79,8 @@ command! -nargs=0 CocFormat :call CocActionAsync('format')
 " }}}
 " LSP Settings {{{
 
-for [k, v] in coc#util#get_config('languageserver') 
-  if executable(v['command'])
-    call coc#config('languageserver.' . k . '.enable', v:true)
-  else
+for [k, v] in items(coc#util#get_config('languageserver')) 
+  if !executable(v['command'])
     call coc#config('languageserver.' . k . '.enable', v:false)
   endif
 endfor
