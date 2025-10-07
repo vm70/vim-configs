@@ -16,5 +16,5 @@ return {
 		"vim",
 		"yaml",
 	},
-	root_markers = { ".git", "selene.toml", "vimrc", "init.vim" },
+	root_markers = { ".git", "selene.toml", "vimrc", "init.vim", ".prettierrc*" },
 }
