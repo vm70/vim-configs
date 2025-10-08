@@ -161,9 +161,12 @@ require("pckr").add({
 		end,
 	},
 	-- Completion & Snippets
-	{ "nvim-mini/mini.completion" },
-	{ "nvim-mini/mini.snippets", config = "config-snippets" },
-	{ "rafamadriz/friendly-snippets" },
+	{
+		"nvim-mini/mini.snippets",
+		config = "config-snippets",
+		requires = { "nvim-mini/mini.completion" },
+		{ "rafamadriz/friendly-snippets" },
+	},
 	-- Surround
 	{
 		"kylechui/nvim-surround",
@@ -171,6 +174,8 @@ require("pckr").add({
 			require("nvim-surround").setup({})
 		end,
 	},
+	-- Treesitter
+	{ "nvim-treesitter/nvim-treesitter", config = "config-treesitter" },
 })
 
 -- }}}
