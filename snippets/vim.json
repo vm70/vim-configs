@@ -1,0 +1,16 @@
+{
+  "Set up LSP Server for `yegappan/lsp`": {
+    "prefix": ["lsp_add"],
+    "body": [
+      "if filereadable('${1:lsp_path}')",
+      "  call LspAddServer([#{",
+      "    \ name: '${2:lsp_name}',",
+      "    \ filetype: '${3:filetypes}',",
+      "    \ path: '${1:lsp_path}',",
+      "    \ rootSearch: ['${4:lsp_root}'],",
+      "    \ }])",
+      "endif"
+    ],
+    "description": "Add a configuration for a language server"
+  }
+}

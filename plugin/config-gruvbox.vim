@@ -1,7 +1,0 @@
-highlight GruvboxRedUnderline cterm=underline
-highlight GruvboxGreenUnderline cterm=underline
-highlight GruvboxYellowUnderline cterm=underline
-highlight GruvboxBlueUnderline cterm=underline
-highlight GruvboxPurpleUnderline cterm=underline
-highlight GruvboxAquaUnderline cterm=underline
-highlight GruvboxOrangeUnderline cterm=underline
