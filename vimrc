@@ -125,7 +125,8 @@ noremap [t <cmd>tabprevious<CR> | "Previous tab
 noremap ]b <cmd>bnext<CR> | " Next buffer
 noremap ]t <cmd>tabnext<CR> | "Next tab
 
-nmap <C-P> <cmd>Commands<CR> | " FZF: Pull up Commands
+nmap <C-S-P> <cmd>Commands<CR> | " FZF: Pull up Commands
+nmap <C-S-F> <cmd>Rg<CR> | " FZF: Fin across files
 
 imap <expr> <Tab> vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' : '<Tab>' | " VSnip: Snippet Jumping
 smap <expr> <Tab> vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' : '<Tab>' | " VSnip: Snippet Jumping
