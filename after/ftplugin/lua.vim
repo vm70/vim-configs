@@ -1,4 +1,5 @@
-" Tabs, 2 characters long
+vim9script
+# Tabs, 2 characters long
 setlocal noexpandtab
 setlocal shiftwidth=2
 setlocal tabstop=2
