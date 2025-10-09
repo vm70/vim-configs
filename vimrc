@@ -41,6 +41,10 @@ function PackInit() abort
   call minpac#add('junegunn/fzf', {'do': 'packloadall! | call fzf#install()'})
   " Surround
   call minpac#add('tpope/vim-surround')
+  " Jupyter/REPL
+  call minpac#add('jpalardy/vim-slime', {'type': 'opt'})
+  " Colorscheme
+  call minpac#add('kratuvid/vim9-gruvbox')
 endfunction
 packadd! comment
 
@@ -62,6 +66,7 @@ set showbreak=↪\ |
 set signcolumn=yes
 set termguicolors
 set title
+set wildoptions=pum
 
 # Controls
 set mouse=a
@@ -78,24 +83,24 @@ set foldmethod=marker
 set splitbelow
 set splitright
 
+# Spelling options
+set spell
+set spelllang=en_us
+
+# LSP Options
+set formatexpr=lsp#lsp#FormatExpr()
+set keywordprg=:LspHover
+
 # }}}
 # Globals {{{
 
 g:mapleader = ' '
 
 # }}}
-# {{{ Colorscheme
-
-colorscheme retrobox
-
-# }}}
 # Keymaps {{{
 
 vmap <C-_> gc<CR>k | # Commenting with CTRL-/
 nmap <C-_> <C-v>gc<CR>k | # Commenting with CTRL-/
-
-nnoremap <leader>e <cmd>Fern . -toggle -drawer<CR> | # Fern: Toggle file tree, current directory
-nnoremap <leader>E <cmd>Fern %:h -toggle -drawer<CR> | # Fern: Toggle file tree, parent directory of current file
 
 inoremap <A-j> <cmd>m.+1<CR>==gi | # Move lines up and down in code
 inoremap <A-k> <cmd>m.-2<CR>==gi | # Move lines up and down in code
@@ -111,7 +116,19 @@ noremap [t <cmd>tabprevious<CR> | #Previous tab
 noremap ]b <cmd>bnext<CR> | # Next buffer
 noremap ]t <cmd>tabnext<CR> | #Next tab
 
+nnoremap <leader>e <cmd>Fern . -toggle -drawer<CR> | # Fern: Toggle file tree, current directory
+nnoremap <leader>E <cmd>Fern %:h -toggle -drawer<CR> | # Fern: Toggle file tree, parent directory of current file
+
 nmap <C-S-P> <cmd>Commands<CR> | # FZF: Pull up Commands
-nmap <C-S-F> <cmd>Rg<CR> | # FZF: Fin across files
+nmap <C-S-F> <cmd>Rg<CR> | # FZF: Find across files
+
+nnoremap <leader>sc <Plug>SlimeSendCell | # Slime: Send Code Cell
+
+nmap gra <cmd>LspCodeAction<CR>
+vmap gra <cmd>LspCodeAction<CR>
+nmap gri <cmd>LspGotoImpl<CR>
+nmap grn <cmd>LspRename<CR>
+nmap grr <cmd>LspShowReferences<CR>
+nmap grt <cmd>LspGotoTypeDef<CR>
 
 # }}}

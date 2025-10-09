@@ -1,3 +1,4 @@
 vim9script
+g:airline#extensions#disable_rtp_load = 1
 g:airline#extensions#tabline#enabled = 1
 g:airline_powerline_fonts = 1
