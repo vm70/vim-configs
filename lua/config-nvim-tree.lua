@@ -9,6 +9,7 @@ local function my_on_attach(bufnr)
 	api.config.mappings.default_on_attach(bufnr)
 
 	-- on_attach
+	vim.keymap.set("n", "N", api.fs.create, opts("Create File Or Directory"))
 	vim.keymap.set("n", "h", api.node.navigate.parent_close, opts("Close Directory"))
 	vim.keymap.set("n", "l", api.node.open.edit, opts("Open"))
 end
