@@ -59,4 +59,4 @@ augroup my_gruvbox
   au ColorScheme gruvbox MyGruvbox()
 augroup END
 
-colorscheme gruvbox
+silent! colorscheme gruvbox
