@@ -1,4 +1,5 @@
 vim9script
+
 # Tabs, 2 characters long
 setlocal noexpandtab
 setlocal shiftwidth=2

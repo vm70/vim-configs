@@ -1,4 +1,5 @@
 vim9script
+
 # 2 spaces
 setlocal expandtab
 setlocal shiftwidth=2

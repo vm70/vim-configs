@@ -6,6 +6,10 @@ syntax on
 
 # Package Setup {{{
 
+if $MYVIMDIR == ''
+  $MYVIMDIR = expand('$HOME/.vim')
+endif
+
 if empty(glob('$MYVIMDIR/pack/minpac/opt/minpac'))
   silent execute '!git clone https://github.com/k-takata/minpac.git $MYVIMDIR/pack/minpac/opt/minpac'
 endif
@@ -20,8 +24,10 @@ function PackInit() abort
   end
   " Language Server Protocol
   call minpac#add('yegappan/lsp', {'type': 'opt'})
-  call minpac#add('SirVer/ultisnips')
-  call minpac#add('honza/vim-snippets')
+  if has('python3')
+    call minpac#add('SirVer/ultisnips', {'type': 'opt'})
+    call minpac#add('honza/vim-snippets', {'type': 'opt'})
+  endif
   " Nerd Fonts
   call minpac#add('lambdalisue/vim-glyph-palette')
   call minpac#add('lambdalisue/vim-nerdfont')
@@ -46,7 +52,7 @@ function PackInit() abort
   " Colorscheme
   call minpac#add('kratuvid/vim9-gruvbox')
 endfunction
-packadd! comment
+silent! packadd! comment
 
 command! PackUpdate call PackInit() | call minpac#update()
 command! PackClean call PackInit() | call minpac#clean()
@@ -74,6 +80,7 @@ set mouse=a
 # Searching
 set hlsearch
 set incsearch
+set wildmenu
 
 # Folding
 set foldlevelstart=6
@@ -87,13 +94,11 @@ set splitright
 set spell
 set spelllang=en_us
 
-# LSP Options
-set formatexpr=lsp#lsp#FormatExpr()
-set keywordprg=:LspHover
-
 # }}}
 # Globals {{{
 
+g:filetype_md = 'markdown.pandoc'
+g:filetype_v = 'verilog'
 g:mapleader = ' '
 
 # }}}
@@ -112,23 +117,13 @@ vnoremap <A-k> <cmd>m'<-2<CR>gv=gv | # Move lines up and down in code
 nnoremap <Esc><Esc> <cmd>nohlsearch<CR> | # Stop highlight search
 
 noremap [b <cmd>bprevious<CR> | # Previous buffer
-noremap [t <cmd>tabprevious<CR> | #Previous tab
+noremap [t <cmd>tabprevious<CR> | # Previous tab
 noremap ]b <cmd>bnext<CR> | # Next buffer
-noremap ]t <cmd>tabnext<CR> | #Next tab
+noremap ]t <cmd>tabnext<CR> | # Next tab
 
-nnoremap <leader>e <cmd>Fern . -toggle -drawer<CR> | # Fern: Toggle file tree, current directory
-nnoremap <leader>E <cmd>Fern %:h -toggle -drawer<CR> | # Fern: Toggle file tree, parent directory of current file
+# }}}
+# Commands {{{
 
-nmap <C-S-P> <cmd>Commands<CR> | # FZF: Pull up Commands
-nmap <C-S-F> <cmd>Rg<CR> | # FZF: Find across files
-
-nnoremap <leader>sc <Plug>SlimeSendCell | # Slime: Send Code Cell
-
-nmap gra <cmd>LspCodeAction<CR>
-vmap gra <cmd>LspCodeAction<CR>
-nmap gri <cmd>LspGotoImpl<CR>
-nmap grn <cmd>LspRename<CR>
-nmap grr <cmd>LspShowReferences<CR>
-nmap grt <cmd>LspGotoTypeDef<CR>
+command! TrimWhitespace :%s/\s\+$//e | :nohlsearch
 
 # }}}
