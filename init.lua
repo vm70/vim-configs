@@ -80,7 +80,6 @@ vim.keymap.set("n", "]t", "<cmd>tabnext<CR>")
 
 -- LSP Commands
 vim.keymap.set("n", "<leader>cC", vim.lsp.codelens.refresh)
-vim.keymap.set("n", "<leader>cC", vim.lsp.codelens.refresh)
 vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
 vim.keymap.set("n", "<leader>cc", vim.lsp.codelens.run)
 vim.keymap.set("n", "<leader>cf", vim.lsp.buf.format)
@@ -164,8 +163,10 @@ require("pckr").add({
 	{
 		"nvim-mini/mini.snippets",
 		config = "config-snippets",
-		requires = { "nvim-mini/mini.completion" },
-		{ "rafamadriz/friendly-snippets" },
+		requires = {
+			{ "nvim-mini/mini.completion" },
+			{ "rafamadriz/friendly-snippets" },
+		},
 	},
 	-- Surround
 	{
