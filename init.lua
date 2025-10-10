@@ -21,7 +21,7 @@ vim.opt.title = true
 -- Editing
 vim.opt.autoread = true
 vim.opt.foldlevelstart = 6
-vim.opt.completeopt = "menuone,noinsert,popup"
+vim.opt.completeopt = "menuone,noselect,popup"
 vim.opt.foldmethod = "marker"
 vim.opt.incsearch = true
 vim.opt.linebreak = true
