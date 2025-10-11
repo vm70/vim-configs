@@ -51,6 +51,13 @@ function PackInit() abort
   call minpac#add('jpalardy/vim-slime', {'type': 'opt'})
   " Colorscheme
   call minpac#add('kratuvid/vim9-gruvbox')
+  " Editing
+  call minpac#add('tpope/vim-sleuth')
+  call minpac#add('tpope/vim-surround')
+  " Markdown Preview
+  if executable('npm')
+    call minpac#add('iamcco/markdown-preview.nvim', {'type': 'opt', 'do': 'packadd! markdown-preview.nvim | call mkdp#util#install()'})
+  endif
 endfunction
 silent! packadd! comment
 
