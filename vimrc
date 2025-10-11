@@ -132,5 +132,7 @@ noremap ]t <cmd>tabnext<CR> | # Next tab
 # Commands {{{
 
 command! TrimWhitespace :%s/\s\+$//e | :nohlsearch
+command! UseTabs :set noexpandtab | :set shiftwidth=2 | :set tabstop=2
+command! -nargs=1 UseSpaces :set expandtab | :set shiftwidth=<args> | :set tabstop=<args>
 
 # }}}
