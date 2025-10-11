@@ -1,11 +1,11 @@
 vim9script
 
-g:UltiSnipsExpandTrigger = '<C-Y>'
-g:UltiSnipsJumpForwardTrigger = '<Tab>'
-g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
 
 def LspConfig()
-
+  g:UltiSnipsExpandTrigger = '<C-Y>'
+  g:UltiSnipsJumpForwardTrigger = '<Tab>'
+  g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
+  
   packadd ultisnips
   packadd vim-snippets
 
@@ -14,10 +14,20 @@ def LspConfig()
   set tagfunc=lsp#lsp#TagFunc
 
   g:LspOptionsSet({
-    \ 'snippetSupport': v:true,
-    \ 'ultisnipsSupport': v:true,
-    \ 'useBufferCompletion': v:true,
-    \ })
+        \ 'autocomplete': v:true,
+        \ 'snippetSupport': v:true,
+        \ 'ultisnipsSupport': v:true,
+        \ 'useBufferCompletion': v:true,
+        \ })
+ 
+  if executable('typescript-language-server')
+    g:LspAddServer([{
+      \ 'name': 'tsserver',
+      \ 'filetype': ['typescript', 'javascript'],
+      \ 'path': 'typescript-language-server',
+      \ 'args': ['--stdio']
+      \ }])
+  endif
 
   if executable('lua-language-server')
     g:LspAddServer([{
@@ -46,21 +56,30 @@ def LspConfig()
       \ 'rootSearch': ['init.vim', 'vimrc'],
       \ }])
   endif
+  
+  if executable('taplo')
+    g:LspAddServer([{
+      \ 'name': 'taplo',
+      \ 'filetype': ['toml'],
+      \ 'path': 'taplo',
+      \ 'args': ['lsp', 'stdio'],
+      \ }])
+  endif
 
   if executable('efm-langserver')
     g:LspAddServer([{
       \ 'name': 'efm-langserver',
-      \ 'filetype': ['vim', 'lua', 'markdown', 'json'],
+      \ 'filetype': ['vim', 'lua', 'markdown', 'json', 'pandoc', 'markdown.pandoc'],
       \ 'path': 'efm-langserver',
       \ }])
   endif
 
-  nmap <leader>[d <cmd>LspDiagPrev<CR>
-  nmap <leader>]d <cmd>LspDiagNext<CR>
   nmap <leader>cc <cmd>LspCodeLens<CR>
   nmap <leader>cf <cmd>LspFormat<CR>
   nmap <leader>xX <cmd>LspDiagShow<CR>
   nmap <leader>xx <cmd>LspDiagShow<CR>
+  nmap [d <cmd>LspDiagPrev<CR>
+  nmap ]d <cmd>LspDiagNext<CR>
   nmap gD <cmd>LspGotoDeclaration<CR>
   nmap gO <cmd>LspDocumentSymbol<CR>
   nmap gd <cmd>LspGotoDefinition<CR>
@@ -72,6 +91,7 @@ def LspConfig()
   vmap gra <cmd>LspCodeAction<CR>
   xmap <leader>ca <cmd>LspCodeAction<CR>
   xmap <leader>cf <cmd>LspFormat<CR>
+
 enddef
 
 augroup lsp_setup
