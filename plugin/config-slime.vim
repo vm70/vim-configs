@@ -1,10 +1,10 @@
 vim9script
 g:slime_target = 'vimterminal'
 
-function SlimeSetup()
+def SlimeSetup()
   packadd vim-slime
-  nnoremap <leader>sc <Plug>SlimeSendCell | " Slime: Send Code Cell
-endfunction
+  nnoremap <leader>sc <Plug>SlimeSendCell | # Slime: Send Code Cell
+enddef
 
 augroup repl
   autocmd!
