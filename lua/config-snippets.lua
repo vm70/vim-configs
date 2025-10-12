@@ -13,4 +13,4 @@ mini_snippets.setup({
 	},
 })
 mini_snippets.start_lsp_server()
-vim.lsp.config("*", { capabilities = mini_completion.get_lsp_capabilities()})
+vim.lsp.config("*", { capabilities = mini_completion.get_lsp_capabilities() })
