@@ -17,8 +17,8 @@ endif
 function PackInit() abort
   packadd minpac
   call minpac#init()
-  " Commenting (if missing builtin comment package)
   call minpac#add('k-takata/minpac', {'type': 'opt'})
+  " Commenting (if missing builtin comment package)
   if !has('patch-9.1.375')
     call minpac#add('tpope/vim-commentary', {'name': 'comment'})
   end
