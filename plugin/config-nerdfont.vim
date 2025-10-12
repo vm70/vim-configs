@@ -1,23 +1,27 @@
+vim9script
 scriptencoding utf8
 
-" Globals {{{
+if exists('g:glyph_palette#defaults#palette')
+  g:glyph_palette#palette = copy(g:glyph_palette#defaults#palette)
+  g:glyph_palette#palette['GlyphPalette1'] += ['']
+  g:glyph_palette#palette['GlyphPalette4'] += ['', '󰐗']
+  g:glyph_palette#palette['GlyphPalette7'] += ['']
+  g:nerdfont#path#basename#customs = {
+        \ 'go.mod': '',
+        \ 'go.sum': '',
+        \ 'pyproject.toml': '',
+        \ }
+  g:nerdfont#path#extension#customs = {
+        \ 'go': '',
+        \ 'qmd': '󰐗',
+        \ 'rkt': '',
+        \ 'yaml': '',
+        \ 'yml': '',
+        \ }
+endif
 
-let g:glyph_palette#palette = copy(g:glyph_palette#defaults#palette)
-let g:glyph_palette#palette['GlyphPalette1'] += ['']
-let g:glyph_palette#palette['GlyphPalette4'] += ['', '󰐗']
-let g:glyph_palette#palette['GlyphPalette7'] += ['']
-
-let g:nerdfont#path#basename#customs = {'go.mod':'', 'go.sum': '', 'pyproject.toml': ''}
-let g:nerdfont#path#extension#customs = {'yml': '', 'yaml': '', 'go': '', 'qmd':'󰐗', 'rkt': '', 'v': '󰍛'}
-
-" }}}
-" Autocommands {{{
-
-" Apply glyph-palette to Coc-Explorer or Fern windows
+# Apply glyph-palette to Fern windows
 augroup glyph-palette
   autocmd! *
-  autocmd FileType coc-explorer call glyph_palette#apply()
   autocmd FileType fern call glyph_palette#apply()
 augroup END
-
-" }}}

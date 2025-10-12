@@ -1,10 +1,13 @@
-let g:slime_target = has('nvim') ? 'neovim' : 'vimterminal'
+vim9script
+g:slime_target = 'vimterminal'
+
+def SlimeSetup()
+  packadd vim-slime
+  nnoremap <leader>sc <Plug>SlimeSendCell | # Slime: Send Code Cell
+enddef
 
 augroup repl
   autocmd!
-  autocmd BufReadPre *.py packadd vim-slime
-  autocmd BufReadPre *.jl packadd vim-slime
+  autocmd BufReadPre *.py,*.jl call SlimeSetup()
 augroup END
 
-" Send Code Cell
-nnoremap <leader>sc <Plug>SlimeSendCell
