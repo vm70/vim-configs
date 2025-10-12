@@ -1,6 +1,6 @@
 require("nvim-treesitter.configs").setup({
 	auto_install = true,
-	highlight = { enable = true, disable = { "markdown", "pandoc", "quarto" } },
+	highlight = { enable = true, disable = { "markdown", "pandoc", "quarto", "vim" } },
 	textobjects = {
 		select = {
 			enable = true,
