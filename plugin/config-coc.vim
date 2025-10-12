@@ -4,8 +4,8 @@ if !executable('npm')
   finish
 endif
 
-function! CocNvimInit()
-  packadd vim-snippets
+function CocInit()
+  let g:airline#extensions#coc#enabled = 1
   let g:coc_global_extensions = [
         \ 'coc-json',
         \ 'coc-ltex',
@@ -64,7 +64,7 @@ function! CocNvimInit()
   command! -nargs=0 CocFormat :call CocActionAsync('format')
 endfunction
 
-augroup my_coc_nvim
+augroup coc_init
   autocmd!
-  autocmd User CocNvimInit call CoCNvimInit()
+  autocmd User CocNvimInit call CocInit()
 augroup END

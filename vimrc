@@ -51,8 +51,8 @@ function PackInit() abort
     " Markdown Preview
     call minpac#add('iamcco/markdown-preview.nvim', {'type': 'opt', 'do': 'packadd! markdown-preview.nvim | call mkdp#util#install()'})
     " LSP Integration, Snippets, Autocompletion
-    call minpac#add('neoclide/coc.nvim', {'branch': 'release', 'type': 'opt'})
-    call minpac#add('honza/vim-snippets', {'type': 'opt'})
+    call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
+    call minpac#add('honza/vim-snippets')
   endif
 endfunction
 silent! packadd! comment
