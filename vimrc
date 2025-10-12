@@ -47,13 +47,13 @@ function PackInit() abort
   call minpac#add('junegunn/fzf', {'do': 'packloadall! | call fzf#install()'})
   " Surround
   call minpac#add('tpope/vim-surround')
+  " Sleuth
+  call minpac#add('tpope/vim-sleuth')
   " Jupyter/REPL
   call minpac#add('jpalardy/vim-slime', {'type': 'opt'})
   " Colorscheme
   call minpac#add('kratuvid/vim9-gruvbox')
   " Editing
-  call minpac#add('tpope/vim-sleuth')
-  call minpac#add('tpope/vim-surround')
   " Markdown Preview
   if executable('npm')
     call minpac#add('iamcco/markdown-preview.nvim', {'type': 'opt', 'do': 'packadd! markdown-preview.nvim | call mkdp#util#install()'})
