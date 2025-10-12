@@ -1,5 +1,6 @@
 -- Global Variables {{{
 
+vim.g.filetype_md = "pandoc.markdown"
 vim.g.filetype_v = "verilog"
 vim.g.mapleader = " "
 
