@@ -73,7 +73,7 @@ function CocInit()
   endif
 
   if executable('efm-langserver')
-    call coc#config('languageserver.clangd', {
+    call coc#config('languageserver.efm', {
           \ 'command': '/usr/bin/efm-langserver',
           \ 'filetypes': ['lua', 'vim'],
           \ 'rootPatterns': ['.git', 'selene.toml', 'vimrc', 'init.vim']
@@ -81,7 +81,7 @@ function CocInit()
   endif
 
   if executable('gopls')
-    call coc#config('languageserver.clangd', {
+    call coc#config('languageserver.gopls', {
           \ 'command': '/usr/bin/gopls',
           \ 'filetypes': ['go'],
           \ 'rootPatterns': ['go.mod']
