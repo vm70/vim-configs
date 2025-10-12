@@ -1,6 +1,6 @@
 -- Global Variables {{{
 
-vim.g.filetype_md = "pandoc.markdown"
+vim.g.filetype_md = "markdown.pandoc"
 vim.g.filetype_v = "verilog"
 vim.g.mapleader = " "
 
@@ -190,6 +190,8 @@ require("pckr").add({
 	},
 	-- Treesitter
 	{ "nvim-treesitter/nvim-treesitter", config = "config-treesitter" },
+	-- Llama
+	{ "ggml-org/llama.vim", cond = do_not_load },
 	-- Slime
 	{
 		"jpalardy/vim-slime",
