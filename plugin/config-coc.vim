@@ -4,20 +4,21 @@ if !executable('npm')
   finish
 endif
 
-function CocInit()
-  let g:airline#extensions#coc#enabled = 1
-  let g:coc_global_extensions = [
-        \ 'coc-json',
-        \ 'coc-ltex',
-        \ 'coc-lua',
-        \ 'coc-prettier',
-        \ 'coc-snippets',
-        \ 'coc-tsserver',
-        \ 'coc-vimlsp',
-        \ ]
+let g:airline#extensions#coc#enabled = 1
+let g:coc_global_extensions = [
+      \ 'coc-json',
+      \ 'coc-ltex',
+      \ 'coc-lua',
+      \ 'coc-prettier',
+      \ 'coc-snippets',
+      \ 'coc-tsserver',
+      \ 'coc-vimlsp',
+      \ ]
 
-  let g:coc_snippet_next = '<Tab>'
-  let g:coc_snippet_prev = '<S-Tab>'
+let g:coc_snippet_next = '<Tab>'
+let g:coc_snippet_prev = '<S-Tab>'
+
+function CocInit()
 
   set nobackup
   set nowritebackup
