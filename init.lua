@@ -94,6 +94,9 @@ vim.keymap.set("n", "gy", vim.lsp.buf.type_definition)
 -- CTRL-P for Commands
 vim.keymap.set("n", "<C-P>", "<cmd>FzfLua commands<CR>")
 
+-- Vim-Slime Commands
+vim.keymap.set("n", "<leader>sc", "<Plug>SlimeSendCell")
+
 -- }}}
 -- Commands {{{
 
@@ -130,6 +133,12 @@ vim.api.nvim_create_user_command(
 
 -- }}}
 -- Package Setup {{{
+
+-- Do not load a plugin. Use this as the `cond` argument in a Pckr spec.
+---@return boolean false
+local function do_not_load()
+	return false
+end
 
 local pckr_path = vim.fn.stdpath("config") .. "/pack/pckr/opt/pckr.nvim"
 if not (vim.uv or vim.loop).fs_stat(pckr_path) then
@@ -181,6 +190,19 @@ require("pckr").add({
 	},
 	-- Treesitter
 	{ "nvim-treesitter/nvim-treesitter", config = "config-treesitter" },
+	-- Slime
+	{
+		"jpalardy/vim-slime",
+		cond = do_not_load,
+	},
+})
+
+vim.api.nvim_create_autocmd("BufReadPre", {
+	pattern = { "*.py", "*.jl" },
+	callback = function()
+		vim.g.slime_target = "neovim"
+		vim.cmd.packadd("vim-slime")
+	end,
 })
 
 -- }}}
