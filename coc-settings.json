@@ -8,39 +8,6 @@
   "coc.preferences.formatOnSave": true,
   "coc.preferences.formatOnSaveTimeout": 2000,
   "json.format.enable": false,
-  "languageserver": {
-    "clangd": {
-      "command": "/usr/bin/clangd",
-      "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"],
-      "rootPatterns": ["compile_flags.txt", "compile_commands.json"]
-    },
-    "efm-langserver": {
-      "command": "/usr/bin/efm-langserver",
-      "filetypes": ["lua", "vim"],
-      "rootPatterns": [".git", "selene.toml", "vimrc", "init.vim"]
-    },
-    "gopls": {
-      "command": "/usr/bin/gopls",
-      "filetypes": ["go"],
-      "rootPatterns": ["go.mod"]
-    },
-    "pylsp": {
-      "args": [],
-      "command": "/usr/bin/pylsp",
-      "filetypes": ["python"],
-      "rootPatterns": ["pyproject.toml", ".git"]
-    },
-    "stylua": {
-      "args": ["--lsp"],
-      "command": "$HOME/.cargo/bin/stylua",
-      "filetypes": ["lua"]
-    },
-    "taplo": {
-      "args": ["lsp", "stdio"],
-      "command": "$HOME/.cargo/bin/taplo",
-      "filetypes": ["toml"]
-    }
-  },
   "ltex.disabledRules": {
     "en-US": ["MORFOLOGIK_RULE_EN_US"]
   }
