@@ -131,6 +131,16 @@ vim.api.nvim_create_user_command("QuartoRender", ":terminal quarto render", { ba
 -- LSP Commands
 vim.api.nvim_create_user_command("LspInfo", ":checkhealth vim.lsp", { bang = true })
 
+-- Whitespace Commands
+--:%s\/\s\+$//e | :nohlsearch
+vim.api.nvim_create_user_command("TrimWhitespace", ":%s\\/\\s\\+$/e | :nohlsearch", { bang = true })
+vim.api.nvim_create_user_command("UseTabs", ":set noexpandtab | :set shiftwidth=2 | :set tabstop=2", { bang = true })
+vim.api.nvim_create_user_command(
+	"UseSpaces",
+	":set expandtab | :set shiftwidth=<args> | :set tabstop=<args>",
+	{ nargs = 1, bang = true }
+)
+
 -- }}}
 -- Package Setup {{{
 
