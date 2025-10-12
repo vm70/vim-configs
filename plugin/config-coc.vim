@@ -88,7 +88,7 @@ function CocInit()
           \ })
   endif
 
-  if executable('clangd')
+  if executable('pylsp')
     call coc#config('languageserver.pylsp', {
           \ 'command': '/usr/bin/pylsp',
           \ 'filetypes': ['python'],
