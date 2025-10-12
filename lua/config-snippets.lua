@@ -1,4 +1,4 @@
-require("mini.completion").setup({})
+require("mini.completion").setup()
 local gen_loader = require("mini.snippets").gen_loader
 require("mini.snippets").setup({
 	snippets = {
