@@ -132,6 +132,12 @@ vim.api.nvim_create_user_command(
 )
 
 -- }}}
+-- Autocommands {{{
+
+-- Disable spelling on terminal windows
+vim.api.nvim_create_autocmd("TermOpen", { command = "setlocal nospell" })
+
+-- }}}
 -- Package Setup {{{
 
 -- Do not load a plugin. Use this as the `cond` argument in a Pckr spec.
@@ -191,7 +197,7 @@ require("pckr").add({
 	-- Treesitter
 	{ "nvim-treesitter/nvim-treesitter", config = "config-treesitter" },
 	-- Llama
-	{ "ggml-org/llama.vim", cond = do_not_load },
+	{ "ggml-org/llama.vim", config_pre = "config-llama" },
 	-- Slime
 	{
 		"jpalardy/vim-slime",
