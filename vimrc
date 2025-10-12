@@ -109,8 +109,8 @@ if executable('npm')
   " Markdown Preview
   call minpac#add('iamcco/markdown-preview.nvim', {'type': 'opt', 'do': 'packadd! markdown-preview.nvim | call mkdp#util#install()'})
   " LSP Integration, Snippets, Autocompletion
-  call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
-  call minpac#add('honza/vim-snippets')
+  call minpac#add('neoclide/coc.nvim', {'branch': 'release', 'type': 'opt'})
+  call minpac#add('honza/vim-snippets', {'type': 'opt'})
 endif
 
 " Run PackUpdate if there are missing plugins
