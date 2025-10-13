@@ -83,6 +83,6 @@ local efm_settings = {
 return {
 	cmd = { "/usr/bin/efm-langserver" },
 	filetypes = vim.tbl_keys(efm_settings.languages),
-	root_markers = {},
+	root_markers = { ".git" },
 	settings = efm_settings,
 }
