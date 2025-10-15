@@ -63,6 +63,7 @@ function CocInit()
   xmap if <Plug>(coc-funcobj-i)
 
   command! -nargs=0 CocFormat :call CocActionAsync('format')
+  command! -nargs=0 Snippets :CocList snippets
 
   if executable('clangd')
     call coc#config('languageserver.clangd', {
