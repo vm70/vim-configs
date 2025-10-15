@@ -1,7 +1,7 @@
 vim9script
 scriptencoding utf8
 
-if exists('g:glyph_palette#defaults#palette')
+try
   g:glyph_palette#palette = copy(g:glyph_palette#defaults#palette)
   g:glyph_palette#palette['GlyphPalette1'] += ['']
   g:glyph_palette#palette['GlyphPalette4'] += ['', '󰐗']
@@ -13,12 +13,16 @@ if exists('g:glyph_palette#defaults#palette')
         \ }
   g:nerdfont#path#extension#customs = {
         \ 'go': '',
+        \ 'pu': '',
+        \ 'puml': '',
         \ 'qmd': '󰐗',
         \ 'rkt': '',
         \ 'yaml': '',
         \ 'yml': '',
         \ }
-endif
+catch /^Vim\%((\a\+)\)\=:E121:/
+  # Ignore undefined variable errors
+endtry
 
 # Apply glyph-palette to Fern windows
 augroup glyph-palette
