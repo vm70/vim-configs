@@ -1,3 +1,5 @@
-" Previous & next hunks in a file
-nnoremap ]h <cmd>GitGutterNextHunk<CR>
-nnoremap [h <cmd>GitGutterPrevHunk<CR>
+vim9script
+
+nnoremap ]h <cmd>GitGutterNextHunk<CR> | # GitGutter: next hunk
+nnoremap [h <cmd>GitGutterPrevHunk<CR> | # GitGutter: previous hunk
+

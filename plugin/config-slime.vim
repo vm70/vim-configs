@@ -1,4 +1,5 @@
 vim9script
+
 g:slime_target = 'vimterminal'
 
 def SlimeSetup()

@@ -1,4 +1,5 @@
 vim9script
+
 g:llama_config = {
       \ 'keymap_trigger': '<C-F>',
       \ 'keymap_accept_full': '<C-S-Y>',

@@ -1,4 +1,5 @@
 vim9script
+
 augroup mkdp
   autocmd!
   autocmd BufReadPre *.md packadd markdown-preview.nvim

@@ -1,4 +1,5 @@
 vim9script
+
 def MyGruvbox()
   if &background ==# 'dark'
     # hard contrast: #1d2021 / soft contrast: #32302f
