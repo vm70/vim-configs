@@ -54,6 +54,8 @@ function PackInit() abort
     call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
     call minpac#add('honza/vim-snippets')
   endif
+  " Llama
+  call minpac#add('ggml-org/llama.vim', {'type': 'opt'})
 endfunction
 silent! packadd! comment
 
