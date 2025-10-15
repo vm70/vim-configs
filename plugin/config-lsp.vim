@@ -1,23 +1,15 @@
 vim9script
 
-
 def LspConfig()
-  g:UltiSnipsExpandTrigger = '<C-Y>'
-  g:UltiSnipsJumpForwardTrigger = '<Tab>'
-  g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
   
-  packadd ultisnips
-  packadd vim-snippets
-
   set formatexpr=lsp#lsp#FormatExpr()
   set keywordprg=:LspHover
   set tagfunc=lsp#lsp#TagFunc
-
+  
   g:LspOptionsSet({
         \ 'autocomplete': v:true,
         \ 'snippetSupport': v:true,
         \ 'ultisnipsSupport': v:true,
-        \ 'useBufferCompletion': v:true,
         \ })
  
   if executable('typescript-language-server')
