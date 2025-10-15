@@ -1,5 +1,7 @@
 vim9script
 
+setlocal autoindent
+setlocal breakindent
 setlocal conceallevel=0
 setlocal linebreak
 setlocal spelloptions=
