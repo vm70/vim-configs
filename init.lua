@@ -100,8 +100,6 @@ vim.keymap.set("n", "<leader>sc", "<Plug>SlimeSendCell")
 -- }}}
 -- Commands {{{
 
-vim.api.nvim_create_user_command("LspFormat", vim.lsp.buf.format, { bang = true })
-
 -- Accidental shift-commands
 vim.api.nvim_create_user_command("W", ":w", { bang = true })
 vim.api.nvim_create_user_command("WA", ":wa", { bang = true })
