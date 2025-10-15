@@ -10,5 +10,32 @@
   "json.format.enable": false,
   "ltex.disabledRules": {
     "en-US": ["MORFOLOGIK_RULE_EN_US"]
+  },
+  "suggest.completionItemKindLabels": {
+    "class": "",
+    "color": "",
+    "constant": "",
+    "constructor": "",
+    "enum": "",
+    "enumMember": "",
+    "event": "",
+    "field": "",
+    "file": "",
+    "folder": "",
+    "function": "",
+    "interface": "",
+    "keyword": "",
+    "method": "",
+    "module": "",
+    "operator": "",
+    "property": "",
+    "reference": "",
+    "snippet": "",
+    "struct": "",
+    "text": "",
+    "typeParameter": "",
+    "unit": "",
+    "value": "",
+    "variable": ""
   }
 }
