@@ -52,8 +52,7 @@ function PackInit() abort
     call minpac#add('iamcco/markdown-preview.nvim', {'type': 'opt', 'do': 'packadd! markdown-preview.nvim | call mkdp#util#install()'})
     " LSP Integration, Snippets, Autocompletion
     call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
-    call minpac#add('rafamadriz/friendly-snippets')
-    " call minpac#add('honza/vim-snippets')
+    call minpac#add('honza/vim-snippets')
   endif
   " Llama
   call minpac#add('ggml-org/llama.vim', {'type': 'opt'})
