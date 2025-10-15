@@ -1,0 +1,38 @@
+version: 2
+root-markers:
+  - .git/
+lint-debounce: 1s
+log-level: 1
+tools:
+  selene: &selene
+    prefix: selene
+    lint-ignore-exit-code: true
+    lint-command: "selene --color never --quiet -"
+    lint-stdin: true
+    lint-formats:
+      - "%f:%l:%c: %trror%m"
+      - "%f:%l:%c: %tarning%m"
+      - "%f:%l:%c: %tote%m"
+    root-markers:
+      - "selene.toml"
+
+  shfmt: &shfmt
+    format-command: "shfmt"
+    format-stdin: true
+
+  vint: &vint
+    prefix: vint
+    lint-command: "vint -"
+    lint-stdin: true
+    lint-formats:
+      - "%f:%l:%c: %m"
+
+languages:
+  bash:
+    - <<: *shfmt
+  lua:
+    - <<: *selene
+  sh:
+    - <<: *shfmt
+  vim:
+    - <<: *vint

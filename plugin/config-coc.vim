@@ -74,8 +74,9 @@ function CocInit()
 
   if executable('efm-langserver')
     call coc#config('languageserver.efm', {
+          \ 'args': ['-c', expand('$MYVIMDIR/efm-config.yaml')],
           \ 'command': '/usr/bin/efm-langserver',
-          \ 'filetypes': ['lua', 'vim'],
+          \ 'filetypes': ['lua', 'vim', 'sh', 'bash'],
           \ 'rootPatterns': ['.git', 'selene.toml', 'vimrc', 'init.vim']
           \ })
   endif
