@@ -3,9 +3,13 @@ scriptencoding utf8
 
 try
   g:glyph_palette#palette = copy(g:glyph_palette#defaults#palette)
+  
+  filter(g:glyph_palette#palette['GlyphPalette9'], "v:val != ''")
+ 
   g:glyph_palette#palette['GlyphPalette1'] += ['']
-  g:glyph_palette#palette['GlyphPalette4'] += ['', '󰐗']
+  g:glyph_palette#palette['GlyphPalette4'] += ['', '󰐗', '']
   g:glyph_palette#palette['GlyphPalette7'] += ['']
+  
   g:nerdfont#path#basename#customs = {
         \ 'go.mod': '',
         \ 'go.sum': '',
@@ -13,10 +17,13 @@ try
         \ }
   g:nerdfont#path#extension#customs = {
         \ 'go': '',
+        \ 'iuml': '',
+        \ 'mermaid': '󱁉',
         \ 'pu': '',
         \ 'puml': '',
         \ 'qmd': '󰐗',
         \ 'rkt': '',
+        \ 'v': '󰍛',
         \ 'yaml': '',
         \ 'yml': '',
         \ }
