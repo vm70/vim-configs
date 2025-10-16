@@ -56,6 +56,8 @@ function PackInit() abort
   endif
   " Llama
   call minpac#add('ggml-org/llama.vim', {'type': 'opt'})
+  " PlantUML
+  call minpac#add('aklt/plantuml-syntax')
 endfunction
 silent! packadd! comment
 
