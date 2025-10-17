@@ -190,7 +190,7 @@ pckr.add({
 			require("nvim-surround").setup()
 		end,
 	},
-	-- Treesitter 
+	-- Treesitter
 	{ "nvim-treesitter/nvim-treesitter", config = "config-treesitter" },
 	-- Llama
 	{ "ggml-org/llama.vim", config_pre = "config-llama" },
