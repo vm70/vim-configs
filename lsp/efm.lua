@@ -3,8 +3,20 @@
 ---@return {formatCommand: string, formatStdin: boolean} settings EFM settings
 local function prettier_settings(filetype)
 	return {
-		formatCommand = vim.fn.expand("$HOME") .. "/.npm/bin/prettier --parser " .. filetype,
+		formatCommand = vim.fn.expand("$HOME") .. "/.npm/bin/prettier ${--tab-width=tabWidth} --parser=" .. filetype,
 		formatStdin = true,
+		rootMarkers = {
+			".prettierrc",
+			".prettierrc",
+			".prettierrc.json",
+			".prettierrc.js",
+			".prettierrc.yml",
+			".prettierrc.yaml",
+			".prettierrc.json5",
+			".prettierrc.mjs",
+			".prettierrc.cjs",
+			".prettierrc.toml",
+		},
 	}
 end
 
@@ -19,11 +31,27 @@ local efm_settings = {
 		json = {
 			prettier_settings("json"),
 		},
+		tex = {
+			{
+				prefix = "chktex",
+				lintCommand = "/usr/bin/chktex -q -v0",
+				lintFormats = { "%f:%l:%c:%n:%m" },
+				lintIgnoreExitCode = true,
+				lintSeverity = 2,
+				lintSource = "chktex",
+				lintStdin = true,
+			},
+			{
+				prefix = "latexindent",
+				formatCommand = "latexindent -",
+				formatStdin = true,
+			},
+		},
 		lua = {
 			{
 				prefix = "selene",
 				lintIgnoreExitCode = true,
-				lintCommand = "selene --color never --quiet -",
+				lintCommand = vim.fn.expand("$HOME") .. "/.cargo/bin/selene --color never --quiet -",
 				lintStdin = true,
 				lintFormats = {
 					"%f:%l:%c: %trror%m",
