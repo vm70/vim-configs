@@ -36,7 +36,9 @@ local efm_settings = {
 			},
 			{
 				prefix = "stylua",
-				formatCommand = "stylua -",
+				formatCanRange = true,
+				formatCommand = vim.fn.expand("$HOME")
+					.. "/.cargo/bin/stylua --color=Never ${--range-start=charStart} ${--range-end=charEnd} --stdin-filepath '${INPUT}' -",
 				formatStdin = true,
 			},
 		},
@@ -86,7 +88,7 @@ local efm_settings = {
 }
 ---@type vim.lsp.Config
 return {
-	init_options = { documentFormatting = true },
+	init_options = { documentFormatting = true, documentRangeFormatting = true },
 	cmd = { "/usr/bin/efm-langserver" },
 	filetypes = vim.tbl_keys(efm_settings.languages),
 	root_markers = { ".git" },
