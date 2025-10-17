@@ -177,7 +177,7 @@ pckr.add({
 		"nvim-mini/mini.tabline",
 		requires = "nvim-mini/mini.icons",
 		config = function()
-			require("mini.tabline").setup()
+			require("mini.tabline").setup({ tabpage_section = "right" })
 		end,
 	},
 	-- Fuzzy Finding
@@ -210,7 +210,11 @@ pckr.add({
 	-- Treesitter
 	{ "nvim-treesitter/nvim-treesitter", config = "config-treesitter" },
 	-- Llama
-	{ "ggml-org/llama.vim", config_pre = "config-llama" },
+	{
+		"ggml-org/llama.vim",
+		config_pre = "config-llama",
+		cond = { cmd("LlamaDisable"), cmd("LlamaEnable"), cmd("LlamaToggle") },
+	},
 	-- Slime
 	{
 		"jpalardy/vim-slime",
