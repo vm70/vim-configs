@@ -208,7 +208,7 @@ pckr.add({
 		end,
 	},
 	-- Treesitter
-	{ "nvim-treesitter/nvim-treesitter", config = "config-treesitter" },
+	{ "nvim-treesitter/nvim-treesitter", config = "config-treesitter", run = ":TSUpdate" },
 	-- Llama
 	{
 		"ggml-org/llama.vim",
