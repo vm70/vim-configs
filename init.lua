@@ -138,12 +138,6 @@ vim.api.nvim_create_autocmd("TermOpen", { command = "setlocal nospell" })
 -- }}}
 -- Package Setup {{{
 
--- Do not load a plugin. Use this as the `cond` argument in a Pckr spec.
----@return boolean false
-local function do_not_load()
-	return false
-end
-
 local pckr_path = vim.fn.stdpath("config") .. "/pack/pckr/opt/pckr.nvim"
 if not (vim.uv or vim.loop).fs_stat(pckr_path) then
 	vim.fn.system({
@@ -155,17 +149,20 @@ if not (vim.uv or vim.loop).fs_stat(pckr_path) then
 	})
 end
 vim.cmd.packadd("pckr.nvim")
-require("pckr").setup({ autoremove = true, package_root = vim.fn.stdpath("config") })
 
-require("pckr").add({
+local pckr = require("pckr")
+local event = require("pckr.loader.event")
+
+pckr.setup({ autoremove = true, package_root = vim.fn.stdpath("config") })
+pckr.add({
 	-- Icons
 	{ "nvim-mini/mini.icons", config = "config-icons" },
 	-- File Tree
-	{ "nvim-tree/nvim-tree.lua", config = "config-nvim-tree" },
+	{ "nvim-tree/nvim-tree.lua", requires = "nvim-mini/mini.icons", config = "config-nvim-tree" },
 	-- Colorscheme
 	{ "ellisonleao/gruvbox.nvim" },
 	-- Status Line
-	{ "nvim-lualine/lualine.nvim", config = "config-lualine" },
+	{ "nvim-lualine/lualine.nvim", requires = "nvim-mini/mini.icons", config = "config-lualine" },
 	-- Fuzzy Finding
 	{ "ibhagwan/fzf-lua" },
 	-- Git Integration
@@ -181,8 +178,9 @@ require("pckr").add({
 		"nvim-mini/mini.snippets",
 		config = "config-snippets",
 		requires = {
-			{ "nvim-mini/mini.completion" },
-			{ "rafamadriz/friendly-snippets" },
+			"nvim-mini/mini.completion",
+			"rafamadriz/friendly-snippets",
+			"nvim-mini/mini.icons",
 		},
 	},
 	-- Surround
@@ -192,23 +190,18 @@ require("pckr").add({
 			require("nvim-surround").setup()
 		end,
 	},
-	-- Treesitter
+	-- Treesitter 
 	{ "nvim-treesitter/nvim-treesitter", config = "config-treesitter" },
 	-- Llama
 	{ "ggml-org/llama.vim", config_pre = "config-llama" },
 	-- Slime
 	{
 		"jpalardy/vim-slime",
-		cond = do_not_load,
+		config_pre = function()
+			vim.g.slime_target = "neovim"
+		end,
+		cond = event("BufReadPre", { "*.py", "*.jl" }),
 	},
-})
-
-vim.api.nvim_create_autocmd("BufReadPre", {
-	pattern = { "*.py", "*.jl" },
-	callback = function()
-		vim.g.slime_target = "neovim"
-		vim.cmd.packadd("vim-slime")
-	end,
 })
 
 -- }}}
