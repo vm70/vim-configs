@@ -1,6 +1,6 @@
 -- Return common settings for `prettier`.
 ---@param filetype string file type
----@return {formatCommand: string, formatStdin: boolean} prettier_settings EFM settings
+---@return {formatCommand: string, formatStdin: boolean} settings EFM settings
 local function prettier_settings(filetype)
 	return {
 		formatCommand = vim.fn.expand("$HOME") .. "/.npm/bin/prettier --parser " .. filetype,
@@ -11,16 +11,16 @@ end
 local efm_settings = {
 	languages = {
 		css = {
-			prettier = prettier_settings("css"),
+			prettier_settings("css"),
 		},
 		html = {
-			prettier = prettier_settings("html"),
+			prettier_settings("html"),
 		},
 		json = {
-			prettier = prettier_settings("json"),
+			prettier_settings("json"),
 		},
 		lua = {
-			selene = {
+			{
 				prefix = "selene",
 				lintIgnoreExitCode = true,
 				lintCommand = "selene --color never --quiet -",
@@ -34,15 +34,20 @@ local efm_settings = {
 					"selene.toml",
 				},
 			},
+			{
+				prefix = "stylua",
+				formatCommand = "stylua -",
+				formatStdin = true,
+			},
 		},
 		markdown = {
-			prettier = prettier_settings("markdown"),
+			prettier_settings("markdown"),
 		},
 		["markdown.pandoc"] = {
-			prettier = prettier_settings("markdown"),
+			prettier_settings("markdown"),
 		},
 		md = {
-			prettier = prettier_settings("markdown"),
+			prettier_settings("markdown"),
 		},
 		quarto = {
 			-- Heads-up, this will only work if you add the following to your `.prettierrc.yaml` file:
@@ -53,19 +58,19 @@ local efm_settings = {
 			--     options:
 			--       parser: "markdown"
 			-- ```
-			prettier = prettier_settings("markdown"),
+			prettier_settings("markdown"),
 		},
 		scss = {
-			prettier = prettier_settings("scss"),
+			prettier_settings("scss"),
 		},
 		sh = {
-			shfmt = {
+			{
 				formatCommand = "shfmt",
 				formatStdin = true,
 			},
 		},
 		vim = {
-			vint = {
+			{
 				prefix = "vint",
 				lintCommand = "vint -",
 				lintStdin = true,
@@ -75,12 +80,13 @@ local efm_settings = {
 			},
 		},
 		yaml = {
-			prettier = prettier_settings("yaml"),
+			prettier_settings("yaml"),
 		},
 	},
 }
 ---@type vim.lsp.Config
 return {
+	init_options = { documentFormatting = true },
 	cmd = { "/usr/bin/efm-langserver" },
 	filetypes = vim.tbl_keys(efm_settings.languages),
 	root_markers = { ".git" },
