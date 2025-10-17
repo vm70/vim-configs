@@ -152,6 +152,7 @@ vim.cmd.packadd("pckr.nvim")
 
 local pckr = require("pckr")
 local event = require("pckr.loader.event")
+local cmd = require("pckr.loader.cmd")
 
 pckr.setup({ autoremove = true, package_root = vim.fn.stdpath("config") })
 pckr.add({
@@ -162,9 +163,25 @@ pckr.add({
 	-- Colorscheme
 	{ "ellisonleao/gruvbox.nvim" },
 	-- Status Line
-	{ "nvim-lualine/lualine.nvim", requires = "nvim-mini/mini.icons", config = "config-lualine" },
+	{
+		"nvim-mini/mini.statusline",
+		requires = {
+			"nvim-mini/mini.icons",
+			"lewis6991/gitsigns.nvim",
+		},
+		config = function()
+			require("mini.statusline").setup()
+		end,
+	},
+	{
+		"nvim-mini/mini.tabline",
+		requires = "nvim-mini/mini.icons",
+		config = function()
+			require("mini.tabline").setup()
+		end,
+	},
 	-- Fuzzy Finding
-	{ "ibhagwan/fzf-lua" },
+	{ "ibhagwan/fzf-lua", cond = cmd("FzfLua") },
 	-- Git Integration
 	{ "tpope/vim-fugitive" },
 	{
