@@ -193,9 +193,9 @@ pckr.add({
 	},
 	-- Surround
 	{
-		"kylechui/nvim-surround",
+		"nvim-mini/mini.surround",
 		config = function()
-			require("nvim-surround").setup()
+			require("mini.surround").setup()
 		end,
 	},
 	-- Treesitter
