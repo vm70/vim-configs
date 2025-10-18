@@ -7,7 +7,6 @@ endif
 let g:airline#extensions#coc#enabled = 1
 let g:coc_global_extensions = [
       \ 'coc-json',
-      \ 'coc-ltex',
       \ 'coc-lua',
       \ 'coc-prettier',
       \ 'coc-snippets',
@@ -65,54 +64,16 @@ function CocInit()
   command! -nargs=0 CocFormat :call CocActionAsync('format')
   command! -nargs=0 Snippets :CocList snippets
 
-  if executable('clangd')
-    call coc#config('languageserver.clangd', {
-          \ 'command': '/usr/bin/clangd',
-          \ 'filetypes': ['c', 'cc', 'cpp', 'c++', 'objc', 'objcpp'],
-          \ 'rootPatterns': ['compile_flags.txt', 'compile_commands.json']
-          \ })
-  endif
+  " Update efm-langserver's args to point to $HOME/.vim/efm-config.yaml
+  call coc#config('languageserver.efm.args', ['-c', expand('$MYVIMDIR/efm-config.yaml')])
 
-  if executable('efm-langserver')
-    call coc#config('languageserver.efm', {
-          \ 'args': ['-c', expand('$MYVIMDIR/efm-config.yaml')],
-          \ 'command': '/usr/bin/efm-langserver',
-          \ 'filetypes': ['lua', 'vim', 'sh', 'bash'],
-          \ 'rootPatterns': ['.git', 'selene.toml', 'vimrc', 'init.vim']
-          \ })
-  endif
+  " Enable servers if they are executable
+  for [server, options] in items(coc#util#get_config('languageserver'))
+    if executable(options['command'])
+      call coc#config('languageserver.' . server . '.enable', v:true)
+    endif
+  endfor
 
-  if executable('gopls')
-    call coc#config('languageserver.gopls', {
-          \ 'command': '/usr/bin/gopls',
-          \ 'filetypes': ['go'],
-          \ 'rootPatterns': ['go.mod']
-          \ })
-  endif
-
-  if executable('pylsp')
-    call coc#config('languageserver.pylsp', {
-          \ 'command': '/usr/bin/pylsp',
-          \ 'filetypes': ['python'],
-          \ 'rootPatterns': ['pyproject.toml', '.git']
-          \ })
-  endif
-
-  if executable('stylua')
-    call coc#config('languageserver.stylua', {
-          \ 'args': ['--lsp'],
-          \ 'command': '$HOME/.cargo/bin/stylua',
-          \ 'filetypes': ['lua']
-          \ })
-  endif
-
-  if executable('taplo')
-    call coc#config('languageserver.taplo', {
-          \ 'args': ['lsp', 'stdio'],
-          \ 'command': '$HOME/.cargo/bin/taplo',
-          \ 'filetypes': ['toml']
-          \ })
-  endif
 endfunction
 
 

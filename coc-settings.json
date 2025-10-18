@@ -8,8 +8,76 @@
   "coc.preferences.formatOnSave": false,
   "coc.preferences.formatOnSaveTimeout": 2000,
   "json.format.enable": false,
-  "ltex.disabledRules": {
-    "en-US": ["MORFOLOGIK_RULE_EN_US"]
+  "languageserver": {
+    "clangd": {
+      "command": "clangd",
+      "enable": false,
+      "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"],
+      "rootPatterns": ["compile_flags.txt", "compile_commands.json"]
+    },
+    "efm": {
+      "command": "/usr/bin/efm-langserver",
+      "enable": false,
+      "filetypes": ["lua", "vim", "sh", "bash"],
+      "rootPatterns": [".git", "selene.toml", "vimrc", "init.vim"]
+    },
+    "gopls": {
+      "command": "gopls",
+      "enable": false,
+      "filetypes": ["go"],
+      "rootPatterns": ["go.mod"]
+    },
+    "ltex-ls-plus": {
+      "command": "ltex-ls-plus",
+      "enable": false,
+      "filetypes": [
+        "bib",
+        "context",
+        "gitcommit",
+        "html",
+        "mail",
+        "markdown",
+        "markdown.pandoc",
+        "mdx",
+        "org",
+        "pandoc",
+        "plaintex",
+        "quarto",
+        "rmd",
+        "rnoweb",
+        "rst",
+        "tex",
+        "text",
+        "typst",
+        "xhtml"
+      ],
+      "settings": {
+        "ltex": {
+          "language": "en-US",
+          "disabledRules": {
+            "en-US": ["MORFOLOGIK_RULE_EN_US"]
+          }
+        }
+      }
+    },
+    "pylsp": {
+      "command": "pylsp",
+      "enable": false,
+      "filetypes": ["python"],
+      "rootPatterns": ["pyproject.toml", ".git"]
+    },
+    "stylua": {
+      "args": ["--lsp"],
+      "command": "stylua",
+      "enable": false,
+      "filetypes": ["lua"]
+    },
+    "taplo": {
+      "args": ["lsp", "stdio"],
+      "command": "taplo",
+      "enable": false,
+      "filetypes": ["toml"]
+    }
   },
   "suggest.completionItemKindLabels": {
     "class": "",
