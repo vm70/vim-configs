@@ -1,6 +1,8 @@
 vim9script
 
-def MyGruvbox()
+# See `:help colorscheme-override` for how to override colorschemes.
+
+def CustomizeGruvbox()
   if &background ==# 'dark'
     # hard contrast: #1d2021 / soft contrast: #32302f
     g:terminal_ansi_colors = [
@@ -57,7 +59,7 @@ enddef
 
 augroup my_gruvbox
   au!
-  au ColorScheme gruvbox MyGruvbox()
+  au ColorScheme gruvbox CustomizeGruvbox()
 augroup END
 
 silent! colorscheme gruvbox

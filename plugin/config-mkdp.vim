@@ -7,4 +7,3 @@ augroup mkdp
 augroup END
 
 g:mkdp_filetypes = ['markdown', 'quarto', 'markdown.pandoc']
-
