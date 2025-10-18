@@ -18,7 +18,7 @@
     "efm": {
       "command": "/usr/bin/efm-langserver",
       "enable": false,
-      "filetypes": ["lua", "vim", "sh", "bash"],
+      "filetypes": ["bash", "lua", "sh", "vim"],
       "rootPatterns": [".git", "selene.toml", "vimrc", "init.vim"]
     },
     "gopls": {
@@ -77,6 +77,12 @@
       "command": "taplo",
       "enable": false,
       "filetypes": ["toml"]
+    },
+    "ruff": {
+      "args": ["server"],
+      "command": "ruff",
+      "filetypes": ["python"],
+      "rootPatterns": ["pyproject.toml", "ruff.toml", ".ruff.toml", ".git"]
     }
   },
   "suggest.completionItemKindLabels": {
