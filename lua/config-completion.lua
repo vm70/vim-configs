@@ -1,7 +1,5 @@
-local mini_completion = require("mini.completion")
 local mini_snippets = require("mini.snippets")
-
-mini_completion.setup()
+local mini_completion = require("mini.completion")
 mini_snippets.setup({
 	snippets = {
 		mini_snippets.gen_loader.from_lang(),
@@ -13,4 +11,5 @@ mini_snippets.setup({
 	},
 })
 mini_snippets.start_lsp_server()
+mini_completion.setup()
 vim.lsp.config("*", { capabilities = mini_completion.get_lsp_capabilities() })

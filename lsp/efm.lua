@@ -1,8 +1,9 @@
 -- Return common settings for `prettier`.
 ---@param filetype string file type
----@return {formatCommand: string, formatStdin: boolean} settings EFM settings
+---@return table settings EFM settings
 local function prettier_settings(filetype)
 	return {
+		prefix = "prettier",
 		formatCommand = vim.fn.expand("$HOME") .. "/.npm/bin/prettier ${--tab-width=tabWidth} --parser=" .. filetype,
 		formatStdin = true,
 		rootMarkers = {
@@ -51,7 +52,7 @@ local efm_settings = {
 			{
 				prefix = "selene",
 				lintIgnoreExitCode = true,
-				lintCommand = vim.fn.expand("$HOME") .. "/.cargo/bin/selene --color never --quiet -",
+				lintCommand = vim.fn.expand("$HOME") .. "/.cargo/bin/selene --color=never --quiet -",
 				lintStdin = true,
 				lintFormats = {
 					"%f:%l:%c: %trror%m",
@@ -66,7 +67,7 @@ local efm_settings = {
 				prefix = "stylua",
 				formatCanRange = true,
 				formatCommand = vim.fn.expand("$HOME")
-					.. "/.cargo/bin/stylua --color=Never ${--range-start=charStart} ${--range-end=charEnd} --stdin-filepath '${INPUT}' -",
+					.. "/.cargo/bin/stylua --color=Never ${--range-start=charStart} ${--range-end=charEnd} --stdin-filepath='${INPUT}' -",
 				formatStdin = true,
 			},
 		},
@@ -80,7 +81,7 @@ local efm_settings = {
 			prettier_settings("markdown"),
 		},
 		quarto = {
-			-- Heads-up, this will only work if you add the following to your `.prettierrc.yaml` file:
+			-- NOTE: his will only work if you add the following to your `.prettierrc.yaml` file:
 			--
 			-- ```yaml
 			-- overrides:
@@ -114,6 +115,7 @@ local efm_settings = {
 		},
 	},
 }
+
 ---@type vim.lsp.Config
 return {
 	init_options = { documentFormatting = true, documentRangeFormatting = true },
