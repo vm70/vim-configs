@@ -20,7 +20,7 @@ function PackInit() abort
   call minpac#add('k-takata/minpac', {'type': 'opt'})
   " Commenting (if missing builtin comment package)
   if !has('patch-9.1.375')
-    call minpac#add('tpope/vim-commentary', {'name': 'comment'})
+    call minpac#add('tpope/vim-commentary', {'name': 'comment', 'type': 'opt'})
   endif
   " Nerd Fonts
   call minpac#add('lambdalisue/vim-glyph-palette')
@@ -52,7 +52,7 @@ function PackInit() abort
     call minpac#add('iamcco/markdown-preview.nvim', {'type': 'opt', 'do': 'packadd! markdown-preview.nvim | call mkdp#util#install()'})
     " LSP Integration, Snippets, Autocompletion
     call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
-    call minpac#add('honza/vim-snippets')
+    call minpac#add('rafamadriz/friendly-snippets')
   endif
   " Llama
   call minpac#add('ggml-org/llama.vim', {'type': 'opt'})
@@ -111,22 +111,26 @@ g:mapleader = ' '
 # }}}
 # Keymaps {{{
 
-vmap <C-_> gc<CR>k | # Commenting with CTRL-/
-nmap <C-_> <C-v>gc<CR>k | # Commenting with CTRL-/
+# Commenting with CTRL-/
+vmap <C-_> gc<CR>k
+nmap <C-_> <C-v>gc<CR>k
 
-inoremap <A-j> <cmd>m.+1<CR>==gi | # Move lines up and down in code
-inoremap <A-k> <cmd>m.-2<CR>==gi | # Move lines up and down in code
-nnoremap <A-j> <cmd>m.+1<CR>== | # Move lines up and down in code
-nnoremap <A-k> <cmd>m.-2<CR>== | # Move lines up and down in code
-vnoremap <A-j> <cmd>m'>+1<CR>gv=gv | # Move lines up and down in code
-vnoremap <A-k> <cmd>m'<-2<CR>gv=gv | # Move lines up and down in code
+# Move lines up and down in code
+inoremap <A-j> <cmd>m.+1<CR>==gi
+inoremap <A-k> <cmd>m.-2<CR>==gi
+nnoremap <A-j> <cmd>m.+1<CR>==
+nnoremap <A-k> <cmd>m.-2<CR>==
+vnoremap <A-j> <cmd>m'>+1<CR>gv=gv
+vnoremap <A-k> <cmd>m'<-2<CR>gv=gv
 
-nnoremap <Esc><Esc> <cmd>nohlsearch<CR> | # Stop highlight search
+# Stop highlight search
+nnoremap <Esc><Esc> <cmd>nohlsearch<CR>
 
-noremap [b <cmd>bprevious<CR> | # Previous buffer
-noremap [t <cmd>tabprevious<CR> | # Previous tab
-noremap ]b <cmd>bnext<CR> | # Next buffer
-noremap ]t <cmd>tabnext<CR> | # Next tab
+# Missing previous- and next- commands
+noremap [b <cmd>bprevious<CR>
+noremap [t <cmd>tabprevious<CR>
+noremap ]b <cmd>bnext<CR>
+noremap ]t <cmd>tabnext<CR>
 
 # }}}
 # Commands {{{
