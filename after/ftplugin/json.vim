@@ -4,5 +4,5 @@ setlocal conceallevel=0
 setlocal nospell
 
 if executable('jq')
-  command! SortJSON :execute ':%!jq -S'
+  command! -buffer SortJSON :execute ':%!jq -S'
 endif
