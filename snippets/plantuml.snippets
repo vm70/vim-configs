@@ -1,0 +1,98 @@
+snippet pa Package UML structure
+	package $1 {
+	$2
+	}
+snippet block Places a block comment in the document
+	/'
+	' $1
+	'/
+snippet sfinal Describe the final state of objects
+	--> [*]
+snippet bound Model a boundary of the system
+	boundary $0
+snippet ctrl Models a loop back for control
+	control $0
+snippet ag An object aggregates X number of other objects
+	o-- $1 $2
+snippet example Simple example to get started with PlantUML
+	@startuml
+	Alice -> Bob
+	Bob -> Alice
+	@enduml
+snippet frame A frame of the components
+	frame $1
+snippet ob A default Object
+	object $1 {
+	$2
+	}
+snippet no A cube modelling a node in the system
+	node $1
+snippet db Models a Database (depicted as a cylinder)
+	database $0
+snippet ag An object aggregates X number of other objects
+	o.. $1 $2
+snippet ret An arrow for the message return on a Sequence diagram
+	$1 <-- $2
+snippet down
+	-down->
+snippet up
+	-up->
+snippet act An actor in the system
+	actor $0
+snippet sinit Describe the initial state of objects
+	[*] -->
+snippet mess An arrow for the message sent on a Sequence diagram
+	$1 -> $2
+snippet dcom Model an object composition
+	*.. $1
+snippet ti The document title
+	title $0
+snippet < Object A uses -> () <That is our use case notation to the left>
+	<-- $1
+snippet > Object A uses -> () <That is our use case notation to the left>
+	--> $1
+snippet dext Arrow for object extends another object
+	<|.. $1
+snippet cla Class Object where fields are defined:
+	public (+)
+	private (-)
+	protected (#)
+	package (~).
+snippet init-state Model an initial starting point for the activity diagram
+	(*) -> $1
+snippet note-rt A note that appears on the right
+	note right : $0
+snippet ra
+	-right->
+snippet startuml Inside $1 begin defining your diagram
+	@startuml
+	$1
+	@enduml
+snippet la
+	-left->
+snippet act Describe the activity being done
+	$1
+snippet rext Extend, Include
+	<.. $1
+snippet ext Arrow for object extends another object
+	<|-- $1
+snippet fol A folder for project organization
+	folder $1
+snippet if
+	if $1 then
+	->[ok] $2
+	else
+		-->[$3]
+	endif
+snippet com Model an object composition
+	*-- $1
+snippet note-lf A note that appears on the left
+	note left : $0
+snippet cl Model the cloud servers
+	cloud $1
+snippet const $1 is param name, $2 is param value
+	!define $1 $2
+snippet ent Models an entity of the system
+	entity $0
+snippet lext Extend, Include
+	..> $1
