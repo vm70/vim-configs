@@ -40,7 +40,7 @@ function PackInit() abort
   call minpac#add('junegunn/fzf.vim')
   call minpac#add('junegunn/fzf', {'do': 'packloadall! | call fzf#install()'})
   " Surround
-  call minpac#add('tpope/vim-surround')
+  call minpac#add('machakann/vim-sandwich')
   " Sleuth
   call minpac#add('tpope/vim-sleuth')
   " Jupyter/REPL
