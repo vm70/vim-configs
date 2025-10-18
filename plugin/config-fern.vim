@@ -2,14 +2,16 @@ vim9script
 
 g:fern#renderer = 'nerdfont'
 
-nnoremap <leader>e <cmd>Fern . -toggle -drawer<CR> | # Fern: Toggle file tree, current directory
-nnoremap <leader>E <cmd>Fern %:h -toggle -drawer<CR> | # Fern: Toggle file tree, parent directory of current file
-
 if !executable('trash')
   echohl WarningMsg
   echo 'WARNING: trash-cli not installed'
   echohl None
 endif
+
+# Toggle file tree, current directory
+nnoremap <leader>e <cmd>Fern . -toggle -drawer<CR>
+# Toggle file tree, parent of current file
+nnoremap <leader>E <cmd>Fern %:h -toggle -drawer<CR>
 
 # Fern customization
 function InitFern() abort
@@ -20,7 +22,7 @@ function InitFern() abort
   endif
 endfunction
 
-augroup my-fern
+augroup customize-fern
   autocmd! *
   autocmd FileType fern call InitFern()
 augroup END

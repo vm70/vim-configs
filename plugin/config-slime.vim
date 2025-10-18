@@ -4,7 +4,7 @@ g:slime_target = 'vimterminal'
 
 def SlimeSetup()
   packadd vim-slime
-  nnoremap <leader>sc <Plug>SlimeSendCell | # Slime: Send Code Cell
+  nnoremap <leader>sc <Plug>SlimeSendCell
 enddef
 
 augroup repl
