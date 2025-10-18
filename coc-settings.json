@@ -5,7 +5,7 @@
   "[lua]": {
     "coc.preferences.formatterExtension": "languageserver.stylua"
   },
-  "coc.preferences.formatOnSave": true,
+  "coc.preferences.formatOnSave": false,
   "coc.preferences.formatOnSaveTimeout": 2000,
   "json.format.enable": false,
   "ltex.disabledRules": {
