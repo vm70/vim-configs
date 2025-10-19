@@ -22,6 +22,12 @@ function PackInit() abort
   if !has('patch-9.1.375')
     call minpac#add('tpope/vim-commentary', {'name': 'comment', 'type': 'opt'})
   endif
+  " LSP Integration, Snippets, Autocompletion
+  call minpac#add('yegappan/lsp')
+  call minpac#add('hrsh7th/vim-vsnip')
+  call minpac#add('hrsh7th/vim-vsnip-integ')
+  call minpac#add('rafamadriz/friendly-snippets')
+  call minpac#add('girishji/vimcomplete')
   " Nerd Fonts
   call minpac#add('lambdalisue/vim-glyph-palette')
   call minpac#add('lambdalisue/vim-nerdfont')
@@ -50,9 +56,6 @@ function PackInit() abort
   if executable('npm')
     " Markdown Preview
     call minpac#add('iamcco/markdown-preview.nvim', {'type': 'opt', 'do': 'packadd! markdown-preview.nvim | call mkdp#util#install()'})
-    " LSP Integration, Snippets, Autocompletion
-    call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
-    call minpac#add('rafamadriz/friendly-snippets')
   endif
   " Llama
   call minpac#add('ggml-org/llama.vim', {'type': 'opt'})
