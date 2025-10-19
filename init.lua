@@ -214,13 +214,13 @@ pckr.add({
 		end,
 		cond = event("BufReadPre", { "*.py", "*.jl" }),
 	},
-	{ "aklt/plantuml-syntax" },
+	{ "aklt/plantuml-syntax", cond = event("BufReadPre", "*.pu,*.puml,*.iuml") },
 })
 
 -- }}}
 -- Multi-Language LSP Setup {{{
 
--- Other filetype-specific LSPs get set up in `after/ftplugin/<filetype>.lua`.
+-- Filetype-specific LSPs get enabled in `after/ftplugin/<filetype>.lua`.
 vim.lsp.enable("ltex_plus")
 vim.lsp.enable("efm")
 
