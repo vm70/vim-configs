@@ -66,6 +66,7 @@ def VimCompleteSetup()
           \ 'name': 'efm-langserver',
           \ 'filetype': ['vim', 'lua', 'markdown', 'json', 'pandoc', 'markdown.pandoc'],
           \ 'path': 'efm-langserver',
+          \ 'args': ['-c', expand('$MYVIMDIR/efm-config.yaml')]
           \ }])
   endif
 
