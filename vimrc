@@ -14,51 +14,51 @@ if empty(glob('$MYVIMDIR/pack/minpac/opt/minpac'))
   silent execute '!git clone https://github.com/k-takata/minpac.git $MYVIMDIR/pack/minpac/opt/minpac'
 endif
 
-function PackInit() abort
+def PackInit()
   packadd minpac
   call minpac#init()
   call minpac#add('k-takata/minpac', {'type': 'opt'})
-  " Commenting (if missing builtin comment package)
+  # Commenting (if missing builtin comment package)
   if !has('patch-9.1.375')
     call minpac#add('tpope/vim-commentary', {'name': 'comment', 'type': 'opt'})
   endif
-  " Nerd Fonts
+  # Nerd Fonts
   call minpac#add('lambdalisue/vim-glyph-palette')
   call minpac#add('lambdalisue/vim-nerdfont')
-  " File Tree
+  # File Tree
   call minpac#add('lambdalisue/vim-fern')
   call minpac#add('lambdalisue/vim-fern-git-status')
   call minpac#add('lambdalisue/vim-fern-hijack')
   call minpac#add('lambdalisue/vim-fern-renderer-nerdfont')
-  " Git Integration
+  # Git Integration
   call minpac#add('tpope/vim-fugitive')
   call minpac#add('airblade/vim-gitgutter')
-  " Status Line
+  # Status Line
   call minpac#add('Freed-Wu/airline-renderer-nerdfont.vim', {'name': 'vim-airline-nerdfont'})
   call minpac#add('vim-airline/vim-airline')
-  " Fuzzy-Finding
+  # Fuzzy-Finding
   call minpac#add('junegunn/fzf.vim')
   call minpac#add('junegunn/fzf', {'do': 'packloadall! | call fzf#install()'})
-  " Surround
+  # Surround
   call minpac#add('machakann/vim-sandwich')
-  " Sleuth
+  # Sleuth
   call minpac#add('tpope/vim-sleuth')
-  " Jupyter/REPL
+  # Jupyter/REPL
   call minpac#add('jpalardy/vim-slime', {'type': 'opt'})
-  " Colorscheme
+  # Colorscheme
   call minpac#add('kratuvid/vim9-gruvbox')
   if executable('npm')
-    " Markdown Preview
+    # Markdown Preview
     call minpac#add('iamcco/markdown-preview.nvim', {'type': 'opt', 'do': 'packadd! markdown-preview.nvim | call mkdp#util#install()'})
-    " LSP Integration, Snippets, Autocompletion
+    # LSP Integration, Snippets, Autocompletion
     call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
     call minpac#add('rafamadriz/friendly-snippets')
   endif
-  " Llama
+  # Llama
   call minpac#add('ggml-org/llama.vim', {'type': 'opt'})
-  " PlantUML
-  call minpac#add('aklt/plantuml-syntax')
-endfunction
+  # PlantUML
+  call minpac#add('aklt/plantuml-syntax', {'type': 'opt'})
+enddef
 silent! packadd! comment
 
 command! PackUpdate call PackInit() | call minpac#update()
