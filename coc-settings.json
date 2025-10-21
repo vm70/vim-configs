@@ -53,10 +53,10 @@
       ],
       "settings": {
         "ltex": {
-          "language": "en-US",
           "disabledRules": {
             "en-US": ["MORFOLOGIK_RULE_EN_US"]
-          }
+          },
+          "language": "en-US"
         }
       }
     },
@@ -65,6 +65,12 @@
       "enable": false,
       "filetypes": ["python"],
       "rootPatterns": ["pyproject.toml", ".git"]
+    },
+    "ruff": {
+      "args": ["server"],
+      "command": "ruff",
+      "filetypes": ["python"],
+      "rootPatterns": ["pyproject.toml", "ruff.toml", ".ruff.toml", ".git"]
     },
     "stylua": {
       "args": ["--lsp"],
@@ -77,12 +83,6 @@
       "command": "taplo",
       "enable": false,
       "filetypes": ["toml"]
-    },
-    "ruff": {
-      "args": ["server"],
-      "command": "ruff",
-      "filetypes": ["python"],
-      "rootPatterns": ["pyproject.toml", "ruff.toml", ".ruff.toml", ".git"]
     }
   },
   "suggest.completionItemKindLabels": {
