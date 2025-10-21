@@ -1,4 +1,4 @@
-" Run Conditions {{{
+" Do not port this script to vim9script.
 
 if !executable('npm')
   finish
