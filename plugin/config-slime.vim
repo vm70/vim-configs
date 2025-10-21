@@ -7,8 +7,7 @@ def SlimeSetup()
   nnoremap <leader>sc <Plug>SlimeSendCell
 enddef
 
-augroup repl
+augroup slime-setup
   autocmd!
   autocmd BufReadPre *.py,*.jl call SlimeSetup()
 augroup END
-

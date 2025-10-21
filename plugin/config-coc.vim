@@ -17,7 +17,7 @@ let g:coc_global_extensions = [
 let g:coc_snippet_next = '<Tab>'
 let g:coc_snippet_prev = '<S-Tab>'
 
-function CocInit()
+function CocNvimInit()
 
   set nobackup
   set nowritebackup
@@ -76,8 +76,7 @@ function CocInit()
 
 endfunction
 
-
 augroup coc_init
   autocmd!
-  autocmd User CocNvimInit call CocInit()
+  autocmd User CocNvimInit call CocNvimInit()
 augroup END
