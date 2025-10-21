@@ -19,6 +19,7 @@ try
         \ 'go': '',
         \ 'iuml': '',
         \ 'mermaid': '󱁉',
+        \ 'mmd': '󱁉',
         \ 'pu': '',
         \ 'puml': '',
         \ 'qmd': '󰐗',
@@ -34,5 +35,5 @@ endtry
 # Apply glyph-palette to Fern windows
 augroup glyph-palette
   autocmd! *
-  autocmd FileType fern call glyph_palette#apply()
+    autocmd FileType fern call glyph_palette#apply()
 augroup END
