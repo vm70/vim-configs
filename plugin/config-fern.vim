@@ -4,7 +4,7 @@ g:fern#renderer = 'nerdfont'
 
 if !executable('trash')
   echohl WarningMsg
-  echo 'WARNING: trash-cli not installed'
+  echo 'WARNING: trash-cli not installed. Run `pipx install trash-cli` or install globally with package manager'
   echohl None
 endif
 
@@ -24,5 +24,5 @@ endfunction
 
 augroup customize-fern
   autocmd! *
-  autocmd FileType fern call InitFern()
+    autocmd FileType fern call InitFern()
 augroup END
