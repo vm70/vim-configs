@@ -14,8 +14,5 @@ if executable('mmdc')
   # ---------------------^
   # Expecting 'AMP', 'COLON', 'PIPE', 'TESTSTR', 'DOWN', 'DEFAULT', 'NUM', 'COMMA', 'NODE_STRING', 'BRKT', 'MINUS', 'MULT', 'UNICODE_TEXT', got 'LINK'
   # ```
-  setlocal errorformat=%EError:\ Parse\ Error\ on\ line\ %l:
-  setlocal errorformat+=%C%.%#\ \ %s
-  setlocal errorformat+=%C%p^
-  setlocal errorformat+=%Z%m
+  setlocal errorformat=%EError:\ Parse\ Error\ on\ line\ %l:,%C%.%#\ \ %s,%C%p^,%Z%m
 endif
