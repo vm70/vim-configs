@@ -76,7 +76,7 @@ function CocNvimInit()
 
 endfunction
 
-augroup coc_init
+augroup coc-init
   autocmd!
   autocmd User CocNvimInit call CocNvimInit()
 augroup END
