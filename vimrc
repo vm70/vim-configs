@@ -57,7 +57,8 @@ def PackInit()
   # Llama
   call minpac#add('ggml-org/llama.vim', {'type': 'opt'})
   # PlantUML
-  call minpac#add('aklt/plantuml-syntax', {'type': 'opt'})
+  call minpac#add('aklt/plantuml-syntax')
+  call minpac#add('lervag/vimtex')
 enddef
 silent! packadd! comment
 
