@@ -2,6 +2,9 @@
   "[json]": {
     "coc.preferences.formatterExtension": "coc-prettier"
   },
+  "[latex][tex]": {
+    "inlayHint.enable": false
+  },
   "[lua]": {
     "coc.preferences.formatterExtension": "languageserver.stylua"
   },
@@ -21,7 +24,7 @@
     "efm": {
       "command": "/usr/bin/efm-langserver",
       "enable": false,
-      "filetypes": ["bash", "lua", "sh", "vim"],
+      "filetypes": ["bash", "lua", "racket", "sh", "vim"],
       "rootPatterns": [".git", "selene.toml", "vimrc", "init.vim"]
     },
     "gopls": {
@@ -38,6 +41,7 @@
         "context",
         "gitcommit",
         "html",
+        "latex",
         "mail",
         "markdown",
         "markdown.pandoc",
@@ -69,6 +73,12 @@
       "filetypes": ["python"],
       "rootPatterns": ["pyproject.toml", ".git"]
     },
+    "racket-langserver": {
+      "args": ["-l", "racket-langserver"],
+      "command": "racket",
+      "enable": false,
+      "filetypes": ["racket"]
+    },
     "ruff": {
       "args": ["server"],
       "command": "ruff",
@@ -86,8 +96,14 @@
       "command": "taplo",
       "enable": false,
       "filetypes": ["toml"]
+    },
+    "texlab": {
+      "command": "texlab",
+      "enable": false,
+      "filetypes": ["bib", "context", "latex", "plaintex", "tex"]
     }
   },
+  "outline.sortBy": "position",
   "suggest.completionItemKindLabels": {
     "class": "",
     "color": "",

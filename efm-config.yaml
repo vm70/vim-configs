@@ -4,6 +4,24 @@ root-markers:
 lint-debounce: 1s
 log-level: 1
 tools:
+
+  chktex: &chktex
+    prefix: chktex
+    lint-command: "chktex -q -v0"
+    lint-stdin: true
+    lint-ignore-exit-code: true
+    lint-formats:
+      - '%f:%l:%c:%n:%m'
+    lint-severity: 2
+
+  latexindent: &latexindent
+    format-command: 'latexindent -'
+    format-stdin: true
+ 
+  raco-fmt: &raco-fmt
+    format-command: "raco fmt"
+    format-stdin: true
+
   selene: &selene
     prefix: selene
     lint-ignore-exit-code: true
@@ -32,7 +50,15 @@ languages:
     - <<: *shfmt
   lua:
     - <<: *selene
+  latex:
+    - <<: *latexindent
+    - <<: *chktex
+  racket:
+    - <<: *raco-fmt
   sh:
     - <<: *shfmt
+  tex:
+    - <<: *latexindent
+    - <<: *chktex
   vim:
     - <<: *vint
