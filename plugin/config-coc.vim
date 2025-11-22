@@ -33,7 +33,7 @@ function CocNvimInit()
   endfunction
 
   " Triggering completion is done with <C-y> (see `:help ins-completion`)
-  nmap <leader>ca <Plug>(coc-codeaction-selected)
+  nmap <leader>ca <Plug>(coc-codeaction-selected)<CR>
   nmap <leader>cc <Plug>(coc-codelens-action)
   nmap <leader>cf <Plug>(coc-format)
   nmap <leader>cr <Plug>(coc-rename)
