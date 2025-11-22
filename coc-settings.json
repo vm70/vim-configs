@@ -22,7 +22,7 @@
       "rootPatterns": ["compile_flags.txt", "compile_commands.json"]
     },
     "efm": {
-      "command": "/usr/bin/efm-langserver",
+      "command": "efm-langserver",
       "enable": false,
       "filetypes": ["bash", "lua", "racket", "sh", "vim"],
       "rootPatterns": [".git", "selene.toml", "vimrc", "init.vim"]
@@ -67,6 +67,11 @@
         }
       }
     },
+    "marksman": {
+      "command": "marksman",
+      "enable": false,
+      "filetypes": ["markdown"]
+    },
     "pylsp": {
       "command": "pylsp",
       "enable": false,
@@ -78,6 +83,11 @@
       "command": "racket",
       "enable": false,
       "filetypes": ["racket"]
+    },
+    "gambit-lsp-server": {
+      "command": "gambit-lsp-server",
+      "enable": false,
+      "filetypes": ["scheme"]
     },
     "ruff": {
       "args": ["server"],
