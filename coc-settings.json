@@ -16,7 +16,6 @@
   },
   "coc.preferences.formatOnSave": false,
   "coc.preferences.formatOnSaveTimeout": 2000,
-  "prettier.documentSelectors": ["**/*.qmd"],
   "json.format.enable": false,
   "languageserver": {
     "clangd": {
@@ -88,14 +87,10 @@
       "enable": false,
       "filetypes": ["racket"]
     },
-    "gambit-lsp-server": {
-      "command": "gambit-lsp-server",
-      "enable": false,
-      "filetypes": ["scheme"]
-    },
     "ruff": {
       "args": ["server"],
       "command": "ruff",
+      "enable": false,
       "filetypes": ["python"],
       "rootPatterns": ["pyproject.toml", "ruff.toml", ".ruff.toml", ".git"]
     },
@@ -118,6 +113,7 @@
     }
   },
   "outline.sortBy": "position",
+  "prettier.documentSelectors": ["**/*.qmd"],
   "suggest.completionItemKindLabels": {
     "class": "",
     "color": "",
