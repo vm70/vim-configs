@@ -1,6 +1,11 @@
 vim9script
 
 b:slime_cell_delimiter = '# %%'
-b:slime_python_ipython = 1
+
+if executable("ipython")
+  b:slime_python_ipython = 1
+else
+  b:slime_python_ipython = 0
+endif
 
 setlocal colorcolumn=88
