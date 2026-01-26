@@ -11,8 +11,12 @@
   "[python]": {
     "coc.preferences.formatterExtension": "languageserver.ruff"
   },
+  "[quarto][qmd]": {
+    "coc.preferences.formatterExtension": "coc-prettier"
+  },
   "coc.preferences.formatOnSave": false,
   "coc.preferences.formatOnSaveTimeout": 2000,
+  "prettier.documentSelectors": ["**/*.qmd"],
   "json.format.enable": false,
   "languageserver": {
     "clangd": {
