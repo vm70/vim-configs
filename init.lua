@@ -103,8 +103,10 @@ vim.keymap.set("n", "gy", vim.lsp.buf.type_definition, { desc = "Go to type defi
 -- CTRL-P for Commands
 vim.keymap.set("n", "<C-P>", "<cmd>FzfLua commands<CR>")
 
--- Vim-Slime Commands
-vim.keymap.set("n", "<leader>sc", "<Plug>SlimeSendCell")
+-- Vim-Slime / Vim-Slime-Cells
+vim.keymap.set("n", "<C-c><C-c>", "<Plug>SlimeCellsSendAndGoToNext")
+vim.keymap.set("n", "<C-c><C-Down>", "<Plug>SlimeCellsNext")
+vim.keymap.set("n", "<C-c><C-Up>", "<Plug>SlimeCellsPrev")
 
 -- Missing previous- and next- keys
 later(require("mini.bracketed").setup)
@@ -178,7 +180,7 @@ now(function()
 end)
 
 -- Treesitter
-if vim.fn.executable("tree-sitter-cli") == 1 then
+if vim.fn.executable("tree-sitter") == 1 then
 	now(function()
 		add({
 			source = "nvim-treesitter/nvim-treesitter",
@@ -220,13 +222,21 @@ end)
 -- Jupyter / REPL
 later(function()
 	vim.g.slime_target = "neovim"
-	vim.g.slime_no_mappings = false
+	vim.g.slime_no_mappings = true
+	vim.g.slime_cell_delimiter = "^# %%.*$"
 	add({ source = "jpalardy/vim-slime" })
 	vim.g.slime_input_pid = false
 	vim.g.slime_suggest_default = true
 	vim.g.slime_menu_config = false
 	vim.g.slime_neovim_ignore_unlisted = false
 end)
+
+vim.api.nvim_create_autocmd("BufEnter", {
+	pattern = { "*.py", "*.jl" },
+	callback = function()
+		add({ source = "Klafyvel/vim-slime-cells" })
+	end,
+})
 
 -- Sleuth
 later(function()
@@ -291,5 +301,8 @@ later(function()
 end)
 
 -- }}}
+-- Multi-Language LSP Servers {{{
 
 vim.lsp.enable({ "efm", "ltex_plus" })
+
+-- }}}
