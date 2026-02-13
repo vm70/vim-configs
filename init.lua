@@ -258,7 +258,7 @@ later(function()
 	-- R Markdown
 	add({ source = "vim-pandoc/vim-rmarkdown" })
 	-- Quarto (for Vim)
-	add({ source = "quarto-dev/quarto-nvim" })
+	add({ source = "quarto-dev/quarto-vim" })
 	-- Quarto (for Neovim)
 	-- vim.api.nvim_create_autocmd("BufEnter", {
 	-- 	pattern = { "*.qmd" },
