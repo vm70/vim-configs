@@ -1,8 +1,11 @@
 -- Customize post-processing of LSP responses for a better user experience.
 -- Don't show 'Text' suggestions (usually noisy) and show snippets last.
-local process_items_opts = { kind_priority = { Text = -1, Snippet = 99 } }
 local process_items = function(items, base)
-	return require("mini.completion").default_process_items(items, base, process_items_opts)
+	return require("mini.completion").default_process_items(
+		items,
+		base,
+		{ kind_priority = { Text = -1, Snippet = 99 } }
+	)
 end
 require("mini.completion").setup({
 	lsp_completion = {
