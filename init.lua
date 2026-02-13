@@ -200,6 +200,26 @@ if vim.fn.executable("tree-sitter") == 1 then
 	end)
 end
 
+-- Syntax Plugins
+now(function()
+	-- PlantUML
+	add({ source = "aklt/plantuml-syntax" })
+	-- (Better) Pandoc
+	add({ source = "vim-pandoc/vim-pandoc" })
+	add({ source = "vim-pandoc/vim-pandoc-syntax" })
+	-- R Markdown
+	add({ source = "vim-pandoc/vim-rmarkdown" })
+	-- Quarto (for Vim)
+	add({ source = "quarto-dev/quarto-vim" })
+	-- Quarto (for Neovim)
+	-- vim.api.nvim_create_autocmd("BufEnter", {
+	-- 	pattern = { "*.qmd" },
+	-- 	callback = function()
+	-- 		add({ source = "quarto-dev/quarto-nvim", depends = { "jmbuhr/otter.nvim" } })
+	-- 	end,
+	-- })
+end)
+
 -- }}}
 -- `mini.deps` Later {{{
 
@@ -246,26 +266,6 @@ later(function()
 	-- require("mini.git").setup()
 	add({ source = "tpope/vim-fugitive" })
 	require("mini.diff").setup({ view = { style = "sign" } })
-end)
-
--- Syntax Plugins
-later(function()
-	-- PlantUML
-	add({ source = "aklt/plantuml-syntax" })
-	-- (Better) Pandoc
-	add({ source = "vim-pandoc/vim-pandoc" })
-	add({ source = "vim-pandoc/vim-pandoc-syntax" })
-	-- R Markdown
-	add({ source = "vim-pandoc/vim-rmarkdown" })
-	-- Quarto (for Vim)
-	add({ source = "quarto-dev/quarto-vim" })
-	-- Quarto (for Neovim)
-	-- vim.api.nvim_create_autocmd("BufEnter", {
-	-- 	pattern = { "*.qmd" },
-	-- 	callback = function()
-	-- 		add({ source = "quarto-dev/quarto-nvim", depends = { "jmbuhr/otter.nvim" } })
-	-- 	end,
-	-- })
 end)
 
 -- Snippets
