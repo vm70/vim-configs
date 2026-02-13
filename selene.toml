@@ -2,3 +2,4 @@ std = "nvimlua52"
 
 [lints]
 mixed_table = "allow"
+unscoped_variables = "allow"

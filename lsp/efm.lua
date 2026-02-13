@@ -1,126 +1,34 @@
--- Return common settings for `prettier`.
----@param filetype string file type
----@return table settings EFM settings
-local function prettier_settings(filetype)
-	return {
-		prefix = "prettier",
-		formatCommand = vim.fn.expand("$HOME") .. "/.npm/bin/prettier ${--tab-width=tabWidth} --parser=" .. filetype,
-		formatStdin = true,
-		rootMarkers = {
-			".prettierrc",
-			".prettierrc",
-			".prettierrc.json",
-			".prettierrc.js",
-			".prettierrc.yml",
-			".prettierrc.yaml",
-			".prettierrc.json5",
-			".prettierrc.mjs",
-			".prettierrc.cjs",
-			".prettierrc.toml",
-		},
+local languages = {}
+local ok, _ = pcall(require, "efmls-configs")
+if ok then
+	local chktex = require("efmls-configs.linters.chktex")
+	local latexindent = require("efmls-configs.formatters.latexindent")
+	local prettier = require("efmls-configs.formatters.prettier")
+	local selene = require("efmls-configs.linters.selene")
+	local shfmt = require("efmls-configs.formatters.shfmt")
+	local vint = require("efmls-configs.linters.vint")
+	languages = {
+		css = { prettier },
+		html = { prettier },
+		json = { prettier },
+		lua = { selene },
+		markdown = { prettier },
+		pandoc = { prettier },
+		quarto = { prettier },
+		scss = { prettier },
+		sh = { shfmt },
+		tex = { chktex, latexindent },
+		vim = { vint },
+		yaml = { prettier },
 	}
 end
-
-local efm_settings = {
-	languages = {
-		css = {
-			prettier_settings("css"),
-		},
-		html = {
-			prettier_settings("html"),
-		},
-		json = {
-			prettier_settings("json"),
-		},
-		tex = {
-			{
-				prefix = "chktex",
-				lintCommand = "/usr/bin/chktex -q -v0",
-				lintFormats = { "%f:%l:%c:%n:%m" },
-				lintIgnoreExitCode = true,
-				lintSeverity = 2,
-				lintSource = "chktex",
-				lintStdin = true,
-			},
-			{
-				prefix = "latexindent",
-				formatCommand = "latexindent -",
-				formatStdin = true,
-			},
-		},
-		lua = {
-			{
-				prefix = "selene",
-				lintIgnoreExitCode = true,
-				lintCommand = vim.fn.expand("$HOME") .. "/.cargo/bin/selene --color=never --quiet -",
-				lintStdin = true,
-				lintFormats = {
-					"%f:%l:%c: %trror%m",
-					"%f:%l:%c: %tarning%m",
-					"%f:%l:%c: %tote%m",
-				},
-				rootMarkers = {
-					"selene.toml",
-				},
-			},
-			{
-				prefix = "stylua",
-				formatCanRange = true,
-				formatCommand = vim.fn.expand("$HOME")
-					.. "/.cargo/bin/stylua --color=Never ${--range-start=charStart} ${--range-end=charEnd} --stdin-filepath='${INPUT}' -",
-				formatStdin = true,
-			},
-		},
-		markdown = {
-			prettier_settings("markdown"),
-		},
-		["markdown.pandoc"] = {
-			prettier_settings("markdown"),
-		},
-		md = {
-			prettier_settings("markdown"),
-		},
-		quarto = {
-			-- NOTE: his will only work if you add the following to your `.prettierrc.yaml` file:
-			--
-			-- ```yaml
-			-- overrides:
-			--   - files: "**.qmd"
-			--     options:
-			--       parser: "markdown"
-			-- ```
-			prettier_settings("markdown"),
-		},
-		scss = {
-			prettier_settings("scss"),
-		},
-		sh = {
-			{
-				formatCommand = "shfmt",
-				formatStdin = true,
-			},
-		},
-		vim = {
-			{
-				prefix = "vint",
-				lintCommand = "vint -",
-				lintStdin = true,
-				lintFormats = {
-					"%f:%l:%c: %m",
-				},
-			},
-		},
-		yaml = {
-			prettier_settings("yaml"),
-		},
-	},
-}
 
 ---@type vim.lsp.Config
 return {
 	init_options = { documentFormatting = true, documentRangeFormatting = true },
-	cmd = { "/usr/bin/efm-langserver" },
-	filetypes = vim.tbl_keys(efm_settings.languages),
-	root_markers = { ".git" },
-	settings = efm_settings,
+	cmd = { "efm-langserver" },
+	filetypes = vim.tbl_keys(languages),
+	settings = {
+		languages = languages,
+	},
 }

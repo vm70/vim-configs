@@ -11,3 +11,5 @@ vim.keymap.set("v", "<S-Tab>", "<gv", { buffer = true })
 vim.keymap.set("v", "<Tab>", ">gv", { buffer = true })
 
 vim.g.markdown_folding = 1
+
+vim.lsp.enable('ltex_plus')

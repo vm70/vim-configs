@@ -1,23 +1,28 @@
-require("nvim-treesitter.configs").setup({
-	auto_install = true,
-	highlight = { enable = true, disable = { "markdown", "pandoc", "quarto", "vim" } },
-	textobjects = {
-		select = {
-			enable = true,
-			lookahead = true,
-			keymaps = {
-				["af"] = "@function.outer",
-				["if"] = "@function.inner",
-				["ac"] = "@class.outer",
-				["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
-				["as"] = { query = "@local.scope", query_group = "locals", desc = "Select language scope" },
-			},
-			selection_modes = {
-				["@parameter.outer"] = "v", -- charwise
-				["@function.outer"] = "V", -- linewise
-				["@class.outer"] = "<c-v>", -- blockwise
-			},
-			include_surrounding_whitespace = true,
-		},
-	},
-})
+-- Define languages which will have parsers installed and auto enabled
+-- After changing this, restart Neovim once to install necessary parsers. Wait
+-- for the installation to finish before opening a file for added language(s).
+local languages = {
+	"lua",
+	"vimdoc",
+	"markdown",
+	"python",
+}
+local isnt_installed = function(lang)
+	return #vim.api.nvim_get_runtime_file("parser/" .. lang .. ".*", false) == 0
+end
+local to_install = vim.tbl_filter(isnt_installed, languages)
+if #to_install > 0 then
+	require("nvim-treesitter").install(to_install)
+end
+
+-- Enable tree-sitter after opening a file for a target language
+local filetypes = {}
+for _, lang in ipairs(languages) do
+	for _, ft in ipairs(vim.treesitter.language.get_filetypes(lang)) do
+		table.insert(filetypes, ft)
+	end
+end
+local ts_start = function(ev)
+	vim.treesitter.start(ev.buf)
+end
+vim.api.nvim_create_autocmd("Filetype", { pattern = filetypes, callback = ts_start, desc = "Start tree-sitter" })

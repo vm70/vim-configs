@@ -1,7 +1,5 @@
 -- Global Variables {{{
 
-vim.g.filetype_md = "markdown.pandoc"
-vim.g.filetype_v = "verilog"
 vim.g.mapleader = " "
 
 -- }}}
@@ -44,6 +42,31 @@ vim.opt.tabstop = 2
 vim.opt.diffopt = "internal,filler,closeoff,vertical"
 
 -- }}}
+-- Bootstrap `mini.nvim` & MiniDeps {{{
+
+-- Clone `mini.nvim` manually in a way that it gets managed by `mini.deps`
+local path_package = vim.fn.stdpath("config")
+local mini_path = path_package .. "/pack/deps/start/mini.nvim"
+if not vim.loop.fs_stat(mini_path) then
+	vim.cmd('echo "Installing `mini.nvim`" | redraw')
+	local clone_cmd = {
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/nvim-mini/mini.nvim",
+		mini_path,
+	}
+	vim.fn.system(clone_cmd)
+	vim.cmd("packadd mini.nvim | helptags ALL")
+	vim.cmd('echo "Installed `mini.nvim`" | redraw')
+end
+
+-- Set up `mini.deps`
+MiniDeps = require("mini.deps")
+MiniDeps.setup({ path = { package = path_package } })
+local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
+
+-- }}}
 -- Keymaps {{{
 
 vim.g.mapleader = " "
@@ -59,26 +82,11 @@ vim.keymap.set("n", "<Esc><Esc>", "<cmd>nohlsearch<CR>", { desc = "Stop highligh
 vim.keymap.set("n", "<C-_>", "<C-v>gc<CR>k", { desc = "Toggle comment" })
 vim.keymap.set("v", "<C-_>", "gc<CR>k", { desc = "Toggle comment" })
 
--- Moving lines up and down in code
-vim.keymap.set("i", "<A-j>", "<cmd>m.+1<CR>==gi", { desc = "Move line down" })
-vim.keymap.set("i", "<A-k>", "<cmd>m.-2<CR>==gi", { desc = "Move line up" })
-vim.keymap.set("n", "<A-j>", "<cmd>m.+1<CR>==", { desc = "Move line down" })
-vim.keymap.set("n", "<A-k>", "<cmd>m.-2<CR>==", { desc = "Move line down" })
-vim.keymap.set("v", "<A-j>", "<cmd>m'>+1<CR>gv=gv", { desc = "Move selection down" })
-vim.keymap.set("v", "<A-k>", "<cmd>m'<-2<CR>gv=gv", { desc = "Move selection up" })
-
 -- File tree
 vim.keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file tree" })
 
--- Missing previous- and next- keys
-vim.keymap.set("n", "[b", "<cmd>bprevious<CR>", { desc = ":bprevious" })
-vim.keymap.set("n", "]b", "<cmd>bnext<CR>", { desc = ":bnext" })
-vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk<CR>", { desc = "Previous Git hunk" })
-vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<CR>", { desc = "Next Git hunk" })
-vim.keymap.set("n", "[t", "<cmd>tabprevious<CR>", { desc = ":tabprevious" })
-vim.keymap.set("n", "]t", "<cmd>tabnext<CR>", { desc = ":tabnext" })
-
 -- LSP Commands
+vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, { desc = "Rename" })
 vim.keymap.set("n", "<leader>cC", vim.lsp.codelens.refresh, { desc = "Refresh Codelens" })
 vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
 vim.keymap.set("n", "<leader>cc", vim.lsp.codelens.run, { desc = "Run Codelens" })
@@ -97,136 +105,181 @@ vim.keymap.set("n", "<C-P>", "<cmd>FzfLua commands<CR>")
 -- Vim-Slime Commands
 vim.keymap.set("n", "<leader>sc", "<Plug>SlimeSendCell")
 
+-- Missing previous- and next- keys
+later(require("mini.bracketed").setup)
+-- Moving lines up and down in code
+later(require("mini.extra").setup)
+later(require("mini.move").setup)
+
 -- }}}
 -- Commands {{{
 
--- Whitespace Commands
-vim.api.nvim_create_user_command("TrimWhitespace", ":%s\\/\\s\\+$/e | :nohlsearch", { bang = true })
-vim.api.nvim_create_user_command("UseTabs", ":set noexpandtab | :set shiftwidth=2 | :set tabstop=2", { bang = true })
-vim.api.nvim_create_user_command(
-	"UseSpaces",
-	":set expandtab | :set shiftwidth=<args> | :set tabstop=<args>",
-	{ nargs = 1, bang = true }
-)
+later(function()
+	require("mini.trailspace").setup()
+	vim.api.nvim_create_user_command("TrimWhitespace", require("mini.trailspace").trim, { desc = "Trim Whitespace" })
+end)
 
 -- }}}
 -- Autocommands {{{
 
 -- Disable spelling on terminal windows
-vim.api.nvim_create_autocmd("TermOpen", { command = "setlocal nospell" })
+vim.api.nvim_create_autocmd("TermOpen", { command = "setlocal nospell", desc = "Disable spelling on terminal windows" })
 
 -- }}}
 -- Filetypes {{{
 
-vim.filetype.add({ extension = {
-	pu = "plantuml",
-	puml = "plantuml",
-	iuml = "plantuml",
-} })
-
--- }}}
--- Package Setup {{{
-
-local pckr_path = vim.fn.stdpath("config") .. "/pack/pckr/opt/pckr.nvim"
-if not (vim.uv or vim.loop).fs_stat(pckr_path) then
-	vim.fn.system({
-		"git",
-		"clone",
-		"--filter=blob:none",
-		"https://github.com/lewis6991/pckr.nvim",
-		pckr_path,
-	})
-end
-vim.cmd.packadd("pckr.nvim")
-
-local pckr = require("pckr")
-local event = require("pckr.loader.event")
-local cmd = require("pckr.loader.cmd")
-
-pckr.setup({ autoremove = true, package_root = vim.fn.stdpath("config") })
-pckr.add({
-	-- Icons
-	{ "nvim-mini/mini.icons", config = "config-icons" },
-	-- Quickstart LSP Configuration
-	{ "neovim/nvim-lspconfig" },
-	-- File Tree
-	{ "nvim-tree/nvim-tree.lua", requires = "nvim-mini/mini.icons", config = "config-nvim-tree" },
-	-- Colorscheme
-	{ "ellisonleao/gruvbox.nvim" },
-	-- Status Line
-	{
-		"nvim-mini/mini.statusline",
-		requires = {
-			"nvim-mini/mini.icons",
-			"lewis6991/gitsigns.nvim",
-		},
-		config = function()
-			require("mini.statusline").setup()
-		end,
+vim.filetype.add({
+	extension = {
+		pu = "plantuml",
+		puml = "plantuml",
+		iuml = "plantuml",
 	},
-	{
-		"nvim-mini/mini.tabline",
-		requires = "nvim-mini/mini.icons",
-		config = function()
-			require("mini.tabline").setup({ tabpage_section = "right" })
-		end,
-	},
-	-- Fuzzy Finding
-	{ "ibhagwan/fzf-lua", cond = cmd("FzfLua") },
-	-- Git Integration
-	{ "tpope/vim-fugitive" },
-	{
-		"lewis6991/gitsigns.nvim",
-		config = function()
-			require("gitsigns").setup()
-		end,
-	},
-	-- Completion & Snippets
-	{
-		"nvim-mini/mini.completion",
-		config = "config-completion",
-		requires = {
-			"nvim-mini/mini.icons",
-			"nvim-mini/mini.snippets",
-			"rafamadriz/friendly-snippets",
-		},
-	},
-	-- Surround
-	{
-		"nvim-mini/mini.surround",
-		config = function()
-			require("mini.surround").setup()
-		end,
-	},
-	-- Treesitter
-	{ "nvim-treesitter/nvim-treesitter", config = "config-treesitter", run = ":TSUpdate" },
-	-- Llama
-	{
-		"ggml-org/llama.vim",
-		config_pre = "config-llama",
-		cond = { cmd("LlamaDisable"), cmd("LlamaEnable"), cmd("LlamaToggle") },
-	},
-	-- Slime
-	{
-		"jpalardy/vim-slime",
-		config_pre = function()
-			vim.g.slime_target = "neovim"
-		end,
-		cond = event("BufReadPre", { "*.py", "*.jl" }),
-	},
-	{ "aklt/plantuml-syntax", cond = event("BufReadPre", "*.pu,*.puml,*.iuml") },
 })
 
 -- }}}
--- Multi-Language LSP Setup {{{
+-- `mini.deps` Now {{{
 
--- Filetype-specific LSPs get enabled in `after/ftplugin/<filetype>.lua`.
-vim.lsp.enable("ltex_plus")
-vim.lsp.enable("efm")
+-- Icons
+now(function()
+	require("mini.icons").setup({
+		filetype = {
+			plantuml = { glyph = "", hl = "MiniIconsGrey" },
+		},
+	})
+	later(require("mini.icons").mock_nvim_web_devicons)
+	later(require("mini.icons").tweak_lsp_kind)
+end)
+
+-- Tab Line
+now(require("mini.tabline").setup)
+
+-- Status Line
+now(require("mini.statusline").setup)
+
+-- LSP & EFM Configuration
+now(function()
+	add({ source = "neovim/nvim-lspconfig" })
+	add({ source = "creativenull/efmls-configs-nvim" })
+end)
+
+-- Color scheme
+now(function()
+	add({ source = "ellisonleao/gruvbox.nvim" })
+	vim.cmd.colorscheme("gruvbox")
+end)
+
+-- Autocompletion
+now(function()
+	require("config-mini-completion")
+end)
+
+-- Treesitter
+if vim.fn.executable("tree-sitter-cli") then
+	now(function()
+		add({
+			source = "nvim-treesitter/nvim-treesitter",
+			-- Update tree-sitter parser after plugin is updated
+			hooks = {
+				post_checkout = function()
+					vim.cmd("TSUpdate")
+				end,
+			},
+		})
+		add({
+			source = "nvim-treesitter/nvim-treesitter-textobjects",
+			-- Use `main` branch since `master` branch is frozen, yet still default
+			-- It is needed for compatibility with 'nvim-treesitter' `main` branch
+			checkout = "main",
+		})
+		require("config-treesitter")
+	end)
+end
 
 -- }}}
--- Colorscheme {{{
+-- `mini.deps` Later {{{
 
-vim.cmd("silent! colorscheme gruvbox")
+-- Surround
+later(require("mini.surround").setup)
+
+-- File Tree
+later(function()
+	add({ source = "nvim-tree/nvim-tree.lua" })
+	require("config-nvim-tree")
+end)
+
+-- Fuzzy Finding
+later(function()
+	add({ source = "ibhagwan/fzf-lua" })
+	require("fzf-lua").setup()
+end)
+
+-- Jupyter / REPL
+later(function()
+	add({ source = "jpalardy/vim-slime" })
+end)
+
+-- Sleuth
+later(function()
+	add({ source = "tpope/vim-sleuth" })
+end)
+
+-- Git Client & Integration
+later(function()
+	-- require("mini.git").setup()
+	add({ source = "tpope/vim-fugitive" })
+	require("mini.diff").setup({ view = { style = "sign" } })
+end)
+
+-- Syntax Plugins
+later(function()
+	add({ source = "aklt/plantuml-syntax" })
+	add({ source = "vim-pandoc/vim-pandoc" })
+	add({ source = "vim-pandoc/vim-pandoc-syntax" })
+	add({ source = "vim-pandoc/vim-rmarkdown" })
+	add({ source = "quarto-dev/quarto-vim" })
+end)
+
+-- Snippets
+later(function()
+	add({ source = "rafamadriz/friendly-snippets" })
+	require("config-mini-snippets")
+end)
+
+-- Llama
+later(function()
+	vim.g.llama_config = {
+		keymap_fim_trigger = "<C-F>",
+		keymap_fim_accept_full = "<C-S-Y>",
+		keymap_fim_accept_line = "<S-L>",
+		keymap_fim_accept_word = "<C-;>",
+		enable_at_startup = false,
+	}
+	add({ source = "ggml-org/llama.vim" })
+end)
+
+-- Clue
+later(function()
+	require("config-mini-clue")
+end)
+
+later(function()
+	local hipatterns = require("mini.hipatterns")
+	local hi_words = require("mini.extra").gen_highlighter.words
+	hipatterns.setup({
+		highlighters = {
+			-- Highlight a fixed set of common words. Will be highlighted in any place,
+			-- not like "only in comments".
+			fixme = hi_words({ "FIXME", "Fixme", "fixme" }, "MiniHipatternsFixme"),
+			hack = hi_words({ "HACK", "Hack", "hack" }, "MiniHipatternsHack"),
+			todo = hi_words({ "TODO", "Todo", "todo" }, "MiniHipatternsTodo"),
+			note = hi_words({ "NOTE", "Note", "note" }, "MiniHipatternsNote"),
+
+			-- Highlight hex color string (#aabbcc) with that color as a background
+			hex_color = hipatterns.gen_highlighter.hex_color(),
+		},
+	})
+end)
 
 -- }}}
+
+vim.lsp.enable({ "efm", "ltex_plus" })
