@@ -103,9 +103,9 @@ vim.keymap.set("n", "gy", vim.lsp.buf.type_definition, { desc = "Go to type defi
 vim.keymap.set("n", "<C-P>", "<cmd>FzfLua commands<CR>")
 
 -- Vim-Slime / Vim-Slime-Cells
-vim.keymap.set("n", "<C-c><C-c>", "<Plug>SlimeCellsSendAndGoToNext")
-vim.keymap.set("n", "<C-c><C-Down>", "<Plug>SlimeCellsNext")
-vim.keymap.set("n", "<C-c><C-Up>", "<Plug>SlimeCellsPrev")
+vim.keymap.set("n", "<C-c><C-c>", "<Plug>SlimeCellsSendAndGoToNext", { desc = "Send cell, and go to the next one" })
+vim.keymap.set("n", "<C-c><C-Down>", "<Plug>SlimeCellsNext", { desc = "Go to the next cell" })
+vim.keymap.set("n", "<C-c><C-Up>", "<Plug>SlimeCellsPrev", { desc = "Go to the previous cell" })
 
 -- Missing previous- and next- keys
 later(require("mini.bracketed").setup)
