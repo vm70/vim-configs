@@ -229,14 +229,13 @@ later(function()
 	vim.g.slime_suggest_default = true
 	vim.g.slime_menu_config = false
 	vim.g.slime_neovim_ignore_unlisted = false
+	vim.api.nvim_create_autocmd("BufEnter", {
+		pattern = { "*.py", "*.jl" },
+		callback = function()
+			add({ source = "Klafyvel/vim-slime-cells", depends = { "jpalardy/vim-slime" } })
+		end,
+	})
 end)
-
-vim.api.nvim_create_autocmd("BufEnter", {
-	pattern = { "*.py", "*.jl" },
-	callback = function()
-		add({ source = "Klafyvel/vim-slime-cells" })
-	end,
-})
 
 -- Sleuth
 later(function()
@@ -252,11 +251,22 @@ end)
 
 -- Syntax Plugins
 later(function()
+	-- PlantUML
 	add({ source = "aklt/plantuml-syntax" })
+	-- (Better) Pandoc
 	add({ source = "vim-pandoc/vim-pandoc" })
 	add({ source = "vim-pandoc/vim-pandoc-syntax" })
+	-- R Markdown
 	add({ source = "vim-pandoc/vim-rmarkdown" })
-	add({ source = "quarto-dev/quarto-vim" })
+	-- Quarto (for Vim)
+	add({ source = "quarto-dev/quarto-nvim" })
+	-- Quarto (for Neovim)
+	-- vim.api.nvim_create_autocmd("BufEnter", {
+	-- 	pattern = { "*.qmd" },
+	-- 	callback = function()
+	-- 		add({ source = "quarto-dev/quarto-nvim", depends = { "jmbuhr/otter.nvim" } })
+	-- 	end,
+	-- })
 end)
 
 -- Snippets
