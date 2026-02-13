@@ -3,6 +3,7 @@ local ok, _ = pcall(require, "efmls-configs")
 if ok then
 	-- Formatters & Linters
 	local cbfmt = require("efmls-configs.formatters.cbfmt")
+	local checkmake = require("efmls-configs.linters.checkmake")
 	local chktex = require("efmls-configs.linters.chktex")
 	local latexindent = require("efmls-configs.formatters.latexindent")
 	local prettier = require("efmls-configs.formatters.prettier")
@@ -15,6 +16,7 @@ if ok then
 		html = { prettier },
 		json = { prettier },
 		lua = { selene },
+		make = { checkmake },
 		markdown = { cbfmt, prettier },
 		pandoc = { prettier },
 		quarto = { cbfmt, prettier },
