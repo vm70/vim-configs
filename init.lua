@@ -86,7 +86,6 @@ vim.keymap.set("v", "<C-_>", "gc<CR>k", { desc = "Toggle comment" })
 vim.keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file tree" })
 
 -- LSP Commands
-
 vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, { desc = "Rename" })
 vim.keymap.set("n", "<leader>cC", vim.lsp.codelens.refresh, { desc = "Refresh Codelens" })
 vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
