@@ -115,9 +115,6 @@ later(require("mini.move").setup)
 -- }}}
 -- Commands {{{
 
-vim.api.nvim_create_user_command("GitUnstageHunk", "norm!ghgh", { desc = "Unstage Git Hunk" })
-vim.api.nvim_create_user_command("GitStageHunk", "norm!gHgh", { desc = "Unstage Git Hunk" })
-
 vim.api.nvim_create_user_command("Rg", "FzfLua live_grep", { desc = "Ripgrep" })
 vim.api.nvim_create_user_command("Commands", "FzfLua commands", { desc = "List all commands" })
 
