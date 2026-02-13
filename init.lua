@@ -178,7 +178,7 @@ now(function()
 end)
 
 -- Treesitter
-if vim.fn.executable("tree-sitter-cli") then
+if vim.fn.executable("tree-sitter-cli") == 1 then
 	now(function()
 		add({
 			source = "nvim-treesitter/nvim-treesitter",
