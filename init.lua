@@ -73,7 +73,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
 -- Escape Terminal
-vim.keymap.set("t", "<Esc><Esc>", "<C-N><C-\\>", { desc = "Escape terminal" })
+vim.keymap.set("t", "<C-w>", "<C-\\><C-N><C-w>", { desc = "Escape Terminal Modep" })
 
 -- Stop highlight search
 vim.keymap.set("n", "<Esc><Esc>", "<cmd>nohlsearch<CR>", { desc = "Stop highlight search" })
@@ -103,9 +103,9 @@ vim.keymap.set("n", "gy", vim.lsp.buf.type_definition, { desc = "Go to type defi
 vim.keymap.set("n", "<C-P>", "<cmd>FzfLua commands<CR>")
 
 -- Vim-Slime / Vim-Slime-Cells
-vim.keymap.set("n", "<C-c><C-c>", "<Plug>SlimeCellsSendAndGoToNext", { desc = "Send cell, and go to the next one" })
-vim.keymap.set("n", "<C-c><C-Down>", "<Plug>SlimeCellsNext", { desc = "Go to the next cell" })
-vim.keymap.set("n", "<C-c><C-Up>", "<Plug>SlimeCellsPrev", { desc = "Go to the previous cell" })
+vim.keymap.set("n", "<leader>sc", "<Plug>SlimeSendCell", { desc = "Send cell" })
+vim.keymap.set("n", "<leader>sj", "<Plug>SlimeCellsNext", { desc = "Go to next cell" })
+vim.keymap.set("n", "<leader>sk", "<Plug>SlimeCellsPrev", { desc = "Go to next cell" })
 
 -- Missing previous- and next- keys
 later(require("mini.bracketed").setup)
@@ -116,8 +116,9 @@ later(require("mini.move").setup)
 -- }}}
 -- Commands {{{
 
-vim.api.nvim_create_user_command("Rg", "FzfLua live_grep", { desc = "Ripgrep" })
 vim.api.nvim_create_user_command("Commands", "FzfLua commands", { desc = "List all commands" })
+vim.api.nvim_create_user_command("Keymaps", "FzfLua keymaps", { desc = "List all keymaps" })
+vim.api.nvim_create_user_command("Rg", "FzfLua live_grep", { desc = "Ripgrep" })
 
 later(function()
 	require("mini.trailspace").setup()
@@ -179,26 +180,44 @@ now(function()
 end)
 
 -- Treesitter
-if vim.fn.executable("tree-sitter") == 1 then
-	now(function()
-		add({
-			source = "nvim-treesitter/nvim-treesitter",
-			-- Update tree-sitter parser after plugin is updated
-			hooks = {
-				post_checkout = function()
-					vim.cmd("TSUpdate")
-				end,
-			},
-		})
-		add({
-			source = "nvim-treesitter/nvim-treesitter-textobjects",
-			-- Use `main` branch since `master` branch is frozen, yet still default
-			-- It is needed for compatibility with 'nvim-treesitter' `main` branch
-			checkout = "main",
-		})
-		require("config-treesitter")
-	end)
-end
+now(function()
+	add({
+		source = "nvim-treesitter/nvim-treesitter",
+		-- Update tree-sitter parser after plugin is updated
+		hooks = {
+			post_checkout = function()
+				vim.cmd("TSUpdate")
+			end,
+		},
+	})
+	add({
+		source = "nvim-treesitter/nvim-treesitter-textobjects",
+		-- Use `main` branch since `master` branch is frozen, yet still default
+		-- It is needed for compatibility with 'nvim-treesitter' `main` branch
+		checkout = "main",
+	})
+	require("config-treesitter")
+end)
+
+-- Jupyter / REPL
+now(function()
+	vim.g.slime_target = "neovim"
+	vim.g.slime_no_mappings = true
+	vim.g.slime_cell_delimiter = "^# %%.*$"
+	if (vim.fn.executable("ipython") == 1) or (vim.fn.executable("ipython3") == 1) then
+		vim.g.slime_python_ipython = 1
+	else
+		vim.g.slime_python_ipython = 0
+	end
+	add({ source = "jpalardy/vim-slime" })
+	vim.g.slime_input_pid = false
+	vim.g.slime_suggest_default = true
+	vim.g.slime_menu_config = false
+	vim.g.slime_neovim_ignore_unlisted = false
+
+	vim.g.slime_cells_no_highlight = 1
+	add({ source = "Klafyvel/vim-slime-cells", depends = { "jpalardy/vim-slime" } })
+end)
 
 -- Syntax Plugins
 now(function()
@@ -209,15 +228,13 @@ now(function()
 	add({ source = "vim-pandoc/vim-pandoc-syntax" })
 	-- R Markdown
 	add({ source = "vim-pandoc/vim-rmarkdown" })
-	-- Quarto (for Vim)
+	-- Quarto (for Vim), provides better syntax highlighting
 	add({ source = "quarto-dev/quarto-vim" })
-	-- Quarto (for Neovim)
-	-- vim.api.nvim_create_autocmd("BufEnter", {
-	-- 	pattern = { "*.qmd" },
-	-- 	callback = function()
-	-- 		add({ source = "quarto-dev/quarto-nvim", depends = { "jmbuhr/otter.nvim" } })
-	-- 	end,
-	-- })
+	-- Quarto (for Neovim), LSP integration
+	add({
+		source = "quarto-dev/quarto-nvim",
+		depends = { "jmbuhr/otter.nvim", "nvim-treesitter/nvim-treesitter", "japalardy/vim-slime" },
+	})
 end)
 
 -- }}}
@@ -236,24 +253,6 @@ end)
 later(function()
 	add({ source = "ibhagwan/fzf-lua" })
 	require("fzf-lua").setup()
-end)
-
--- Jupyter / REPL
-later(function()
-	vim.g.slime_target = "neovim"
-	vim.g.slime_no_mappings = true
-	vim.g.slime_cell_delimiter = "^# %%.*$"
-	add({ source = "jpalardy/vim-slime" })
-	vim.g.slime_input_pid = false
-	vim.g.slime_suggest_default = true
-	vim.g.slime_menu_config = false
-	vim.g.slime_neovim_ignore_unlisted = false
-	vim.api.nvim_create_autocmd("BufEnter", {
-		pattern = { "*.py", "*.jl" },
-		callback = function()
-			add({ source = "Klafyvel/vim-slime-cells", depends = { "jpalardy/vim-slime" } })
-		end,
-	})
 end)
 
 -- Sleuth
@@ -303,7 +302,7 @@ later(function()
 			hack = hi_words({ "HACK", "Hack", "hack" }, "MiniHipatternsHack"),
 			todo = hi_words({ "TODO", "Todo", "todo" }, "MiniHipatternsTodo"),
 			note = hi_words({ "NOTE", "Note", "note" }, "MiniHipatternsNote"),
-
+			jupyter = { pattern = "# %%%%", group = "MiniHipatternsNote" },
 			-- Highlight hex color string (#aabbcc) with that color as a background
 			hex_color = hipatterns.gen_highlighter.hex_color(),
 		},
