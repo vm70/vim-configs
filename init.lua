@@ -277,11 +277,12 @@ end)
 -- Llama
 later(function()
 	vim.g.llama_config = {
-		keymap_fim_trigger = "<C-F>",
-		keymap_fim_accept_full = "<C-S-Y>",
-		keymap_fim_accept_line = "<S-L>",
-		keymap_fim_accept_word = "<C-;>",
 		enable_at_startup = false,
+		keymap_inst_accept = "<Tab>",
+		keymap_inst_cancel = "<Esc>",
+		keymap_inst_continue = "<leader>llc",
+		keymap_inst_retry = "<leader>llr",
+		keymap_inst_trigger = "<leader>lli",
 	}
 	add({ source = "ggml-org/llama.vim" })
 end)
