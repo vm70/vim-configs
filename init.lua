@@ -310,6 +310,11 @@ later(function()
 	})
 end)
 
+later(function()
+	add({ source = "hedyhli/outline.nvim" })
+	require("outline").setup()
+end)
+
 -- }}}
 -- Multi-Language LSP Servers {{{
 
