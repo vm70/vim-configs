@@ -179,25 +179,45 @@ now(function()
 	require("config-mini-completion")
 end)
 
--- Treesitter
+-- Syntax Plugins
 now(function()
-	add({
-		source = "nvim-treesitter/nvim-treesitter",
-		-- Update tree-sitter parser after plugin is updated
-		hooks = {
-			post_checkout = function()
-				vim.cmd("TSUpdate")
-			end,
-		},
-	})
-	add({
-		source = "nvim-treesitter/nvim-treesitter-textobjects",
-		-- Use `main` branch since `master` branch is frozen, yet still default
-		-- It is needed for compatibility with 'nvim-treesitter' `main` branch
-		checkout = "main",
-	})
-	require("config-treesitter")
+	-- PlantUML
+	add({ source = "aklt/plantuml-syntax" })
+	-- (Better) Pandoc
+	add({ source = "vim-pandoc/vim-pandoc" })
+	add({ source = "vim-pandoc/vim-pandoc-syntax" })
+	-- R Markdown
+	add({ source = "vim-pandoc/vim-rmarkdown" })
 end)
+
+if vim.fn.executable("tree-sitter") == 1 then
+	-- Treesitter
+	now(function()
+		add({
+			source = "nvim-treesitter/nvim-treesitter",
+			hooks = {
+				post_checkout = function()
+					vim.cmd("TSUpdate")
+				end,
+			},
+		})
+		add({
+			source = "nvim-treesitter/nvim-treesitter-textobjects",
+			checkout = "main",
+		})
+		-- Quarto (for Neovim), LSP integration, relies on treesitter
+		add({
+			source = "quarto-dev/quarto-nvim",
+			depends = { "jmbuhr/otter.nvim", "nvim-treesitter/nvim-treesitter", "japalardy/vim-slime" },
+		})
+		require("config-treesitter")
+	end)
+else
+	-- Quarto (for Vim), provides better syntax highlighting
+	now(function()
+		add({ source = "quarto-dev/quarto-vim" })
+	end)
+end
 
 -- Jupyter / REPL
 now(function()
@@ -217,24 +237,6 @@ now(function()
 
 	vim.g.slime_cells_no_highlight = 1
 	add({ source = "Klafyvel/vim-slime-cells", depends = { "jpalardy/vim-slime" } })
-end)
-
--- Syntax Plugins
-now(function()
-	-- PlantUML
-	add({ source = "aklt/plantuml-syntax" })
-	-- (Better) Pandoc
-	add({ source = "vim-pandoc/vim-pandoc" })
-	add({ source = "vim-pandoc/vim-pandoc-syntax" })
-	-- R Markdown
-	add({ source = "vim-pandoc/vim-rmarkdown" })
-	-- Quarto (for Vim), provides better syntax highlighting
-	add({ source = "quarto-dev/quarto-vim" })
-	-- Quarto (for Neovim), LSP integration
-	add({
-		source = "quarto-dev/quarto-nvim",
-		depends = { "jmbuhr/otter.nvim", "nvim-treesitter/nvim-treesitter", "japalardy/vim-slime" },
-	})
 end)
 
 -- }}}
