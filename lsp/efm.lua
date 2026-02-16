@@ -22,7 +22,10 @@ if ok then
 		pandoc = { prettier },
 		quarto = {
 			{
-				formatCommand = "cbfmt --stdin-filepath '${INPUT}' --best-effort --parser markdown",
+				formatCommand = string.format(
+					"%s --stdin-filepath '${INPUT}' --best-effort --parser markdown",
+					fs.executable("cbfmt")
+				),
 				formatStdin = true,
 			},
 			prettier,
