@@ -149,6 +149,8 @@ vim.filetype.add({
 now(function()
 	require("mini.icons").setup({
 		filetype = {
+			fugitive = { glyph = "󰊢", hl = "MiniIconsOrange" },
+			mermaid = { glyph = "󱁉", hl = "MiniIconsCyan" },
 			plantuml = { glyph = "", hl = "MiniIconsGrey" },
 		},
 	})
@@ -260,7 +262,7 @@ end)
 
 -- Git Client & Integration
 later(function()
-	-- require("mini.git").setup()
+	require("mini.git").setup()
 	add({ source = "tpope/vim-fugitive" })
 	require("mini.diff").setup({ view = { style = "sign" } })
 end)
