@@ -73,7 +73,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
 -- Escape Terminal
-vim.keymap.set("t", "<C-w>", "<C-\\><C-N><C-w>", { desc = "Escape Terminal Modep" })
+vim.keymap.set("t", "<C-w>", "<C-\\><C-N><C-w>", { desc = "Escape Terminal Mode" })
 
 -- Stop highlight search
 vim.keymap.set("n", "<Esc><Esc>", "<cmd>nohlsearch<CR>", { desc = "Stop highlight search" })
