@@ -224,11 +224,7 @@ now(function()
 	vim.g.slime_target = "neovim"
 	vim.g.slime_no_mappings = true
 	vim.g.slime_cell_delimiter = "^# %%.*$"
-	if (vim.fn.executable("ipython") == 1) or (vim.fn.executable("ipython3") == 1) then
-		vim.g.slime_python_ipython = 1
-	else
-		vim.g.slime_python_ipython = 0
-	end
+	vim.g.slime_python_ipython = (vim.fn.executable("ipython") == 1) or (vim.fn.executable("ipython3") == 1)
 	add({ source = "jpalardy/vim-slime" })
 	vim.g.slime_input_pid = false
 	vim.g.slime_suggest_default = true
