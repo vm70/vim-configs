@@ -274,17 +274,19 @@ later(function()
 end)
 
 -- Llama
-later(function()
-	vim.g.llama_config = {
-		enable_at_startup = false,
-		keymap_inst_accept = "<Tab>",
-		keymap_inst_cancel = "<Esc>",
-		keymap_inst_continue = "<leader>llc",
-		keymap_inst_retry = "<leader>llr",
-		keymap_inst_trigger = "<leader>lli",
-	}
-	add({ source = "ggml-org/llama.vim" })
-end)
+if vim.fn.executable("llama-server") == 1 then
+	later(function()
+		vim.g.llama_config = {
+			enable_at_startup = false,
+			keymap_inst_accept = "<Tab>",
+			keymap_inst_cancel = "<Esc>",
+			keymap_inst_continue = "<leader>llc",
+			keymap_inst_retry = "<leader>llr",
+			keymap_inst_trigger = "<leader>lli",
+		}
+		add({ source = "ggml-org/llama.vim" })
+	end)
+end
 
 -- Clue
 later(function()
