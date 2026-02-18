@@ -130,10 +130,6 @@ end)
 -- }}}
 -- Commands {{{
 
-vim.api.nvim_create_user_command("Commands", "FzfLua commands", { desc = "List all commands" })
-vim.api.nvim_create_user_command("Keymaps", "FzfLua keymaps", { desc = "List all keymaps" })
-vim.api.nvim_create_user_command("Rg", "FzfLua live_grep", { desc = "Ripgrep" })
-
 later(function()
 	require("mini.trailspace").setup()
 	vim.api.nvim_create_user_command("TrimWhitespace", require("mini.trailspace").trim, { desc = "Trim Whitespace" })
@@ -266,7 +262,7 @@ end)
 -- Fuzzy Finding
 later(function()
 	add({ source = "ibhagwan/fzf-lua" })
-	require("fzf-lua").setup()
+	require("fzf-lua").setup({ "fzf-vim" })
 end)
 
 -- Sleuth
