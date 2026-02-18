@@ -224,7 +224,7 @@ if vim.fn.executable("tree-sitter") == 1 then
 		-- Quarto (for Neovim), LSP integration, relies on treesitter
 		add({
 			source = "quarto-dev/quarto-nvim",
-			depends = { "jmbuhr/otter.nvim", "nvim-treesitter/nvim-treesitter", "japalardy/vim-slime" },
+			depends = { "jmbuhr/otter.nvim", "nvim-treesitter/nvim-treesitter", "jpalardy/vim-slime" },
 		})
 		require("config-treesitter")
 	end)
