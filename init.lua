@@ -67,6 +67,9 @@ MiniDeps = require("mini.deps")
 MiniDeps.setup({ path = { package = path_package } })
 local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
 
+-- Set up `mini.extra` (since other plugins are dependent on it)
+later(require("mini.extra").setup)
+
 -- }}}
 -- Keymaps {{{
 
@@ -111,8 +114,18 @@ vim.keymap.set("n", "<leader>sk", "<Plug>SlimeCellsPrev", { desc = "Go to next c
 -- Missing previous- and next- keys
 later(require("mini.bracketed").setup)
 -- Moving lines up and down in code
-later(require("mini.extra").setup)
 later(require("mini.move").setup)
+
+later(function()
+  local ai = require('mini.ai')
+  ai.setup({
+    custom_textobjects = {
+      B = require("mini.extra").gen_ai_spec.buffer(),
+      F = ai.gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }),
+    },
+    search_method = 'cover',
+  })
+end)
 
 -- }}}
 -- Commands {{{
