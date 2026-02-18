@@ -117,14 +117,14 @@ later(require("mini.bracketed").setup)
 later(require("mini.move").setup)
 
 later(function()
-  local ai = require('mini.ai')
-  ai.setup({
-    custom_textobjects = {
-      B = require("mini.extra").gen_ai_spec.buffer(),
-      F = ai.gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }),
-    },
-    search_method = 'cover',
-  })
+	local ai = require("mini.ai")
+	ai.setup({
+		custom_textobjects = {
+			B = require("mini.extra").gen_ai_spec.buffer(),
+			F = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }),
+		},
+		search_method = "cover",
+	})
 end)
 
 -- }}}
