@@ -327,7 +327,16 @@ end)
 
 later(function()
 	add({ source = "hedyhli/outline.nvim" })
-	require("outline").setup()
+	require("outline").setup({
+		providers = {
+			markdown = {
+				filetypes = { "quarto", "pandoc", "markdown", "rmarkdown" },
+			},
+		},
+		symbols = {
+			icon_fetcher = "lspkind",
+		},
+	})
 end)
 
 -- }}}
