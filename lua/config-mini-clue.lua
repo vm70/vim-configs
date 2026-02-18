@@ -8,19 +8,12 @@ MiniClue.setup({
 		MiniClue.gen_clues.marks(),
 		MiniClue.gen_clues.registers(),
 		MiniClue.gen_clues.square_brackets(),
-		-- This creates a submode for window resize mappings. Try the following:
-		-- - Press `<C-w>s` to make a window split.
-		-- - Press `<C-w>+` to increase height. Clue window still shows clues as if
-		--   `<C-w>` is pressed again. Keep pressing just `+` to increase height.
-		--   Try pressing `-` to decrease height.
-		-- - Stop submode either by `<Esc>` or by any key that is not in submode.
 		MiniClue.gen_clues.windows({ submode_resize = true }),
 		MiniClue.gen_clues.z(),
 	},
 	-- Explicitly opt-in for set of common keys to trigger clue window
 	triggers = {
 		{ mode = { "n", "x" }, keys = "<Leader>" }, -- Leader triggers
-		{ mode = "n", keys = "\\" }, -- mini.basics
 		{ mode = { "n", "x" }, keys = "[" }, -- mini.bracketed
 		{ mode = { "n", "x" }, keys = "]" },
 		{ mode = "i", keys = "<C-x>" }, -- Built-in completion
