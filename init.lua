@@ -338,6 +338,8 @@ end)
 -- }}}
 -- Multi-Language LSP Servers {{{
 
-vim.lsp.enable({ "efm", "ltex_plus" })
+later(function()
+	vim.lsp.enable({ "efm", "ltex_plus" })
+end)
 
 -- }}}
