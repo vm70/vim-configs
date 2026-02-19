@@ -9,9 +9,9 @@ vim.api.nvim_create_user_command("TrimWhitespace", require("mini.trailspace").tr
 -- }}}
 -- Autocommands {{{
 
-	vim.api.nvim_create_autocmd("TermOpen", { command = "setlocal nospell", desc = "Disable spelling on terminal windows" })
+vim.api.nvim_create_autocmd("TermOpen", { command = "setlocal nospell", desc = "Disable spelling on terminal windows" })
 
-	-- }}}
+-- }}}
 -- Trailing Spaces {{{
 
 later(require("mini.trailspace").setup)
@@ -69,7 +69,14 @@ later(function()
 			},
 		},
 		symbols = {
-			icon_fetcher = "lspkind",
+			icon_fetcher = function(kind, _, _)
+				local ok, icon = pcall(require("mini.icons").get, "lsp", string.lower(kind))
+				if ok then
+					return icon
+				else
+					return nil
+				end
+			end,
 		},
 	})
 end)
