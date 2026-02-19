@@ -73,11 +73,6 @@ end)
 later(require("mini.surround").setup)
 
 -- }}}
--- Align {{{
-
-later(require("mini.align").setup)
-
--- }}}
 -- Clue {{{
 
 later(function()
