@@ -87,6 +87,7 @@ later(function()
 			MiniSnippets.gen_loader.from_file(vim.fn.stdpath("config") .. "/snippets/global.json"),
 			-- Load from 'snippets/' directory of plugins, like 'friendly-snippets'
 			MiniSnippets.gen_loader.from_lang({ lang_patterns = lang_patterns }),
+			require("dynamic-snippets"),
 		},
 		expand = {
 			insert = function(snippet, _)
