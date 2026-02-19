@@ -2,17 +2,19 @@ local MiniDeps = require("mini.deps")
 -- selene: allow(unused_variable)
 local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
 
+-- Commands {{{
+
 vim.api.nvim_create_user_command("TrimWhitespace", require("mini.trailspace").trim, { desc = "Trim Whitespace" })
-
--- }}}
--- Trailing Spaces {{{
-
-later(require("mini.trailspace").setup)
 
 -- }}}
 -- Autocommands {{{
 
-vim.api.nvim_create_autocmd("TermOpen", { command = "setlocal nospell", desc = "Disable spelling on terminal windows" })
+	vim.api.nvim_create_autocmd("TermOpen", { command = "setlocal nospell", desc = "Disable spelling on terminal windows" })
+
+	-- }}}
+-- Trailing Spaces {{{
+
+later(require("mini.trailspace").setup)
 
 -- }}}
 -- Sleuth {{{

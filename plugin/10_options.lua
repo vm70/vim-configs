@@ -1,6 +1,7 @@
 local MiniDeps = require("mini.deps")
 -- selene: allow(unused_variable)
 local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
+
 -- Global Variables {{{
 
 vim.g.filetype_v = "verilog"
