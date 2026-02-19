@@ -12,4 +12,4 @@ vim.keymap.set("v", "<Tab>", ">gv", { buffer = true })
 
 vim.g.markdown_folding = 1
 
-vim.lsp.enable({'ltex_plus', 'marksman'})
+vim.lsp.enable({ "ltex_plus", "marksman" })
