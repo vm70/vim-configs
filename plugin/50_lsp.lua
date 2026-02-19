@@ -69,6 +69,28 @@ end)
 -- }}}
 -- Snippets {{{
 
+-- stylua: ignore start
+
+--- Missing snippet variables in Neovim.
+---@type { [string]: function }
+local snippet_vars = {
+	CURRENT_YEAR             = function() return vim.fn.strftime("%Y") end,
+	CURRENT_YEAR_SHORT       = function() return vim.fn.strftime("%y") end,
+	CURRENT_MONTH            = function() return vim.fn.strftime("%m") end,
+	CURRENT_MONTH_NAME       = function() return vim.fn.strftime("%B") end,
+	CURRENT_MONTH_NAME_SHORT = function() return vim.fn.strftime("%b") end,
+	CURRENT_DATE             = function() return vim.fn.strftime("%d") end,
+	CURRENT_DAY_NAME         = function() return vim.fn.strftime("%A") end,
+	CURRENT_DAY_NAME_SHORT   = function() return vim.fn.strftime("%a") end,
+	CURRENT_HOUR             = function() return vim.fn.strftime("%H") end,
+	CURRENT_MINUTE           = function() return vim.fn.strftime("%M") end,
+	CURRENT_SECOND           = function() return vim.fn.strftime("%S") end,
+	CURRENT_TIMEZONE_OFFSET  = function() return vim.fn.strftime("%z") end,
+	CURRENT_SECONDS_UNIX     = function() return tostring(os.time()) end,
+}
+
+-- stylua: ignore end
+
 later(function()
 	add({ source = "rafamadriz/friendly-snippets" })
 	-- Define language patterns to work better with 'friendly-snippets'
@@ -87,13 +109,18 @@ later(function()
 			MiniSnippets.gen_loader.from_file(vim.fn.stdpath("config") .. "/snippets/global.json"),
 			-- Load from 'snippets/' directory of plugins, like 'friendly-snippets'
 			MiniSnippets.gen_loader.from_lang({ lang_patterns = lang_patterns }),
-			-- Dynamically-generated snippets
-			{ prefix = "date", body = vim.fn.strftime("%Y-%m-%d"), desc = "Insert current date (YYYY-mm-dd)" },
-			{ prefix = "ddate", body = vim.fn.strftime("%B %d, %Y"), desc = "Insert current locale date" },
+			MiniSnippets.gen_loader.from_file(
+				MiniDeps.config.path.package .. "/pack/deps/opt/friendly-snippets/snippets/global.json"
+			),
 		},
 		expand = {
 			insert = function(snippet, _)
-				vim.snippet.expand(snippet.body)
+				local new_snippet_body = snippet.body
+				for var, evaluator in pairs(snippet_vars) do
+					new_snippet_body = string.gsub(new_snippet_body, "${" .. var .. "}", evaluator())
+					new_snippet_body = string.gsub(new_snippet_body, "$" .. var, evaluator())
+				end
+				vim.snippet.expand(new_snippet_body)
 			end,
 		},
 	})
