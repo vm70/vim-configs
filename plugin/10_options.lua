@@ -4,6 +4,7 @@ local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
 
 -- Global Variables {{{
 
+vim.g.filetype_md = "pandoc"
 vim.g.filetype_v = "verilog"
 vim.g.treesitter_enable = true
 
@@ -68,6 +69,7 @@ now(function()
 			plantuml = { glyph = "", hl = "MiniIconsGrey" },
 		},
 		extension = {
+			md = vim.g.filetype_md,
 			v = vim.g.filetype_v,
 		},
 	})
@@ -78,11 +80,16 @@ end)
 -- }}}
 -- Digraphs {{{
 
+-- See also: https://vimhelp.org/digraph.txt.html#digraph
+
 vim.fn.digraph_setlist({
-	{ "|^", "↑" }, -- (original digraph -!) 0x2191 UPWARDS ARROW
-	{ "|v", "↓" }, -- (original digraph -v) 0x2193 DOWNWARDS ARROW
-	{ ":(", "🙁" }, -- 0x1F641 SLIGHTLY FROWNING FACE
-	{ ":)", "🙂" }, -- 0x1F642 SLIGHTLY SMILING FACE
+	-- Alternatives for preexisting digraphs
+	{ "Ss", "§" }, -- (original digraph SE) U+00A7 SECTION SIGN
+	{ "|^", "↑" }, -- (original digraph -!) U+2191 UPWARDS ARROW
+	{ "|v", "↓" }, -- (original digraph -v) U+2193 DOWNWARDS ARROW
+	-- New digraphs
+	{ ":(", "🙁" }, -- U+1F641 SLIGHTLY FROWNING FACE
+	{ ":)", "🙂" }, -- U+1F642 SLIGHTLY SMILING FACE
 })
 
 -- }}}
@@ -91,9 +98,6 @@ vim.fn.digraph_setlist({
 now(function()
 	-- PlantUML
 	add({ source = "aklt/plantuml-syntax" })
-	-- (Better) Pandoc
-	add({ source = "vim-pandoc/vim-pandoc" })
-	add({ source = "vim-pandoc/vim-pandoc-syntax" })
 	-- R Markdown
 	add({ source = "vim-pandoc/vim-rmarkdown" })
 end)
