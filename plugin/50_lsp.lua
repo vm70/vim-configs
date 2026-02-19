@@ -75,12 +75,12 @@ end)
 ---@type { [string]: function }
 local snippet_vars = {
 	-- VS Code
-	CLIPBOARD = function() return vim.fn.getreg("+") end,
-	CURSOR_INDEX = function() return tostring(vim.fn.col(".") - 1) end,
-	CURSOR_NUMBER = function() return tostring(vim.fn.col(".")) end,
+	CLIPBOARD         = function() return vim.fn.getreg("+") end,
+	CURSOR_INDEX      = function() return tostring(vim.fn.col(".") - 1) end,
+	CURSOR_NUMBER     = function() return tostring(vim.fn.col(".")) end,
 	RELATIVE_FILEPATH = function() return vim.fn.expand("%:.") end,
-	WORKSPACE_FOLDER = function() return vim.fn.getcwd() end,
-	LINE_COMMENT = function() return vim.bo.commentstring:gsub("%s*%%s.*$", "") end,
+	WORKSPACE_FOLDER  = function() return vim.fn.getcwd() end,
+	LINE_COMMENT      = function() return vim.bo.commentstring:gsub("%s*%%s.*$", "") end,
 	-- Time
 	CURRENT_YEAR             = function() return vim.fn.strftime("%Y") end,
 	CURRENT_YEAR_SHORT       = function() return vim.fn.strftime("%y") end,
