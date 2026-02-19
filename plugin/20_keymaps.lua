@@ -18,7 +18,7 @@ vim.keymap.set("n", "<C-_>", "<C-v>gc<CR>k", { desc = "Toggle comment" })
 vim.keymap.set("v", "<C-_>", "gc<CR>k", { desc = "Toggle comment" })
 
 -- File tree
-vim.keymap.set("n", "<leader>E", "<cmd>NvimTreeToggle %:h<CR>", { desc = "TogFile tree, open at file's parent" })
+vim.keymap.set("n", "<leader>E", "<cmd>NvimTreeToggle %:h<CR>", { desc = "Toggle file tree, open at file's parent" })
 vim.keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file tree" })
 
 -- LSP Commands
