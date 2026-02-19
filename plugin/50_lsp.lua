@@ -87,7 +87,9 @@ later(function()
 			MiniSnippets.gen_loader.from_file(vim.fn.stdpath("config") .. "/snippets/global.json"),
 			-- Load from 'snippets/' directory of plugins, like 'friendly-snippets'
 			MiniSnippets.gen_loader.from_lang({ lang_patterns = lang_patterns }),
-			require("dynamic-snippets"),
+			-- Dynamically-generated snippets
+			{ prefix = "date", body = vim.fn.strftime("%Y-%m-%d"), desc = "Insert current date (YYYY-mm-dd)" },
+			{ prefix = "ddate", body = vim.fn.strftime("%B %d, %Y"), desc = "Insert current locale date" },
 		},
 		expand = {
 			insert = function(snippet, _)
