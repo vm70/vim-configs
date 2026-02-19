@@ -12,5 +12,10 @@
       "+++\ntitle = ${1:title}\nauthor = ${2:author}\ndate = ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}\n+++\n"
     ],
     "description": "Add TOML Frontmatter"
+  },
+  "Mermaid Graph": {
+    "prefix": ["mermaidgraph", "```mermaidgraph"],
+    "body": ["```mermaid\ngraph ${1|TB,TD,BT,RL,LR|}\n  ${0}\n```\n"],
+    "description": "Insert Mermaid Graph"
   }
 }
