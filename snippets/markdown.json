@@ -1,0 +1,16 @@
+{
+  "YAML Frontmatter": {
+    "prefix": ["frontmatter", "frontmatterYAML"],
+    "body": [
+      "---\ntitle: ${1:title}\nauthor: ${2:author}\ndate: ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}\n---\n"
+    ],
+    "description": "Add YAML Frontmatter"
+  },
+  "TOML Frontmatter": {
+    "prefix": "frontmatterTOML",
+    "body": [
+      "+++\ntitle = ${1:title}\nauthor = ${2:author}\ndate = ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}\n+++\n"
+    ],
+    "description": "Add TOML Frontmatter"
+  }
+}

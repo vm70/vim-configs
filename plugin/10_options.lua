@@ -5,6 +5,7 @@ local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
 -- Global Variables {{{
 
 vim.g.filetype_v = "verilog"
+vim.g.treesitter_enable = false
 
 -- }}}
 -- Options {{{

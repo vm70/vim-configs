@@ -119,10 +119,10 @@ later(function()
 	-- Define language patterns to work better with 'friendly-snippets'
 	local latex_patterns = { "latex/**/*.json", "**/latex.json" }
 	local lang_patterns = {
-		tex = latex_patterns,
-		plaintex = latex_patterns,
-		-- Recognize special injected language of markdown tree-sitter parser
 		markdown_inline = { "markdown.json" },
+		pandoc = { "pandoc.json", "markdown.json" },
+		plaintex = latex_patterns,
+		tex = latex_patterns,
 	}
 
 	local MiniSnippets = require("mini.snippets")

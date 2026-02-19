@@ -4,7 +4,7 @@ local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
 
 -- Treesitter (& fallback plugins) {{{
 
-if vim.fn.executable("tree-sitter") == 1 then
+if (vim.fn.executable("tree-sitter") == 1) and (vim.g.treesitter_enable == true) then
 	now(function()
 		add({
 			source = "nvim-treesitter/nvim-treesitter",
