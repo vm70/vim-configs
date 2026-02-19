@@ -71,9 +71,17 @@ end)
 
 -- stylua: ignore start
 
---- Missing snippet variables in Neovim.
+--- Missing snippet variables in Neovim. Stolen from `mini.snippets.H.var_evaluators`.
 ---@type { [string]: function }
 local snippet_vars = {
+	-- VS Code
+	CLIPBOARD = function() return vim.fn.getreg("+") end,
+	CURSOR_INDEX = function() return tostring(vim.fn.col(".") - 1) end,
+	CURSOR_NUMBER = function() return tostring(vim.fn.col(".")) end,
+	RELATIVE_FILEPATH = function() return vim.fn.expand("%:.") end,
+	WORKSPACE_FOLDER = function() return vim.fn.getcwd() end,
+	LINE_COMMENT = function() return vim.bo.commentstring:gsub("%s*%%s.*$", "") end,
+	-- Time
 	CURRENT_YEAR             = function() return vim.fn.strftime("%Y") end,
 	CURRENT_YEAR_SHORT       = function() return vim.fn.strftime("%y") end,
 	CURRENT_MONTH            = function() return vim.fn.strftime("%m") end,
@@ -87,12 +95,24 @@ local snippet_vars = {
 	CURRENT_SECOND           = function() return vim.fn.strftime("%S") end,
 	CURRENT_TIMEZONE_OFFSET  = function() return vim.fn.strftime("%z") end,
 	CURRENT_SECONDS_UNIX     = function() return tostring(os.time()) end,
+	-- Random
+	RANDOM     = function() return string.format("%06d", math.random(0, 999999)) end,
+	RANDOM_HEX = function() return string.format("%06x", math.random(0, 16777216 - 1)) end,
+	UUID       = function()
+		local template = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx"
+		return string.gsub(template, "[xy]", function(c)
+			local v = c == "x" and math.random(0, 0xf) or math.random(8, 0xb)
+			return string.format("%x", v)
+		end)
+	end,
 }
 
 -- stylua: ignore end
 
 later(function()
 	add({ source = "rafamadriz/friendly-snippets" })
+	local friendly_snippets_path = MiniDeps.config.path.package .. "/pack/deps/opt/friendly-snippets/snippets"
+
 	-- Define language patterns to work better with 'friendly-snippets'
 	local latex_patterns = { "latex/**/*.json", "**/latex.json" }
 	local lang_patterns = {
@@ -109,17 +129,21 @@ later(function()
 			MiniSnippets.gen_loader.from_file(vim.fn.stdpath("config") .. "/snippets/global.json"),
 			-- Load from 'snippets/' directory of plugins, like 'friendly-snippets'
 			MiniSnippets.gen_loader.from_lang({ lang_patterns = lang_patterns }),
-			MiniSnippets.gen_loader.from_file(
-				MiniDeps.config.path.package .. "/pack/deps/opt/friendly-snippets/snippets/global.json"
-			),
+			-- Load global snippets from `friendly-snippets`
+			MiniSnippets.gen_loader.from_file(friendly_snippets_path .. "/global.json"),
+			MiniSnippets.gen_loader.from_file(friendly_snippets_path .. "/loremipsum.json"),
 		},
 		expand = {
 			insert = function(snippet, _)
+				-- Insert missing snippet variables
 				local new_snippet_body = snippet.body
 				for var, evaluator in pairs(snippet_vars) do
-					new_snippet_body = string.gsub(new_snippet_body, "${" .. var .. "}", evaluator())
-					new_snippet_body = string.gsub(new_snippet_body, "$" .. var, evaluator())
+					if string.find(new_snippet_body, var) ~= nil then
+						new_snippet_body = string.gsub(new_snippet_body, "${" .. var .. "}", evaluator())
+						new_snippet_body = string.gsub(new_snippet_body, "$" .. var, evaluator())
+					end
 				end
+				-- Expand the modified snippet using the native snippet engine
 				vim.snippet.expand(new_snippet_body)
 			end,
 		},
