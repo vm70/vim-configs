@@ -76,6 +76,16 @@ now(function()
 end)
 
 -- }}}
+-- Digraphs {{{
+
+vim.fn.digraph_setlist({
+	{ "|^", "↑" }, -- (original digraph -!) 0x2191 UPWARDS ARROW
+	{ "|v", "↓" }, -- (original digraph -v) 0x2193 DOWNWARDS ARROW
+	{ ":(", "🙁" }, -- 0x1F641 SLIGHTLY FROWNING FACE
+	{ ":)", "🙂" }, -- 0x1F642 SLIGHTLY SMILING FACE
+})
+
+-- }}}
 -- Syntax {{{
 
 now(function()
