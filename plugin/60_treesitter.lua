@@ -18,22 +18,27 @@ if (vim.fn.executable("tree-sitter") == 1) and (vim.g.treesitter_enable == true)
 			source = "nvim-treesitter/nvim-treesitter-textobjects",
 			checkout = "main",
 		})
-		-- Quarto (for Neovim), LSP integration, relies on treesitter
+		-- Quarto (for Neovim), LSP integration, relies on Treesitter
 		add({
 			source = "quarto-dev/quarto-nvim",
 			depends = { "jmbuhr/otter.nvim", "nvim-treesitter/nvim-treesitter", "jpalardy/vim-slime" },
 		})
 		-- Define languages which will have parsers installed and auto-enabled
 		local languages = {
-			"c",
+			"c", -- default
+			"html",
 			"julia",
-			"lua",
-			"markdown",
-			"markdown_inline",
+			"latex",
+			"lua", -- default
+			"markdown", -- default
+			"markdown_inline", -- default
 			"python",
-			"vimdoc",
+			"query", -- default
+			"vim", -- default
+			"vimdoc", -- default
+			"yaml",
 		}
-		-- Define filetypes that have no corresponding treesitter parser / language
+		-- Define file types that have no corresponding Treesitter parser / language
 		local filetypes = {
 			"quarto",
 		}
@@ -45,13 +50,13 @@ if (vim.fn.executable("tree-sitter") == 1) and (vim.g.treesitter_enable == true)
 		if #to_install > 0 then
 			require("nvim-treesitter").install(to_install)
 		end
-		-- Append filetypes corresponding to each language to the filetypes table
+		-- Append file types corresponding to each language to the file types table
 		for _, lang in ipairs(languages) do
 			for _, ft in ipairs(vim.treesitter.language.get_filetypes(lang)) do
 				table.insert(filetypes, ft)
 			end
 		end
-		-- Enable tree-sitter after opening a file for a target language / filetype
+		-- Enable tree-sitter after opening a file for a target language / file type
 		vim.api.nvim_create_autocmd("Filetype", {
 			pattern = filetypes,
 			desc = "Start tree-sitter",
