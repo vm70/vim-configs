@@ -47,7 +47,22 @@ vim.opt.tabstop = 2
 vim.opt.diffopt = { "internal", "filler", "closeoff", "vertical" }
 
 -- }}}
--- Filetypes {{{
+-- Digraphs {{{
+
+	-- See also: https://vimhelp.org/digraph.txt.html#digraph
+
+	vim.fn.digraph_setlist({
+		-- Alternatives for preexisting digraphs
+		{ "Ss", "§" }, -- (original digraph SE) U+00A7 SECTION SIGN
+		{ "|^", "↑" }, -- (original digraph -!) U+2191 UPWARDS ARROW
+		{ "|v", "↓" }, -- (original digraph -v) U+2193 DOWNWARDS ARROW
+		-- New digraphs
+		{ ":(", "🙁" }, -- U+1F641 SLIGHTLY FROWNING FACE
+		{ ":)", "🙂" }, -- U+1F642 SLIGHTLY SMILING FACE
+	})
+
+	-- }}}
+-- Filetypes & Syntax Plugins {{{
 
 vim.filetype.add({
 	extension = {
@@ -56,6 +71,15 @@ vim.filetype.add({
 		iuml = "plantuml",
 	},
 })
+
+now(function()
+	-- PlantUML
+	add({ source = "aklt/plantuml-syntax" })
+	-- R Markdown
+	add({ source = "vim-pandoc/vim-rmarkdown" })
+	-- Better LaTeX Integration
+	add({ source = "lervag/vimtex" })
+end)
 
 -- }}}
 -- Icons {{{
@@ -74,31 +98,6 @@ now(function()
 	})
 	now(require("mini.icons").mock_nvim_web_devicons)
 	later(require("mini.icons").tweak_lsp_kind)
-end)
-
--- }}}
--- Digraphs {{{
-
--- See also: https://vimhelp.org/digraph.txt.html#digraph
-
-vim.fn.digraph_setlist({
-	-- Alternatives for preexisting digraphs
-	{ "Ss", "§" }, -- (original digraph SE) U+00A7 SECTION SIGN
-	{ "|^", "↑" }, -- (original digraph -!) U+2191 UPWARDS ARROW
-	{ "|v", "↓" }, -- (original digraph -v) U+2193 DOWNWARDS ARROW
-	-- New digraphs
-	{ ":(", "🙁" }, -- U+1F641 SLIGHTLY FROWNING FACE
-	{ ":)", "🙂" }, -- U+1F642 SLIGHTLY SMILING FACE
-})
-
--- }}}
--- Syntax {{{
-
-now(function()
-	-- PlantUML
-	add({ source = "aklt/plantuml-syntax" })
-	-- R Markdown
-	add({ source = "vim-pandoc/vim-rmarkdown" })
 end)
 
 -- }}}
