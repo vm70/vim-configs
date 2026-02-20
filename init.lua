@@ -22,3 +22,5 @@ MiniDeps.setup({ path = { package = plugin_path } })
 
 -- Set up `mini.extra` (since other plugins are dependent on it)
 MiniDeps.later(require("mini.extra").setup)
+
+-- }}}
