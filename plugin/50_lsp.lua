@@ -119,6 +119,7 @@ later(function()
 	-- Define language patterns to work better with 'friendly-snippets'
 	local latex_patterns = { "latex/**/*.json", "**/latex.json" }
 	local lang_patterns = {
+		cpp = { "c/*.json", "cpp/*.json" },
 		markdown_inline = { "markdown.json" },
 		pandoc = { "pandoc.json", "markdown.json" },
 		plaintex = latex_patterns,
