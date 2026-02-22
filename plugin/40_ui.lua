@@ -57,9 +57,9 @@ end)
 -- Highlight Patterns {{{
 
 later(function()
-	local hipatterns = require("mini.hipatterns")
+	local MiniHipatterns = require("mini.hipatterns")
 	local hi_words = require("mini.extra").gen_highlighter.words
-	hipatterns.setup({
+	MiniHipatterns.setup({
 		highlighters = {
 			-- Highlight a fixed set of common words. Will be highlighted in any place,
 			-- not like "only in comments".
@@ -69,7 +69,7 @@ later(function()
 			note = hi_words({ "NOTE", "Note", "note" }, "MiniHipatternsNote"),
 			jupyter = { pattern = "# %%%%", group = "MiniHipatternsNote" },
 			-- Highlight hex color string (#aabbcc) with that color as a background
-			hex_color = hipatterns.gen_highlighter.hex_color(),
+			hex_color = MiniHipatterns.gen_highlighter.hex_color(),
 		},
 	})
 end)
