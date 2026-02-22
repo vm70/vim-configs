@@ -57,11 +57,11 @@ later(require("mini.bracketed").setup)
 -- Selecting Around / Inside {{{
 
 later(function()
-	local ai = require("mini.ai")
-	ai.setup({
+	local MiniAi = require("mini.ai")
+	MiniAi.setup({
 		custom_textobjects = {
 			B = require("mini.extra").gen_ai_spec.buffer(),
-			F = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }),
+			F = MiniAi.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }),
 		},
 		search_method = "cover",
 	})
