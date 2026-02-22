@@ -4,6 +4,7 @@ local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
 
 -- Commands {{{
 
+vim.api.nvim_create_user_command("Keymaps", "FzfLua keymaps", {desc = "Search for keymaps" })
 vim.api.nvim_create_user_command("TrimWhitespace", require("mini.trailspace").trim, { desc = "Trim Whitespace" })
 
 -- }}}
