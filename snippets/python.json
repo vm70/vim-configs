@@ -1,0 +1,7 @@
+{
+  "import-as": {
+    "prefix": ["import-as"],
+    "body": ["import ${1:numpy} as ${2:np}"],
+    "description": "Import a package or module with an alias"
+  }
+}
