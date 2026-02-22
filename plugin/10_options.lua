@@ -49,19 +49,19 @@ vim.opt.diffopt = { "internal", "filler", "closeoff", "vertical" }
 -- }}}
 -- Digraphs {{{
 
-	-- See also: https://vimhelp.org/digraph.txt.html#digraph
+-- See also: https://vimhelp.org/digraph.txt.html#digraph
 
-	vim.fn.digraph_setlist({
-		-- Alternatives for preexisting digraphs
-		{ "Ss", "§" }, -- (original digraph SE) U+00A7 SECTION SIGN
-		{ "|^", "↑" }, -- (original digraph -!) U+2191 UPWARDS ARROW
-		{ "|v", "↓" }, -- (original digraph -v) U+2193 DOWNWARDS ARROW
-		-- New digraphs
-		{ ":(", "🙁" }, -- U+1F641 SLIGHTLY FROWNING FACE
-		{ ":)", "🙂" }, -- U+1F642 SLIGHTLY SMILING FACE
-	})
+vim.fn.digraph_setlist({
+	-- Alternatives for preexisting digraphs
+	{ "Ss", "§" }, -- (original digraph SE) U+00A7 SECTION SIGN
+	{ "|^", "↑" }, -- (original digraph -!) U+2191 UPWARDS ARROW
+	{ "|v", "↓" }, -- (original digraph -v) U+2193 DOWNWARDS ARROW
+	-- New digraphs
+	{ ":(", "🙁" }, -- U+1F641 SLIGHTLY FROWNING FACE
+	{ ":)", "🙂" }, -- U+1F642 SLIGHTLY SMILING FACE
+})
 
-	-- }}}
+-- }}}
 -- Filetypes & Syntax Plugins {{{
 
 vim.filetype.add({
