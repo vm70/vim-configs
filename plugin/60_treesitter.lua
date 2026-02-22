@@ -64,6 +64,14 @@ if (vim.fn.executable("tree-sitter") == 1) and (vim.g.treesitter_enable == true)
 				vim.treesitter.start(ev.buf)
 			end,
 		})
+		-- Set up quarto-nvim when opening Quarto files
+		vim.api.nvim_create_autocmd("Filetype", {
+			pattern = { "quarto" },
+			desc = "Set up quarto-nvim",
+			callback = function(_)
+				require("quarto").setup()
+			end,
+		})
 	end)
 else
 	-- Quarto (for Vim), provides better syntax highlighting if Treesitter isn't available
