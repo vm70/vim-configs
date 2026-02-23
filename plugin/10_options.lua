@@ -38,11 +38,6 @@ vim.opt.spelloptions = "camel"
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 
--- Tabs
-vim.opt.expandtab = false
-vim.opt.shiftwidth = 2
-vim.opt.tabstop = 2
-
 -- Diff options
 vim.opt.diffopt = { "internal", "filler", "closeoff", "vertical" }
 
