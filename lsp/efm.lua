@@ -11,6 +11,18 @@ if ok then
 	local selene = require("efmls-configs.linters.selene")
 	local shfmt = require("efmls-configs.formatters.shfmt")
 	local vint = require("efmls-configs.linters.vint")
+	-- Custom Formatters & Linters
+	local cbfmt_quarto = {
+		formatCommand = string.format(
+			"%s --stdin-filepath '${INPUT}' --best-effort --parser markdown",
+			fs.executable("cbfmt")
+		),
+		formatStdin = true,
+	}
+	local raco_fmt = {
+		formatCommand = string.format("%s fmt", fs.executable("raco")),
+		formatStdin = true,
+	}
 	-- Formatters & Linters by language
 	languages = {
 		css = { prettier },
@@ -20,16 +32,8 @@ if ok then
 		make = { checkmake },
 		markdown = { cbfmt, prettier },
 		pandoc = { prettier },
-		quarto = {
-			{
-				formatCommand = string.format(
-					"%s --stdin-filepath '${INPUT}' --best-effort --parser markdown",
-					fs.executable("cbfmt")
-				),
-				formatStdin = true,
-			},
-			prettier,
-		},
+		quarto = { cbfmt_quarto, prettier },
+		racket = { raco_fmt },
 		scss = { prettier },
 		sh = { shfmt },
 		tex = { chktex, latexindent },
