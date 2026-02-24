@@ -28,6 +28,7 @@ if ok then
 		css = { prettier },
 		html = { prettier },
 		json = { prettier },
+		jsonc = { prettier },
 		lua = { selene },
 		make = { checkmake },
 		markdown = { cbfmt, prettier },
