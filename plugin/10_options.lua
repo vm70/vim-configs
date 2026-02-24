@@ -23,7 +23,7 @@ vim.opt.title = true
 
 -- Editing
 vim.opt.autoread = true
-vim.opt.completeopt = { "menuone", "noselect", "popup" }
+vim.opt.completeopt = { "fuzzy", "menuone", "noselect", "popup" }
 vim.opt.foldlevelstart = 6
 vim.opt.foldmethod = "marker"
 vim.opt.incsearch = true

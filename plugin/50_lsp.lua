@@ -69,10 +69,10 @@ end)
 -- }}}
 -- Snippets {{{
 
--- stylua: ignore start
-
 -- Seed random variables for snippet generation
 math.randomseed(vim.loop.hrtime())
+
+-- stylua: ignore start
 
 --- Missing snippet variables in Neovim. Stolen from `mini.snippets.H.var_evaluators`.
 ---@type { [string]: function }
