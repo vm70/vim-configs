@@ -14,7 +14,7 @@ if ok then
 	-- Custom Formatters & Linters
 	local cbfmt_quarto = {
 		formatCommand = string.format(
-			"%s --stdin-filepath '${INPUT}' --best-effort --parser markdown",
+			"%s --stdin-filepath '${INPUT}' --best-effort --parser=markdown",
 			fs.executable("cbfmt")
 		),
 		formatStdin = true,
