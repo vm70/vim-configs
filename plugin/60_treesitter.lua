@@ -4,7 +4,7 @@ local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
 
 -- Treesitter (& fallback plugins) {{{
 
-if (vim.fn.executable("tree-sitter") == 1) and (vim.g.treesitter_enable == true) then
+if vim.g.enable_treesitter then
 	now(function()
 		add({
 			source = "nvim-treesitter/nvim-treesitter",
@@ -32,6 +32,7 @@ if (vim.fn.executable("tree-sitter") == 1) and (vim.g.treesitter_enable == true)
 			"lua", -- default
 			"markdown", -- default
 			"markdown_inline", -- default
+			"mermaid",
 			"python",
 			"query", -- default
 			"vim", -- default
@@ -64,19 +65,14 @@ if (vim.fn.executable("tree-sitter") == 1) and (vim.g.treesitter_enable == true)
 				vim.treesitter.start(ev.buf)
 			end,
 		})
-		-- Set up quarto-nvim when opening Quarto files
-		vim.api.nvim_create_autocmd("Filetype", {
-			pattern = { "quarto" },
-			desc = "Set up quarto-nvim",
-			callback = function(_)
-				require("quarto").setup()
-			end,
-		})
-	end)
-else
-	-- Quarto (for Vim), provides better syntax highlighting if Treesitter isn't available
-	now(function()
-		add({ source = "quarto-dev/quarto-vim" })
+		-- -- Set up quarto-nvim when opening Quarto files
+		-- vim.api.nvim_create_autocmd("Filetype", {
+		-- 	pattern = { "quarto" },
+		-- 	desc = "Set up quarto-nvim",
+		-- 	callback = function(_)
+		-- 		require("quarto").setup()
+		-- 	end,
+		-- })
 	end)
 end
 

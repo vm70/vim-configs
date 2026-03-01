@@ -6,7 +6,9 @@ local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
 
 vim.g.filetype_md = "pandoc"
 vim.g.filetype_v = "verilog"
-vim.g.treesitter_enable = true
+
+-- Custom Global Variables
+vim.g.enable_treesitter = (true and vim.fn.executable("tree-sitter") == 1)
 
 -- }}}
 -- Options {{{
@@ -70,10 +72,15 @@ vim.filetype.add({
 now(function()
 	-- PlantUML
 	add({ source = "aklt/plantuml-syntax" })
-	-- R Markdown
-	add({ source = "vim-pandoc/vim-rmarkdown" })
 	-- Better LaTeX Integration
 	add({ source = "lervag/vimtex" })
+	if not vim.g.enable_treesitter then
+		-- Pandoc, R Markdown, Quarto
+		add({ source = "vim-pandoc/vim-pandoc" })
+		add({ source = "vim-pandoc/vim-pandoc-syntax" })
+		add({ source = "vim-pandoc/vim-rmarkdown" })
+		add({ source = "quarto-dev/quarto-vim" })
+	end
 end)
 
 -- }}}

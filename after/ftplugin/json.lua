@@ -1,4 +1,3 @@
-vim.opt_local.conceallevel = 0
 vim.opt_local.spell = false
 
 if vim.fn.executable("jq") then
