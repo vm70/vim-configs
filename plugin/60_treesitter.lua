@@ -65,14 +65,14 @@ if vim.g.enable_treesitter then
 				vim.treesitter.start(ev.buf)
 			end,
 		})
-		-- -- Set up quarto-nvim when opening Quarto files
-		-- vim.api.nvim_create_autocmd("Filetype", {
-		-- 	pattern = { "quarto" },
-		-- 	desc = "Set up quarto-nvim",
-		-- 	callback = function(_)
-		-- 		require("quarto").setup()
-		-- 	end,
-		-- })
+		-- Set up quarto-nvim when opening Quarto files
+		vim.api.nvim_create_autocmd("Filetype", {
+			pattern = { "quarto" },
+			desc = "Set up quarto-nvim",
+			callback = function(_)
+				require("quarto").setup()
+			end,
+		})
 	end)
 end
 
