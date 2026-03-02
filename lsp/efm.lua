@@ -32,7 +32,7 @@ if ok then
 		lua = { selene },
 		make = { checkmake },
 		markdown = { cbfmt, prettier },
-		pandoc = { prettier },
+		pandoc = { cbfmt, prettier },
 		quarto = { cbfmt_quarto, prettier },
 		racket = { raco_fmt },
 		scss = { prettier },
