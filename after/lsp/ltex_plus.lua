@@ -3,12 +3,9 @@ return {
 	filetypes = {
 		"bib",
 		"context",
-		"gitcommit",
 		"html",
 		"mail",
 		"markdown",
-		"markdown.pandoc",
-		"mdx",
 		"org",
 		"pandoc",
 		"plaintex",
@@ -20,6 +17,9 @@ return {
 		"text",
 		"typst",
 		"xhtml",
+		-- "gitcommit",
+		-- "markdown.pandoc",
+		-- "mdx",
 	},
 	settings = {
 		ltex = {
