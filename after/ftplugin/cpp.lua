@@ -1,1 +1,1 @@
-vim.cmd("runtime! after/ftplugin/c.lua")
+vim.lsp.enable("clangd")

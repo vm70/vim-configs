@@ -1,1 +1,1 @@
-vim.lsp.enable('racket_langserver')
+vim.lsp.enable("racket_langserver")
