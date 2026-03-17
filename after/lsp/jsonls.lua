@@ -1,5 +1,8 @@
 ---@type vim.lsp.Config
 return {
+	init_options = {
+		provideFormatter = (not vim.fn.executable("prettier")),
+	},
 	settings = {
 		json = {
 			schemas = {
@@ -10,8 +13,4 @@ return {
 			},
 		},
 	},
-	on_attach = function(client, _)
-		client.server_capabilities.documentFormattingProvider = (not vim.fn.executable("prettier"))
-		client.server_capabilities.documentRangeFormattingProvider = (not vim.fn.executable("prettier"))
-	end,
 }
