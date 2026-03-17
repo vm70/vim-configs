@@ -29,6 +29,7 @@ vim.opt.completeopt = { "fuzzy", "menuone", "noselect", "popup" }
 vim.opt.foldlevelstart = 6
 vim.opt.foldmethod = "marker"
 vim.opt.incsearch = true
+vim.opt.iskeyword = "@,48-57,_,192-255,-"
 vim.opt.linebreak = true
 vim.opt.mouse = "a"
 vim.opt.signcolumn = "yes"
