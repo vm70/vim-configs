@@ -24,9 +24,8 @@ end)
 -- }}}
 -- File Tree {{{
 
---- Add `nvim-tree` with my desired configurations.
-local function add_nvim_tree()
-	add({ source = "nvim-tree/nvim-tree.lua" })
+now(function()
+	add({ source = "nvim-tree/nvim-tree.lua", checkout = "v1.16.0" })
 	local function my_on_attach(bufnr)
 		local api = require("nvim-tree.api")
 
@@ -52,26 +51,7 @@ local function add_nvim_tree()
 			},
 		},
 	})
-end
-
---- Signal whether Neovim was called with directories.
----@return boolean
-local function directories_in_argv()
-	---@diagnostic disable-next-line: param-type-mismatch
-	for _, arg in ipairs(vim.fn.argv(-1)) do
-		if vim.fn.isdirectory(vim.fn.expand(arg)) then
-			return true
-		end
-	end
-	return false
-end
-
--- Immediately add `nvim-tree` if Neovim was called with directories
-if directories_in_argv() then
-	now(add_nvim_tree)
-else
-	later(add_nvim_tree)
-end
+end)
 
 -- }}}
 -- Highlight Patterns {{{
