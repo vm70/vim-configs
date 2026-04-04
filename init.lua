@@ -1,8 +1,24 @@
 -- vim: foldmethod=marker
 -- Plugin Management {{{
 
+---Load a package with options specified in the `data` table.
+---
+---Current options:
+--- - use `type = "lazy"` to not immediately load a package
+---
+---@param plug_data {spec: vim.pack.Spec, path: string}
+local function load_with_options(plug_data)
+	if plug_data.spec.data == nil then
+		vim.cmd.packadd(plug_data.spec.name)
+		return
+	end
+	if plug_data.spec.data.type ~= "lazy" then
+		vim.cmd.packadd(plug_data.spec.name)
+	end
+end
+
 vim.pack.add({
-	-- Mini.Nvim
+	-- mini.nvim
 	{ src = "https://github.com/nvim-mini/mini.nvim" },
 	-- Filetype & Syntax Plugins
 	{ src = "https://github.com/aklt/plantuml-syntax" },
@@ -29,9 +45,25 @@ vim.pack.add({
 	-- Quarto
 	{ src = "https://github.com/quarto-dev/quarto-nvim" },
 	{ src = "https://github.com/jmbuhr/otter.nvim" },
-})
+	-- Git Integration
+	{ src = "https://github.com/tpope/vim-fugitive", data = { type = "lazy" } },
+	-- Treesitter
+	{
+		src = "https://github.com/nvim-treesitter/nvim-treesitter",
+		version = "main",
+		data = { type = "lazy" },
+	},
+	{
+		src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
+		data = { type = "lazy" },
+	},
+	{ src = "https://github.com/ggml-org/llama.vim", data = { type = "lazy" } },
+	-- Vim-Slime
+	{ src = "https://github.com/jpalardy/vim-slime", data = { type = "lazy" } },
+	{ src = "https://github.com/Klafyvel/vim-slime-cells", data = { type = "lazy" } },
+}, { load = load_with_options })
 
--- Manage post-install hooks 
+-- Manage post-install hooks
 vim.api.nvim_create_autocmd("PackChanged", {
 	callback = function(ev)
 		local name, kind = ev.data.spec.name, ev.data.kind
@@ -228,10 +260,8 @@ end
 
 if vim.g.enable_treesitter == true then
 	now(function()
-		vim.pack.add({
-			{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
-			{ src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects", version = "main" },
-		})
+		vim.cmd.packadd("nvim-treesitter")
+		vim.cmd.packadd("nvim-treesitter-textobjects")
 		-- Define languages which will have parsers installed and auto-enabled
 		local languages = {
 			"c", -- default
@@ -348,7 +378,7 @@ end)
 
 later(function()
 	require("mini.git").setup()
-	vim.pack.add({ "https://github.com/tpope/vim-fugitive" })
+	vim.cmd.packadd("vim-fugitive")
 	require("mini.diff").setup({ view = { style = "sign" } })
 end)
 
@@ -372,7 +402,7 @@ if vim.fn.executable("llama-server") == 1 then
 			keymap_inst_retry = "<leader>llr",
 			keymap_inst_trigger = "<leader>lli",
 		}
-		vim.pack.add({ { src = "https://github.com/ggml-org/llama.vim" } })
+		vim.cmd.packadd("llama.vim")
 	end)
 end
 
@@ -589,10 +619,8 @@ later(function()
 	vim.g.slime_menu_config = false
 	vim.g.slime_neovim_ignore_unlisted = false
 	vim.g.slime_cells_no_highlight = 1
-	vim.pack.add({
-		{ src = "https://github.com/jpalardy/vim-slime" },
-		{ src = "https://github.com/Klafyvel/vim-slime-cells" },
-	})
+	vim.cmd.packadd("vim-slime")
+	vim.cmd.packadd("vim-slime-cells")
 end)
 
 -- }}}
