@@ -1,72 +1,38 @@
 -- vim: foldmethod=marker
 -- Plugin Management {{{
 
----Load a package with options specified in the `data` table.
----
----Current options:
---- - use `type = "lazy"` to not immediately load a package
----
----@param plug_data {spec: vim.pack.Spec, path: string}
-local function load_with_options(plug_data)
-	if plug_data.spec.data == nil then
-		vim.cmd.packadd(plug_data.spec.name)
-		return
-	end
-	if plug_data.spec.data.type ~= "lazy" then
-		vim.cmd.packadd(plug_data.spec.name)
-	end
-end
+vim.api.nvim_create_user_command("PackStatus", function()
+	vim.pack.get()
+end, { desc = "Get Package Status" })
 
-vim.pack.add({
-	-- mini.nvim
-	{ src = "https://github.com/nvim-mini/mini.nvim" },
-	-- Filetype & Syntax Plugins
-	{ src = "https://github.com/aklt/plantuml-syntax" },
-	{ src = "https://github.com/lervag/vimtex" },
-	{ src = "https://github.com/vim-pandoc/vim-pandoc" },
-	{ src = "https://github.com/vim-pandoc/vim-pandoc-syntax" },
-	{ src = "https://github.com/vim-pandoc/vim-rmarkdown" },
-	{ src = "https://github.com/quarto-dev/quarto-vim" },
-	-- LSP Configuration
-	{ src = "https://github.com/neovim/nvim-lspconfig" },
-	{ src = "https://github.com/creativenull/efmls-configs-nvim" },
-	-- Color Scheme
-	{ src = "https://github.com/ellisonleao/gruvbox.nvim" },
-	-- Snippets
-	{ src = "https://github.com/rafamadriz/friendly-snippets" },
-	-- Fuzzy Finding
-	{ src = "https://github.com/ibhagwan/fzf-lua" },
-	-- Outline
-	{ src = "https://github.com/hedyhli/outline.nvim" },
-	-- File Tree
-	{ src = "https://github.com/nvim-tree/nvim-tree.lua" },
-	-- Sleuth
-	{ src = "https://github.com/tpope/vim-sleuth" },
-	-- Quarto
-	{ src = "https://github.com/quarto-dev/quarto-nvim" },
-	{ src = "https://github.com/jmbuhr/otter.nvim" },
-	-- Git Integration
-	{ src = "https://github.com/tpope/vim-fugitive", data = { type = "lazy" } },
-	-- Treesitter
-	{
-		src = "https://github.com/nvim-treesitter/nvim-treesitter",
-		version = "main",
-		data = { type = "lazy" },
-	},
-	{
-		src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
-		data = { type = "lazy" },
-	},
-	{ src = "https://github.com/ggml-org/llama.vim", data = { type = "lazy" } },
-	-- Vim-Slime
-	{ src = "https://github.com/jpalardy/vim-slime", data = { type = "lazy" } },
-	{ src = "https://github.com/Klafyvel/vim-slime-cells", data = { type = "lazy" } },
-}, { load = load_with_options })
+vim.api.nvim_create_user_command("PackUpdate", function()
+	vim.pack.update()
+end, { desc = "Update Packages" })
+
+vim.api.nvim_create_user_command("PackClean", function()
+	vim.pack.del(vim.iter(vim.pack.get())
+		:filter(function(x)
+			return not x.active
+		end)
+		:map(function(x)
+			return x.spec.name
+		end)
+		:totable())
+end, { desc = "Remove unused packages" })
+
+vim.api.nvim_create_user_command("PackAdd", function(opts)
+	local specs = {}
+	for _, url in ipairs(opts.fargs) do
+		table.insert(specs, { src = url })
+	end
+	vim.pack.add(specs)
+end, { nargs="+", desc = "Add package(s) manually" })
 
 -- Manage post-install hooks
 vim.api.nvim_create_autocmd("PackChanged", {
 	callback = function(ev)
 		local name, kind = ev.data.spec.name, ev.data.kind
+		-- Auto-update Tree-sitter parsers
 		if name == "nvim-treesitter" and kind == "update" then
 			if not ev.data.active then
 				vim.cmd.packadd("nvim-treesitter")
@@ -75,6 +41,9 @@ vim.api.nvim_create_autocmd("PackChanged", {
 		end
 	end,
 })
+
+-- Download `mini.nvim`
+vim.pack.add({ { src = "https://github.com/nvim-mini/mini.nvim" } })
 
 local function now(func)
 	require("mini.misc").safely("now", func)
@@ -87,11 +56,7 @@ end
 -- }}}
 -- Global Variables {{{
 
-vim.g.filetype_md = "pandoc"
 vim.g.filetype_v = "verilog"
-
--- Custom Global Variables
-vim.g.enable_treesitter = (true and vim.fn.executable("tree-sitter") == 1)
 
 -- }}}
 -- Options {{{
@@ -145,13 +110,19 @@ vim.fn.digraph_setlist({
 -- }}}
 -- Filetypes & Syntax Plugins {{{
 
-vim.filetype.add({
-	extension = {
-		pu = "plantuml",
-		puml = "plantuml",
-		iuml = "plantuml",
-	},
-})
+now(function()
+	vim.pack.add({
+		{ src = "https://github.com/aklt/plantuml-syntax" },
+		{ src = "https://github.com/lervag/vimtex" },
+	})
+	vim.filetype.add({
+		extension = {
+			pu = "plantuml",
+			puml = "plantuml",
+			iuml = "plantuml",
+		},
+	})
+end)
 
 -- }}}
 -- Keymaps {{{
@@ -195,9 +166,6 @@ vim.keymap.set("n", "<leader>sk", "<Plug>SlimeCellsPrev", { desc = "Code cell ba
 -- }}}
 -- Commands {{{
 
-vim.api.nvim_create_user_command("Keymaps", "FzfLua keymaps", { desc = "Search for keymaps" })
-vim.api.nvim_create_user_command("PackStatus", "lua =vim.pack.get()", { desc = "Get Package Status" })
-vim.api.nvim_create_user_command("PackUpdate", "lua =vim.pack.update()", { desc = "Update Packages" })
 vim.api.nvim_create_user_command("TrimWhitespace", require("mini.trailspace").trim, { desc = "Trim Whitespace" })
 
 -- }}}
@@ -208,8 +176,14 @@ vim.api.nvim_create_autocmd("TermOpen", { command = "setlocal nospell", desc = "
 -- }}}
 -- Plugin - Multi-Language LSP Servers {{{
 
-later(function()
-	vim.lsp.enable({ "efm", "ltex_plus" })
+now(function()
+	vim.pack.add({
+		{ src = "https://github.com/neovim/nvim-lspconfig" },
+		{ src = "https://github.com/creativenull/efmls-configs-nvim" },
+	})
+	later(function()
+		vim.lsp.enable({ "efm", "ltex_plus" })
+	end)
 end)
 
 -- }}}
@@ -258,10 +232,10 @@ local parser_not_installed = function(lang)
 	return #vim.api.nvim_get_runtime_file("parser/" .. lang .. ".*", false) == 0
 end
 
-if vim.g.enable_treesitter == true then
+if vim.fn.executable("tree-sitter") == 1 then
 	now(function()
-		vim.cmd.packadd("nvim-treesitter")
-		vim.cmd.packadd("nvim-treesitter-textobjects")
+		vim.pack.add({ { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" } })
+		vim.pack.add({ { src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects" } })
 		-- Define languages which will have parsers installed and auto-enabled
 		local languages = {
 			"c", -- default
@@ -278,32 +252,32 @@ if vim.g.enable_treesitter == true then
 			"vimdoc", -- default
 			"yaml",
 		}
-		-- Define file types that have no corresponding Treesitter parser / language
-		local filetypes = {
-			"pandoc",
-			"quarto",
-		}
+		-- -- Define file types that have no corresponding Treesitter parser / language
+		-- local filetypes = {
+		-- 	"pandoc",
+		-- 	"quarto",
+		-- }
 		-- Auto-install parsers
 		local to_install = vim.tbl_filter(parser_not_installed, languages)
 		if #to_install > 0 then
 			require("nvim-treesitter").install(to_install)
 		end
 		-- -- Append file types corresponding to each language to the file types table
-		for _, lang in ipairs(languages) do
-			for _, ft in ipairs(vim.treesitter.language.get_filetypes(lang)) do
-				table.insert(filetypes, ft)
-			end
-		end
-		-- Enable tree-sitter after opening a file for a target language / file type
-		vim.api.nvim_create_autocmd("FileType", {
-			pattern = filetypes,
-			desc = "Start tree-sitter",
-			callback = function(ev)
-				vim.treesitter.start(ev.buf)
-				vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
-				vim.wo[0][0].foldmethod = "expr"
-			end,
-		})
+		-- for _, lang in ipairs(languages) do
+		-- 	for _, ft in ipairs(vim.treesitter.language.get_filetypes(lang)) do
+		-- 		table.insert(filetypes, ft)
+		-- 	end
+		-- end
+		-- -- Enable tree-sitter after opening a file for a target language / file type
+		-- vim.api.nvim_create_autocmd("FileType", {
+		-- 	pattern = filetypes,
+		-- 	desc = "Start tree-sitter",
+		-- 	callback = function(ev)
+		-- 		vim.treesitter.start(ev.buf)
+		-- 		vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
+		-- 		vim.wo[0][0].foldmethod = "expr"
+		-- 	end,
+		-- })
 	end)
 end
 
@@ -311,6 +285,7 @@ end
 -- Plugin - Color Scheme {{{
 
 now(function()
+	vim.pack.add({ { src = "https://github.com/ellisonleao/gruvbox.nvim" } })
 	vim.cmd.colorscheme("gruvbox")
 end)
 
@@ -325,7 +300,6 @@ now(function()
 			plantuml = { glyph = "", hl = "MiniIconsGrey" },
 		},
 		extension = {
-			md = vim.g.filetype_md,
 			v = vim.g.filetype_v,
 		},
 	})
@@ -337,7 +311,7 @@ end)
 -- Plugin - Tab Line & Status Line {{{
 
 now(function()
-	require("mini.tabline").setup({ show_icons = true, format = nil, tabpage_section = "right" })
+	require("mini.tabline").setup({ show_icons = true, tabpage_section = "right" })
 end)
 now(require("mini.statusline").setup)
 
@@ -346,6 +320,7 @@ now(require("mini.statusline").setup)
 
 --- Add `nvim-tree` with my desired configurations.
 now(function()
+	vim.pack.add({ { src = "https://github.com/nvim-tree/nvim-tree.lua" } })
 	local function my_on_attach(bufnr)
 		local api = require("nvim-tree.api")
 
@@ -378,7 +353,7 @@ end)
 
 later(function()
 	require("mini.git").setup()
-	vim.cmd.packadd("vim-fugitive")
+	vim.pack.add({ { src = "https://github.com/tpope/vim-fugitive" } })
 	require("mini.diff").setup({ view = { style = "sign" } })
 end)
 
@@ -386,8 +361,32 @@ end)
 -- Plugin - Fuzzy Finding {{{
 
 later(function()
+	vim.pack.add({ { src = "https://github.com/ibhagwan/fzf-lua" } })
 	require("fzf-lua").setup({ "fzf-vim" })
+	vim.api.nvim_create_user_command("Keymaps", "FzfLua keymaps", { desc = "Search for keymaps" })
 end)
+
+-- --- Create a Neovim command from the corresponding `mini.pick` picker name.
+-- ---@param picker string Picker name.
+-- local function picker_command(picker)
+-- 	local pick_command = ""
+-- 	for word in string.gmatch(picker, "%w+") do
+-- 		pick_command = pick_command .. string.upper(string.sub(word, 1, 1)) .. string.sub(word, 2)
+-- 	end
+-- 	vim.api.nvim_create_user_command(pick_command, "Pick " .. picker, { desc = "MiniPick: " .. picker })
+-- end
+--
+-- later(function()
+-- 	require("mini.extra").setup()
+-- 	MiniPick = require("mini.pick")
+-- 	MiniPick.setup()
+-- 	for picker, _ in pairs(MiniPick.registry) do
+-- 		if picker ~= "cli" then
+-- 			picker_command(picker)
+-- 		end
+-- 	end
+-- 	vim.api.nvim_create_user_command("Rg", "Pick grep_live", { desc = "Live Grep (rg)" })
+-- end)
 
 -- }}}
 -- Plugin - AI Completion {{{
@@ -402,7 +401,7 @@ if vim.fn.executable("llama-server") == 1 then
 			keymap_inst_retry = "<leader>llr",
 			keymap_inst_trigger = "<leader>lli",
 		}
-		vim.cmd.packadd("llama.vim")
+		vim.pack.add({ { src = "https://github.com/ggml-org/llama.vim" } })
 	end)
 end
 
@@ -410,6 +409,7 @@ end
 -- Plugin - Outline {{{
 
 later(function()
+	vim.pack.add({ { src = "https://github.com/hedyhli/outline.nvim" } })
 	require("outline").setup({
 		providers = {
 			markdown = {
@@ -513,6 +513,11 @@ later(function()
 end)
 
 -- }}}
+-- Plugin - Sleuth {{{
+
+vim.pack.add({ { src = "https://github.com/tpope/vim-sleuth" } })
+
+-- }}}
 -- Plugin - Snippets {{{
 
 -- Seed random variables for snippet generation
@@ -559,6 +564,7 @@ local snippet_vars = {
 -- stylua: ignore end
 
 later(function()
+	vim.pack.add({ { src = "https://github.com/rafamadriz/friendly-snippets" } })
 	local friendly_snippets_path = vim.fn.stdpath("data") .. "/site/pack/core/opt/friendly-snippets/snippets"
 
 	-- Define language patterns to work better with 'friendly-snippets'
@@ -619,8 +625,10 @@ later(function()
 	vim.g.slime_menu_config = false
 	vim.g.slime_neovim_ignore_unlisted = false
 	vim.g.slime_cells_no_highlight = 1
-	vim.cmd.packadd("vim-slime")
-	vim.cmd.packadd("vim-slime-cells")
+	vim.pack.add({
+		{ src = "https://github.com/jpalardy/vim-slime" },
+		{ src = "https://github.com/Klafyvel/vim-slime-cells" },
+	})
 end)
 
 -- }}}
@@ -628,7 +636,10 @@ end)
 
 later(function()
 	-- Quarto (for Neovim), LSP integration, relies on Treesitter
-	require("quarto").setup()
+	vim.pack.add({
+		{ src = "https://github.com/quarto-dev/quarto-nvim" },
+		{ src = "https://github.com/jmbuhr/otter.nvim" },
+	})
 end)
 
 -- }}}
