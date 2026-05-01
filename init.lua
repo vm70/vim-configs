@@ -251,7 +251,6 @@ MiniMisc.safely("now", function()
 			"c", -- default
 			"html",
 			"julia",
-			"latex",
 			"lua", -- default
 			"markdown", -- default
 			"markdown_inline", -- default
