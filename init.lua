@@ -158,6 +158,27 @@ MiniMisc.safely("now", function()
 		-- Quarto
 		{ src = "https://github.com/quarto-dev/quarto-nvim" },
 		{ src = "https://github.com/jmbuhr/otter.nvim" },
+	})
+end)
+
+MiniMisc.safely("filetype:quarto", function()
+	require("quarto").setup()
+end)
+
+-- }}}
+-- Plugin - Jupyter / REPL / Quarto {{{
+
+MiniMisc.safely("later", function()
+	-- Slime Options
+	vim.g.slime_input_pid = false
+	vim.g.slime_menu_config = false
+	vim.g.slime_neovim_ignore_unlisted = false
+	vim.g.slime_no_mappings = true
+	vim.g.slime_suggest_default = true
+	vim.g.slime_target = "neovim"
+	-- Slime Keymaps
+	vim.keymap.set("n", "<leader>sc", "<Plug>SlimeSendCell", { desc = "Send code cell" })
+	vim.pack.add({
 		{ src = "https://github.com/jpalardy/vim-slime" },
 	})
 end)
@@ -611,24 +632,6 @@ MiniMisc.safely("later", function()
 	-- 'mini.completion' menu. This requires a dedicated in-process LSP server
 	-- that will provide them. To have that, uncomment next line (use `gcc`).
 	MiniSnippets.start_lsp_server()
-end)
-
--- }}}
--- Plugin - Jupyter / REPL {{{
-
-MiniMisc.safely("later", function()
-	-- Slime Options
-	vim.g.slime_input_pid = false
-	vim.g.slime_menu_config = false
-	vim.g.slime_neovim_ignore_unlisted = false
-	vim.g.slime_no_mappings = true
-	vim.g.slime_suggest_default = true
-	vim.g.slime_target = "neovim"
-	-- Slime Keymaps
-	vim.keymap.set("n", "<leader>sc", "<Plug>SlimeSendCell", { desc = "Send code cell" })
-	vim.pack.add({
-		{ src = "https://github.com/jpalardy/vim-slime" },
-	})
 end)
 
 -- }}}
