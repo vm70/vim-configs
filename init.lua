@@ -1,9 +1,7 @@
 -- vim: foldmethod=marker
 -- Plugin Management {{{
 
-vim.api.nvim_create_user_command("PackStatus", function()
-	vim.pack.get()
-end, { desc = "Get Package Status" })
+vim.api.nvim_create_user_command("PackStatus", "lua =vim.pack.get()", { desc = "Get Package Status" })
 
 vim.api.nvim_create_user_command("PackUpdate", function()
 	vim.pack.update()
@@ -645,10 +643,13 @@ MiniMisc.safely("later", function()
 	vim.pack.add({
 		{ src = "https://github.com/quarto-dev/quarto-nvim" },
 		{ src = "https://github.com/jmbuhr/otter.nvim" },
+		{ src = "https://github.com/jpalardy/vim-slime" },
 	}, { load = false })
 	MiniMisc.safely("filetype:quarto,markdown,pandoc,rmarkdown", function()
+		vim.cmd.packadd("vim-slime")
 		vim.cmd.packadd("otter.nvim")
 		vim.cmd.packadd("quarto-nvim")
+		require("quarto").setup()
 	end)
 end)
 
