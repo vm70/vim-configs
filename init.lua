@@ -26,7 +26,7 @@ vim.api.nvim_create_user_command("PackAdd", function(opts)
 		table.insert(specs, { src = url })
 	end
 	vim.pack.add(specs)
-end, { nargs="+", desc = "Add package(s) manually" })
+end, { nargs = "+", desc = "Add package(s) manually" })
 
 -- Manage post-install hooks
 vim.api.nvim_create_autocmd("PackChanged", {
@@ -45,13 +45,7 @@ vim.api.nvim_create_autocmd("PackChanged", {
 -- Download `mini.nvim`
 vim.pack.add({ { src = "https://github.com/nvim-mini/mini.nvim" } })
 
-local function now(func)
-	require("mini.misc").safely("now", func)
-end
-
-local function later(func)
-	require("mini.misc").safely("later", func)
-end
+MiniMisc = require("mini.misc")
 
 -- }}}
 -- Global Variables {{{
@@ -108,23 +102,6 @@ vim.fn.digraph_setlist({
 })
 
 -- }}}
--- Filetypes & Syntax Plugins {{{
-
-now(function()
-	vim.pack.add({
-		{ src = "https://github.com/aklt/plantuml-syntax" },
-		{ src = "https://github.com/lervag/vimtex" },
-	})
-	vim.filetype.add({
-		extension = {
-			pu = "plantuml",
-			puml = "plantuml",
-			iuml = "plantuml",
-		},
-	})
-end)
-
--- }}}
 -- Keymaps {{{
 
 vim.g.mapleader = " "
@@ -135,10 +112,6 @@ vim.keymap.set("t", "<C-w>", "<C-\\><C-N><C-w>", { desc = "Escape terminal mode"
 
 -- Stop highlight search
 vim.keymap.set("n", "<Esc><Esc>", "<cmd>nohlsearch<CR>", { desc = "Stop highlight search" })
-
--- File tree
-vim.keymap.set("n", "<leader>E", "<cmd>NvimTreeToggle %:h<CR>", { desc = "Toggle file tree, open at file's parent" })
-vim.keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file tree" })
 
 -- LSP keymaps (using global defaults)
 vim.keymap.set({ "n", "v" }, "gra", vim.lsp.buf.code_action, { desc = "Select code action" })
@@ -157,12 +130,6 @@ vim.keymap.set("n", "grf", vim.lsp.buf.format, { desc = "Format buffer" })
 vim.keymap.set("n", "grl", vim.lsp.codelens.run, { desc = "Run code lens" })
 vim.keymap.set("n", "<leader>xx", vim.diagnostic.setqflist, { desc = "View diagnostics in quickfix list" })
 
--- Vim-Slime / Vim-Slime-Cells
-vim.keymap.set("n", "<leader>sc", "<Plug>SlimeSendCell", { desc = "Send code cell" })
-vim.keymap.set("n", "<leader>sC", "<Plug>SlimeCellsSendAndGoToNext", { desc = "Send code cell & go to next" })
-vim.keymap.set("n", "<leader>sj", "<Plug>SlimeCellsNext", { desc = "Code cell forward" })
-vim.keymap.set("n", "<leader>sk", "<Plug>SlimeCellsPrev", { desc = "Code cell backward" })
-
 -- }}}
 -- Commands {{{
 
@@ -174,14 +141,31 @@ vim.api.nvim_create_user_command("TrimWhitespace", require("mini.trailspace").tr
 vim.api.nvim_create_autocmd("TermOpen", { command = "setlocal nospell", desc = "Disable spelling on terminal windows" })
 
 -- }}}
+-- Plugin - Filetypes / Syntax {{{
+
+MiniMisc.safely("now", function()
+	vim.pack.add({
+		{ src = "https://github.com/aklt/plantuml-syntax" },
+		{ src = "https://github.com/lervag/vimtex" },
+	})
+	vim.filetype.add({
+		extension = {
+			pu = "plantuml",
+			puml = "plantuml",
+			iuml = "plantuml",
+		},
+	})
+end)
+
+-- }}}
 -- Plugin - Multi-Language LSP Servers {{{
 
-now(function()
+MiniMisc.safely("now", function()
 	vim.pack.add({
 		{ src = "https://github.com/neovim/nvim-lspconfig" },
 		{ src = "https://github.com/creativenull/efmls-configs-nvim" },
 	})
-	later(function()
+	MiniMisc.safely("later", function()
 		vim.lsp.enable({ "efm", "ltex_plus" })
 	end)
 end)
@@ -189,7 +173,7 @@ end)
 -- }}}
 -- Plugin - Autocompletion {{{
 
-now(function()
+MiniMisc.safely("now", function()
 	-- Customize post-processing of LSP responses for a better user experience.
 	-- Don't show 'Text' suggestions (usually noisy) and show snippets last.
 	local process_items = function(items, base)
@@ -233,7 +217,7 @@ local parser_not_installed = function(lang)
 end
 
 if vim.fn.executable("tree-sitter") == 1 then
-	now(function()
+	MiniMisc.safely("now", function()
 		vim.pack.add({ { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" } })
 		vim.pack.add({ { src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects" } })
 		-- Define languages which will have parsers installed and auto-enabled
@@ -252,39 +236,39 @@ if vim.fn.executable("tree-sitter") == 1 then
 			"vimdoc", -- default
 			"yaml",
 		}
-		-- -- Define file types that have no corresponding Treesitter parser / language
-		-- local filetypes = {
-		-- 	"pandoc",
-		-- 	"quarto",
-		-- }
+		-- Define file types that have no corresponding Treesitter parser / language
+		local filetypes = {
+			"pandoc",
+			"quarto",
+		}
 		-- Auto-install parsers
 		local to_install = vim.tbl_filter(parser_not_installed, languages)
 		if #to_install > 0 then
 			require("nvim-treesitter").install(to_install)
 		end
-		-- -- Append file types corresponding to each language to the file types table
-		-- for _, lang in ipairs(languages) do
-		-- 	for _, ft in ipairs(vim.treesitter.language.get_filetypes(lang)) do
-		-- 		table.insert(filetypes, ft)
-		-- 	end
-		-- end
-		-- -- Enable tree-sitter after opening a file for a target language / file type
-		-- vim.api.nvim_create_autocmd("FileType", {
-		-- 	pattern = filetypes,
-		-- 	desc = "Start tree-sitter",
-		-- 	callback = function(ev)
-		-- 		vim.treesitter.start(ev.buf)
-		-- 		vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
-		-- 		vim.wo[0][0].foldmethod = "expr"
-		-- 	end,
-		-- })
+		-- Append file types corresponding to each language to the file types table
+		for _, lang in ipairs(languages) do
+			for _, ft in ipairs(vim.treesitter.language.get_filetypes(lang)) do
+				table.insert(filetypes, ft)
+			end
+		end
+		-- Enable tree-sitter after opening a file for a target language / file type
+		vim.api.nvim_create_autocmd("FileType", {
+			pattern = filetypes,
+			desc = "Start tree-sitter",
+			callback = function(ev)
+				vim.treesitter.start(ev.buf)
+				vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
+				vim.wo[0][0].foldmethod = "expr"
+			end,
+		})
 	end)
 end
 
 -- }}}
 -- Plugin - Color Scheme {{{
 
-now(function()
+MiniMisc.safely("now", function()
 	vim.pack.add({ { src = "https://github.com/ellisonleao/gruvbox.nvim" } })
 	vim.cmd.colorscheme("gruvbox")
 end)
@@ -292,7 +276,7 @@ end)
 -- }}}
 -- Plugin - Icons {{{
 
-now(function()
+MiniMisc.safely("now", function()
 	require("mini.icons").setup({
 		filetype = {
 			fugitive = { glyph = "󰊢", hl = "MiniIconsOrange" },
@@ -303,24 +287,31 @@ now(function()
 			v = vim.g.filetype_v,
 		},
 	})
-	now(require("mini.icons").mock_nvim_web_devicons)
-	later(require("mini.icons").tweak_lsp_kind)
+	MiniMisc.safely("now", require("mini.icons").mock_nvim_web_devicons)
+	MiniMisc.safely("later", require("mini.icons").tweak_lsp_kind)
 end)
 
 -- }}}
 -- Plugin - Tab Line & Status Line {{{
 
-now(function()
+MiniMisc.safely("now", function()
 	require("mini.tabline").setup({ show_icons = true, tabpage_section = "right" })
 end)
-now(require("mini.statusline").setup)
+MiniMisc.safely("now", require("mini.statusline").setup)
 
 -- }}}
 -- Plugin - File Tree {{{
 
 --- Add `nvim-tree` with my desired configurations.
-now(function()
+MiniMisc.safely("now", function()
 	vim.pack.add({ { src = "https://github.com/nvim-tree/nvim-tree.lua" } })
+	vim.keymap.set(
+		"n",
+		"<leader>E",
+		"<cmd>NvimTreeToggle %:h<CR>",
+		{ desc = "Toggle file tree, open at file's parent" }
+	)
+	vim.keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file tree" })
 	local function my_on_attach(bufnr)
 		local api = require("nvim-tree.api")
 
@@ -351,7 +342,7 @@ end)
 -- }}}
 -- Plugin - Git Integration {{{
 
-later(function()
+MiniMisc.safely("later", function()
 	require("mini.git").setup()
 	vim.pack.add({ { src = "https://github.com/tpope/vim-fugitive" } })
 	require("mini.diff").setup({ view = { style = "sign" } })
@@ -360,7 +351,7 @@ end)
 -- }}}
 -- Plugin - Fuzzy Finding {{{
 
-later(function()
+MiniMisc.safely("later", function()
 	vim.pack.add({ { src = "https://github.com/ibhagwan/fzf-lua" } })
 	require("fzf-lua").setup({ "fzf-vim" })
 	vim.api.nvim_create_user_command("Keymaps", "FzfLua keymaps", { desc = "Search for keymaps" })
@@ -376,7 +367,7 @@ end)
 -- 	vim.api.nvim_create_user_command(pick_command, "Pick " .. picker, { desc = "MiniPick: " .. picker })
 -- end
 --
--- later(function()
+-- MiniMisc.safely("later", function()
 -- 	require("mini.extra").setup()
 -- 	MiniPick = require("mini.pick")
 -- 	MiniPick.setup()
@@ -392,7 +383,7 @@ end)
 -- Plugin - AI Completion {{{
 
 if vim.fn.executable("llama-server") == 1 then
-	later(function()
+	MiniMisc.safely("later", function()
 		vim.g.llama_config = {
 			enable_at_startup = false,
 			keymap_inst_accept = "<Tab>",
@@ -408,7 +399,7 @@ end
 -- }}}
 -- Plugin - Outline {{{
 
-later(function()
+MiniMisc.safely("later", function()
 	vim.pack.add({ { src = "https://github.com/hedyhli/outline.nvim" } })
 	require("outline").setup({
 		providers = {
@@ -432,7 +423,7 @@ end)
 -- }}}
 -- Plugin - Highlight Patterns {{{
 
-later(function()
+MiniMisc.safely("later", function()
 	local MiniHipatterns = require("mini.hipatterns")
 	local hi_words = require("mini.extra").gen_highlighter.words
 	MiniHipatterns.setup({
@@ -453,22 +444,22 @@ end)
 -- }}}
 -- Plugin - Extra Keymaps {{{
 
-later(require("mini.bracketed").setup)
-later(require("mini.move").setup)
-later(require("mini.surround").setup)
+MiniMisc.safely("later", require("mini.bracketed").setup)
+MiniMisc.safely("later", require("mini.move").setup)
+MiniMisc.safely("later", require("mini.surround").setup)
 
-later(function()
+MiniMisc.safely("later", function()
 	local MiniAi = require("mini.ai")
 	MiniAi.setup({
 		custom_textobjects = {
 			B = require("mini.extra").gen_ai_spec.buffer(),
-			F = MiniAi.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }),
+			-- F = MiniAi.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }),
 		},
 		search_method = "cover",
 	})
 end)
 
-later(function()
+MiniMisc.safely("later", function()
 	require("mini.align").setup({
 		mappings = {
 			start = "<leader>La",
@@ -480,7 +471,7 @@ end)
 -- }}}
 -- Plugin - Key Hints {{{
 
-later(function()
+MiniMisc.safely("later", function()
 	local MiniClue = require("mini.clue")
 	MiniClue.setup({
 		-- Define which clues to show. By default shows only clues for custom mappings
@@ -515,7 +506,9 @@ end)
 -- }}}
 -- Plugin - Sleuth {{{
 
-vim.pack.add({ { src = "https://github.com/tpope/vim-sleuth" } })
+MiniMisc.safely("now", function()
+	vim.pack.add({ { src = "https://github.com/tpope/vim-sleuth" } })
+end)
 
 -- }}}
 -- Plugin - Snippets {{{
@@ -563,7 +556,7 @@ local snippet_vars = {
 
 -- stylua: ignore end
 
-later(function()
+MiniMisc.safely("later", function()
 	vim.pack.add({ { src = "https://github.com/rafamadriz/friendly-snippets" } })
 	local friendly_snippets_path = vim.fn.stdpath("data") .. "/site/pack/core/opt/friendly-snippets/snippets"
 
@@ -615,31 +608,46 @@ end)
 -- }}}
 -- Plugin - Jupyter / REPL {{{
 
-later(function()
-	vim.g.slime_target = "neovim"
-	vim.g.slime_no_mappings = true
+MiniMisc.safely("later", function()
+	-- Slime / Slime-Cells Options
 	vim.g.slime_cell_delimiter = "^# %%.*$"
-	vim.g.slime_python_ipython = (vim.fn.executable("ipython") == 1) or (vim.fn.executable("ipython3") == 1)
+	vim.g.slime_cells_no_highlight = 1
 	vim.g.slime_input_pid = false
-	vim.g.slime_suggest_default = true
 	vim.g.slime_menu_config = false
 	vim.g.slime_neovim_ignore_unlisted = false
-	vim.g.slime_cells_no_highlight = 1
+	vim.g.slime_no_mappings = true
+	vim.g.slime_python_ipython = (vim.fn.executable("ipython") == 1) or (vim.fn.executable("ipython3") == 1)
+	vim.g.slime_suggest_default = true
+	vim.g.slime_target = "neovim"
+
+	-- Slime / Slime-Cells Keymaps
+	vim.keymap.set("n", "<leader>sc", "<Plug>SlimeSendCell", { desc = "Send code cell" })
+	vim.keymap.set("n", "<leader>sC", "<Plug>SlimeCellsSendAndGoToNext", { desc = "Send code cell & go to next" })
+	vim.keymap.set("n", "<leader>sj", "<Plug>SlimeCellsNext", { desc = "Code cell forward" })
+	vim.keymap.set("n", "<leader>sk", "<Plug>SlimeCellsPrev", { desc = "Code cell backward" })
+
 	vim.pack.add({
 		{ src = "https://github.com/jpalardy/vim-slime" },
 		{ src = "https://github.com/Klafyvel/vim-slime-cells" },
-	})
+	}, { load = false })
+	MiniMisc.safely("filetype:python,julia,quarto,markdown", function()
+		vim.cmd.packadd("vim-slime")
+		vim.cmd.packadd("vim-slime-cells")
+	end)
 end)
 
 -- }}}
 -- Plugin - Quarto {{{
 
-later(function()
-	-- Quarto (for Neovim), LSP integration, relies on Treesitter
+MiniMisc.safely("later", function()
 	vim.pack.add({
 		{ src = "https://github.com/quarto-dev/quarto-nvim" },
 		{ src = "https://github.com/jmbuhr/otter.nvim" },
-	})
+	}, { load = false })
+	MiniMisc.safely("filetype:quarto,markdown,pandoc,rmarkdown", function()
+		vim.cmd.packadd("otter.nvim")
+		vim.cmd.packadd("quarto-nvim")
+	end)
 end)
 
 -- }}}
