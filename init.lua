@@ -216,8 +216,8 @@ local parser_not_installed = function(lang)
 	return #vim.api.nvim_get_runtime_file("parser/" .. lang .. ".*", false) == 0
 end
 
-if vim.fn.executable("tree-sitter") == 1 then
-	MiniMisc.safely("now", function()
+MiniMisc.safely("now", function()
+	if vim.fn.executable("tree-sitter") == 1 then
 		vim.pack.add({ { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" } })
 		vim.pack.add({ { src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects" } })
 		-- Define languages which will have parsers installed and auto-enabled
@@ -262,8 +262,8 @@ if vim.fn.executable("tree-sitter") == 1 then
 				vim.wo[0][0].foldmethod = "expr"
 			end,
 		})
-	end)
-end
+	end
+end)
 
 -- }}}
 -- Plugin - Color Scheme {{{
@@ -351,39 +351,41 @@ end)
 -- }}}
 -- Plugin - Fuzzy Finding {{{
 
-MiniMisc.safely("later", function()
-	vim.pack.add({ { src = "https://github.com/ibhagwan/fzf-lua" } })
-	require("fzf-lua").setup({ "fzf-vim" })
-	vim.api.nvim_create_user_command("Keymaps", "FzfLua keymaps", { desc = "Search for keymaps" })
-end)
+--- Create a Neovim command from the corresponding `mini.pick` picker name.
+---@param picker string Picker name.
+local function picker_command(picker)
+	local pick_command = ""
+	for word in string.gmatch(picker, "%w+") do
+		pick_command = pick_command .. string.upper(string.sub(word, 1, 1)) .. string.sub(word, 2)
+	end
+	vim.api.nvim_create_user_command(pick_command, "Pick " .. picker, { desc = "MiniPick: " .. picker })
+end
 
--- --- Create a Neovim command from the corresponding `mini.pick` picker name.
--- ---@param picker string Picker name.
--- local function picker_command(picker)
--- 	local pick_command = ""
--- 	for word in string.gmatch(picker, "%w+") do
--- 		pick_command = pick_command .. string.upper(string.sub(word, 1, 1)) .. string.sub(word, 2)
--- 	end
--- 	vim.api.nvim_create_user_command(pick_command, "Pick " .. picker, { desc = "MiniPick: " .. picker })
--- end
---
--- MiniMisc.safely("later", function()
--- 	require("mini.extra").setup()
--- 	MiniPick = require("mini.pick")
--- 	MiniPick.setup()
--- 	for picker, _ in pairs(MiniPick.registry) do
--- 		if picker ~= "cli" then
--- 			picker_command(picker)
--- 		end
--- 	end
--- 	vim.api.nvim_create_user_command("Rg", "Pick grep_live", { desc = "Live Grep (rg)" })
--- end)
+MiniMisc.safely("later", function()
+	if vim.fn.executable("fzf") == 1 then
+		-- Use fzf-lua (if fzf is available)
+		vim.pack.add({ { src = "https://github.com/ibhagwan/fzf-lua" } })
+		require("fzf-lua").setup({ "fzf-vim" })
+		vim.api.nvim_create_user_command("Keymaps", "FzfLua keymaps", { desc = "Search for keymaps" })
+	else
+		-- Default to mini.pick
+		require("mini.extra").setup()
+		MiniPick = require("mini.pick")
+		MiniPick.setup()
+		for picker, _ in pairs(MiniPick.registry) do
+			if picker ~= "cli" then
+				picker_command(picker)
+			end
+		end
+		vim.api.nvim_create_user_command("Rg", "Pick grep_live", { desc = "Live Grep (rg)" })
+	end
+end)
 
 -- }}}
 -- Plugin - AI Completion {{{
 
-if vim.fn.executable("llama-server") == 1 then
-	MiniMisc.safely("later", function()
+MiniMisc.safely("later", function()
+	if vim.fn.executable("llama-server") == 1 then
 		vim.g.llama_config = {
 			enable_at_startup = false,
 			keymap_inst_accept = "<Tab>",
@@ -393,8 +395,8 @@ if vim.fn.executable("llama-server") == 1 then
 			keymap_inst_trigger = "<leader>lli",
 		}
 		vim.pack.add({ { src = "https://github.com/ggml-org/llama.vim" } })
-	end)
-end
+	end
+end)
 
 -- }}}
 -- Plugin - Outline {{{
