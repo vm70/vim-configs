@@ -49,6 +49,7 @@ MiniMisc = require("mini.misc")
 -- Global Variables {{{
 
 vim.g.filetype_v = "verilog"
+vim.g.enable_treesitter = (true and vim.fn.executable("tree-sitter") == 1)
 
 -- }}}
 -- Options {{{
@@ -215,7 +216,7 @@ local parser_not_installed = function(lang)
 end
 
 MiniMisc.safely("now", function()
-	if vim.fn.executable("tree-sitter") == 1 then
+	if vim.g.enable_treesitter then
 		vim.pack.add({ { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" } })
 		vim.pack.add({ { src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects" } })
 		-- Define languages which will have parsers installed and auto-enabled
@@ -251,15 +252,15 @@ MiniMisc.safely("now", function()
 			end
 		end
 		-- Enable tree-sitter after opening a file for a target language / file type
-		vim.api.nvim_create_autocmd("FileType", {
-			pattern = filetypes,
-			desc = "Start tree-sitter",
-			callback = function(ev)
-				vim.treesitter.start(ev.buf)
-				vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
-				vim.wo[0][0].foldmethod = "expr"
-			end,
-		})
+		-- vim.api.nvim_create_autocmd("FileType", {
+		-- 	pattern = filetypes,
+		-- 	desc = "Start tree-sitter",
+		-- 	callback = function(ev)
+		-- 		vim.treesitter.start(ev.buf)
+		-- 		vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
+		-- 		vim.wo[0][0].foldmethod = "expr"
+		-- 	end,
+		-- })
 	end
 end)
 
@@ -616,7 +617,7 @@ MiniMisc.safely("later", function()
 	vim.g.slime_menu_config = false
 	vim.g.slime_neovim_ignore_unlisted = false
 	vim.g.slime_no_mappings = true
-	vim.g.slime_python_ipython = (vim.fn.executable("ipython") == 1) or (vim.fn.executable("ipython3") == 1)
+	-- vim.g.slime_python_ipython = (vim.fn.executable("ipython") == 1) or (vim.fn.executable("ipython3") == 1)
 	vim.g.slime_suggest_default = true
 	vim.g.slime_target = "neovim"
 
@@ -630,10 +631,11 @@ MiniMisc.safely("later", function()
 		{ src = "https://github.com/jpalardy/vim-slime" },
 		{ src = "https://github.com/Klafyvel/vim-slime-cells" },
 	}, { load = false })
-	MiniMisc.safely("filetype:python,julia,quarto,markdown", function()
-		vim.cmd.packadd("vim-slime")
-		vim.cmd.packadd("vim-slime-cells")
-	end)
+end)
+
+MiniMisc.safely("filetype:python,julia,quarto,markdown", function()
+	vim.cmd.packadd("vim-slime")
+	vim.cmd.packadd("vim-slime-cells")
 end)
 
 -- }}}
@@ -645,12 +647,13 @@ MiniMisc.safely("later", function()
 		{ src = "https://github.com/jmbuhr/otter.nvim" },
 		{ src = "https://github.com/jpalardy/vim-slime" },
 	}, { load = false })
-	MiniMisc.safely("filetype:quarto,markdown,pandoc,rmarkdown", function()
-		vim.cmd.packadd("vim-slime")
-		vim.cmd.packadd("otter.nvim")
-		vim.cmd.packadd("quarto-nvim")
-		require("quarto").setup()
-	end)
+end)
+
+MiniMisc.safely("filetype:quarto,markdown,pandoc,rmarkdown", function()
+	vim.cmd.packadd("vim-slime")
+	vim.cmd.packadd("otter.nvim")
+	vim.cmd.packadd("quarto-nvim")
+	require("quarto").setup()
 end)
 
 -- }}}
