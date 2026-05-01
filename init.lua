@@ -252,15 +252,15 @@ MiniMisc.safely("now", function()
 			end
 		end
 		-- Enable tree-sitter after opening a file for a target language / file type
-		-- vim.api.nvim_create_autocmd("FileType", {
-		-- 	pattern = filetypes,
-		-- 	desc = "Start tree-sitter",
-		-- 	callback = function(ev)
-		-- 		vim.treesitter.start(ev.buf)
-		-- 		vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
-		-- 		vim.wo[0][0].foldmethod = "expr"
-		-- 	end,
-		-- })
+		vim.api.nvim_create_autocmd("FileType", {
+			pattern = filetypes,
+			desc = "Start tree-sitter",
+			callback = function(_)
+				-- vim.treesitter.start(ev.buf)
+				vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
+				vim.wo[0][0].foldmethod = "expr"
+			end,
+		})
 	end
 end)
 
