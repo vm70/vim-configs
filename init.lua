@@ -143,16 +143,22 @@ vim.api.nvim_create_autocmd("TermOpen", { command = "setlocal nospell", desc = "
 -- Plugin - Filetypes / Syntax {{{
 
 MiniMisc.safely("now", function()
-	vim.pack.add({
-		{ src = "https://github.com/aklt/plantuml-syntax" },
-		{ src = "https://github.com/lervag/vimtex" },
-	})
 	vim.filetype.add({
 		extension = {
 			pu = "plantuml",
 			puml = "plantuml",
 			iuml = "plantuml",
 		},
+	})
+	vim.pack.add({
+		-- PlantUML
+		{ src = "https://github.com/aklt/plantuml-syntax" },
+		-- LaTeX
+		{ src = "https://github.com/lervag/vimtex" },
+		-- Quarto
+		{ src = "https://github.com/quarto-dev/quarto-nvim" },
+		{ src = "https://github.com/jmbuhr/otter.nvim" },
+		{ src = "https://github.com/jpalardy/vim-slime" },
 	})
 end)
 
@@ -236,7 +242,10 @@ MiniMisc.safely("now", function()
 			"yaml",
 		}
 		-- Define file types that have no corresponding Treesitter parser / language
-		local filetypes = {}
+		local filetypes = {
+			"pandoc",
+			"quarto",
+		}
 		-- Auto-install parsers
 		local to_install = vim.tbl_filter(parser_not_installed, languages)
 		if #to_install > 0 then
@@ -607,7 +616,7 @@ end)
 -- }}}
 -- Plugin - Jupyter / REPL {{{
 
-MiniMisc.safely("filetype:python,julia", function()
+MiniMisc.safely("later", function()
 	-- Slime Options
 	vim.g.slime_input_pid = false
 	vim.g.slime_menu_config = false
@@ -620,18 +629,6 @@ MiniMisc.safely("filetype:python,julia", function()
 	vim.pack.add({
 		{ src = "https://github.com/jpalardy/vim-slime" },
 	})
-end)
-
--- }}}
--- Plugin - Quarto {{{
-
-MiniMisc.safely("filetype:quarto,markdown,rmarkdown", function()
-	vim.pack.add({
-		{ src = "https://github.com/quarto-dev/quarto-nvim" },
-		{ src = "https://github.com/jmbuhr/otter.nvim" },
-		{ src = "https://github.com/jpalardy/vim-slime" },
-	})
-	require("quarto").setup()
 end)
 
 -- }}}
