@@ -236,10 +236,7 @@ MiniMisc.safely("now", function()
 			"yaml",
 		}
 		-- Define file types that have no corresponding Treesitter parser / language
-		local filetypes = {
-			"pandoc",
-			"quarto",
-		}
+		local filetypes = {}
 		-- Auto-install parsers
 		local to_install = vim.tbl_filter(parser_not_installed, languages)
 		if #to_install > 0 then
@@ -255,8 +252,8 @@ MiniMisc.safely("now", function()
 		vim.api.nvim_create_autocmd("FileType", {
 			pattern = filetypes,
 			desc = "Start tree-sitter",
-			callback = function(_)
-				-- vim.treesitter.start(ev.buf)
+			callback = function(ev)
+				vim.treesitter.start(ev.buf)
 				vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
 				vim.wo[0][0].foldmethod = "expr"
 			end,
@@ -405,7 +402,7 @@ MiniMisc.safely("later", function()
 	require("outline").setup({
 		providers = {
 			markdown = {
-				filetypes = { "quarto", "pandoc", "markdown", "rmarkdown" },
+				filetypes = { "quarto", "markdown", "rmarkdown" },
 			},
 		},
 		symbols = {
@@ -454,7 +451,9 @@ MiniMisc.safely("later", function()
 	MiniAi.setup({
 		custom_textobjects = {
 			B = require("mini.extra").gen_ai_spec.buffer(),
-			F = MiniAi.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }),
+			c = { "()# %%%%.-()# %%%%" },
+			-- c = MiniAi.gen_spec.pair("# %%.*\n", "# %%", { type = "non-balanced" }),
+			["$"] = MiniAi.gen_spec.pair("$", "$", { type = "non-balanced" }),
 		},
 		search_method = "cover",
 	})
@@ -567,7 +566,6 @@ MiniMisc.safely("later", function()
 		bash = { "shell/*.json" },
 		cpp = { "c/*.json", "cpp/*.json" },
 		markdown_inline = { "markdown.json" },
-		pandoc = { "pandoc.json", "markdown.json" },
 		plaintex = latex_patterns,
 		sh = { "shell/*.json" },
 		tex = latex_patterns,
@@ -609,50 +607,30 @@ end)
 -- }}}
 -- Plugin - Jupyter / REPL {{{
 
-MiniMisc.safely("later", function()
-	-- Slime / Slime-Cells Options
-	vim.g.slime_cell_delimiter = "^# %%.*$"
-	vim.g.slime_cells_no_highlight = 1
+MiniMisc.safely("filetype:python,julia", function()
+	-- Slime Options
 	vim.g.slime_input_pid = false
 	vim.g.slime_menu_config = false
 	vim.g.slime_neovim_ignore_unlisted = false
 	vim.g.slime_no_mappings = true
-	-- vim.g.slime_python_ipython = (vim.fn.executable("ipython") == 1) or (vim.fn.executable("ipython3") == 1)
 	vim.g.slime_suggest_default = true
 	vim.g.slime_target = "neovim"
-
-	-- Slime / Slime-Cells Keymaps
+	-- Slime Keymaps
 	vim.keymap.set("n", "<leader>sc", "<Plug>SlimeSendCell", { desc = "Send code cell" })
-	vim.keymap.set("n", "<leader>sC", "<Plug>SlimeCellsSendAndGoToNext", { desc = "Send code cell & go to next" })
-	vim.keymap.set("n", "<leader>sj", "<Plug>SlimeCellsNext", { desc = "Code cell forward" })
-	vim.keymap.set("n", "<leader>sk", "<Plug>SlimeCellsPrev", { desc = "Code cell backward" })
-
 	vim.pack.add({
 		{ src = "https://github.com/jpalardy/vim-slime" },
-		{ src = "https://github.com/Klafyvel/vim-slime-cells" },
-	}, { load = false })
-end)
-
-MiniMisc.safely("filetype:python,julia,quarto,markdown", function()
-	vim.cmd.packadd("vim-slime")
-	vim.cmd.packadd("vim-slime-cells")
+	})
 end)
 
 -- }}}
 -- Plugin - Quarto {{{
 
-MiniMisc.safely("later", function()
+MiniMisc.safely("filetype:quarto,markdown,rmarkdown", function()
 	vim.pack.add({
 		{ src = "https://github.com/quarto-dev/quarto-nvim" },
 		{ src = "https://github.com/jmbuhr/otter.nvim" },
 		{ src = "https://github.com/jpalardy/vim-slime" },
-	}, { load = false })
-end)
-
-MiniMisc.safely("filetype:quarto,markdown,pandoc,rmarkdown", function()
-	vim.cmd.packadd("vim-slime")
-	vim.cmd.packadd("otter.nvim")
-	vim.cmd.packadd("quarto-nvim")
+	})
 	require("quarto").setup()
 end)
 
