@@ -453,7 +453,7 @@ MiniMisc.safely("later", function()
 	MiniAi.setup({
 		custom_textobjects = {
 			B = require("mini.extra").gen_ai_spec.buffer(),
-			-- F = MiniAi.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }),
+			F = MiniAi.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }),
 		},
 		search_method = "cover",
 	})
