@@ -35,4 +35,6 @@ vim.api.nvim_create_user_command(
 	{ desc = "Instantiate Julia LSP Server here", bang = true }
 )
 
+vim.b.slime_cell_delimiter = "^# %%.*$"
+
 vim.lsp.enable("julials")
